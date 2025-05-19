@@ -6,6 +6,7 @@ public class Customer extends User {
     private ArrayList<Double> address;
     private String email;
     private String phoneNumber;
+    private boolean active = true;
 
     public Customer(String username, String password, String firstName, String lastName, ArrayList<Double> address, String email, String phoneNumber) {
         super(username, password);
@@ -54,5 +55,13 @@ public class Customer extends User {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
