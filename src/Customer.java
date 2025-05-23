@@ -18,6 +18,7 @@ public class Customer extends User {
         this.address = address;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.fidelityCard = new BasicFidelityCard();
     }
 
     public String getFirstName() {
@@ -84,8 +85,8 @@ public class Customer extends User {
         this.points += points;
     }
 
-    public double calculateFinalPrice(double basePrice) {
-        return fidelityCard.calculatePrice(basePrice, this);
+    public double calculateFidelityPrice(double basePrice) {
+        return fidelityCard.calculateFidelityPrice(basePrice, this);
     }
 
     // register/unregister to/from a fidelity card plan

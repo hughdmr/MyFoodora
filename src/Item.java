@@ -14,11 +14,13 @@ public class Item {
     private String name;
     private ItemCategory itemCategory;
     private ItemType itemType;
+    private double itemPrice;
 
-    public Item(String name, ItemCategory itemCategory, ItemType itemType) {
+    public Item(String name, ItemCategory itemCategory, ItemType itemType, double itemPrice) {
         this.name = name;
         this.itemCategory = itemCategory;
         this.itemType = itemType;
+        this.itemPrice = itemPrice;
     }
 
     public String getName() {
@@ -27,6 +29,14 @@ public class Item {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public double getPrice() {
+        return itemPrice;
+    }
+
+    public void setPrice(double itemPrice) {
+        this.itemPrice = itemPrice;
     }
 
     public ItemCategory getItemCategory() {

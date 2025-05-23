@@ -1,11 +1,11 @@
 import java.util.List;
 
 public class FullMeal extends Meal {
-    private String starter;
-    private String main;
-    private String dessert;
+    private Item starter;
+    private Item main;
+    private Item dessert;
 
-    public FullMeal(MealType type, String starter, String main, String dessert, boolean mealOfTheWeek) {
+    public FullMeal(MealType type, Item starter, Item main, Item dessert, boolean mealOfTheWeek) {
         super(type, MealSize.FULL, mealOfTheWeek);
         this.starter = starter;
         this.main = main;
@@ -13,19 +13,19 @@ public class FullMeal extends Meal {
     }
 
     @Override
-    public List<String> getItems() {
+    public List<Item> getItems() {
         return List.of(starter, main, dessert);
     }
 
-    public String getStarter() {
+    public Item getStarter() {
         return starter;
     }
 
-    public String getMain() {
+    public Item getMain() {
         return main;
     }
 
-    public String getDessert() {
+    public Item getDessert() {
         return dessert;
     }
 }

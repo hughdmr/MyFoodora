@@ -18,15 +18,15 @@ public abstract class Meal {
         this.mealType = mealType;
         this.mealSize = mealSize;
         this.mealOfTheWeek = mealOfTheWeek;
-        this.mealPrice = calculatePrice();
+        // this.mealPrice = calculatePrice();
     }
 
-    public abstract List<String> getItems(); // chaque sous-classe doit renvoyer ses items
+    public abstract List<Item> getItems(); // chaque sous-classe doit renvoyer ses items
 
-    private double calculatePrice() {
+    // private double calculatePrice() {
         // float basePrice =  sum (getItems().Price);
-        return mealOfTheWeek ? basePrice * 0.1f : basePrice * 0.05f;
-    }
+        // return mealOfTheWeek ? basePrice * 0.1f : basePrice * 0.05f;
+    //}
 
     public MealType getMealType() {
         return mealType;
