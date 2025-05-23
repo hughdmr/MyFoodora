@@ -1,5 +1,5 @@
 import java.util.ArrayList;
 
 public interface FidelityCard {
-    public double getTotal(ArrayList<Item> cart);
+    public double calculatePrice(ArrayList<Item> cart, Customer customer);
 }
