@@ -72,16 +72,6 @@ public class Customer extends User {
         return fidelityCard;
     }
 
-    public void registerFidelityCard(FidelityCard card) {
-        this.fidelityCard = card;
-        System.out.println("Registered to " + card.getClass().getSimpleName());
-    }
-
-    public void unregisterFidelityCard() {
-        this.fidelityCard = null;
-        System.out.println("Unregistered from fidelity card");
-    }
-
     public int getPoints() {
         return points;
     }
@@ -96,5 +86,33 @@ public class Customer extends User {
 
     public double calculateFinalPrice(double basePrice) {
         return fidelityCard.calculatePrice(basePrice, this);
+    }
+
+    // register/unregister to/from a fidelity card plan
+    public void registerFidelityCard(FidelityCard card) {
+        this.fidelityCard = card;
+        System.out.println("Registered to " + card.getClass().getSimpleName());
+    }
+
+    public void unregisterFidelityCard() {
+        this.fidelityCard = null;
+        System.out.println("Unregistered from fidelity card");
+    }
+
+    // access the information related to their account: ... and points acquired with a fidelity program
+    public void viewAccountInfo() {
+        System.out.println("Username: " + getUsername());
+        System.out.println("Name: " + firstName + " " + lastName);
+        System.out.println("Email: " + email);
+        System.out.println("Phone: " + phoneNumber);
+
+        if (fidelityCard == null) {
+            System.out.println("Fidelity card: Not registered");
+        } else {
+            System.out.println("Fidelity card type: " + fidelityCard.getClass().getSimpleName());
+            if (fidelityCard instanceof PointFidelityCard) {
+                System.out.println("Points: " + points);
+            }
+        }
     }
 }
