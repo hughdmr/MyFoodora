@@ -1,19 +1,28 @@
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class Restaurant extends User {
     private String name;
+    private UUID id;
     private ArrayList<Double> position;
     private ArrayList<Item> menu = new ArrayList<>();
-    private ArrayList<Meal> meal = new ArrayList<>();
+    private ArrayList<Meal> meals = new ArrayList<>();
+    private double genericDiscount = 0.05;  // 5%
+    private double specialDiscount = 0.10;  // 10%
 
-    public Restaurant(String username, String password, String name, ArrayList<Double> address) {
+    public Restaurant(String username, String password, String name, ArrayList<Double> position) {
         super(username, password);
         this.name = name;
-        this.position = address;
+        this.position = position;
+        this.id = UUID.randomUUID();
     }
 
     public String getName() {
         return name;
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     public void setName(String name) {
@@ -28,19 +37,47 @@ public class Restaurant extends User {
         this.position = position;
     }
 
-    public void addMeal(Meal meal) {
-        this.meal.add(meal);
-    }
-
+    // Menu management
     public void addItem(Item item) {
         this.menu.add(item);
-    }
-
-    public void removeMeal(Meal meal) {
-        this.meal.remove(meal);
     }
 
     public void removeItem(Item item) {
         this.menu.remove(item);
     }
+
+    public ArrayList<Item> getMenu() {
+        return menu;
+    }
+
+    // Meal management
+    public void addMeal(Meal meal) {
+        this.meals.add(meal);
+    }
+
+    public void removeMeal(Meal meal) {
+        this.meals.remove(meal);
+    }
+
+    public ArrayList<Meal> getMeals() {
+        return meals;
+    }
+
+    // Discount management
+    public double getGenericDiscount() {
+        return genericDiscount;
+    }
+
+    public void setGenericDiscount(double genericDiscount) {
+        this.genericDiscount = genericDiscount;
+    }
+
+    public double getSpecialDiscount() {
+        return specialDiscount;
+    }
+
+    public void setSpecialDiscount(double specialDiscount) {
+        this.specialDiscount = specialDiscount;
+    }
 }
+
