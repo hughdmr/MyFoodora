@@ -1,0 +1,7 @@
+login ceo 123456789
+registerCustomer alex grav gravlax (0,0) gravlax01 grav@lax 0707
+logout
+login gravlax gravlax01
+associateCard gravlax basic
+showCustomers
+logout

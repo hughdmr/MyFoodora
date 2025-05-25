@@ -2,76 +2,107 @@ import java.util.Scanner;
 import java.util.Arrays;
 import java.util.ArrayList;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class myFoodora_CLI {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        String input;
+        if (args.length > 0) {
+            runCommandsFromFile(args[0]);
+        } else {
+            runInteractiveCLI();
+        }
+    }
 
-        System.out.println("This is a  Command Line Interface");
-        System.out.println("Available commands:");
-        System.out.println("  HELP - Show this help message");
-        System.out.println("  login <username> <password>");
-        System.out.println("  logout <>");
-        System.out.println("  createCustomer <firstName> <lastName> <username> <address> <password> <email> <phoneNumber>");
-        System.out.println("  showCustomers");
-        System.out.println("  associateCard <userName> <cardType>");
-        System.out.println("  STOP - Exit the program");
+    private static void runCommandsFromFile(String filename) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                line = line.trim();
+                if (line.isEmpty()) continue;
+
+                System.out.println("> " + line);
+                processCommand(line);
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        }
+    }
+
+    public static void runInteractiveCLI() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("This is a Command Line Interface");
+        printHelp();
         System.out.println("Enter your commands below:");
 
         while (true) {
             System.out.print("> ");
-            input = scanner.nextLine().trim();
+            String input = scanner.nextLine().trim();
 
             if (input.equalsIgnoreCase("STOP")) {
                 System.out.println("Exiting the program...");
                 break;
             }
 
-            if (input.isEmpty()) {
-                continue;
-            }
+            if (input.isEmpty()) continue;
 
-            // Split input into command and arguments
-            String[] parts = input.split("\\s+");
-            String command = parts[0];
-            String[] arguments = Arrays.copyOfRange(parts, 1, parts.length);
-
-            switch (command) {
-                case "HELP":
-                    printHelp();
-                    break;
-                case "login":
-                    login(arguments);
-                    break;
-                case "logout":
-                    logout();
-                    break;
-                case "createCustomer":
-                    createCustomer(arguments);
-                    break;
-                case "showCustomers":
-                    showCustomers();
-                    break;
-                case "associateCard":
-                    associateCard(arguments);
-                    break;
-                default:
-                    System.out.println("Unknown command: " + command);
-                    System.out.println("Type HELP for available commands");
-            }
+            processCommand(input);
         }
-
         scanner.close();
+    }
+
+    private static void processCommand(String input) {
+        String[] parts = input.split("\\s+");
+        String command = parts[0];
+        String[] arguments = Arrays.copyOfRange(parts, 1, parts.length);
+
+        switch (command.toLowerCase()) {
+            case "help":
+                printHelp();
+                break;
+            case "login":
+                login(arguments);
+                break;
+            case "logout":
+                logout();
+                break;
+            case "registercustomer":
+                registerCustomer(arguments);
+                break;
+            case "showcustomers":
+                showCustomers();
+                break;
+            case "associatecard":
+                associateCard(arguments);
+                break;
+            case "stop":
+                System.out.println("Exiting the program...");
+                System.exit(0);
+                break;
+            default:
+                System.out.println("Unknown command: " + command);
+                System.out.println("Type HELP for available commands");
+        }
     }
 
     private static ArrayList<Customer> customers = new ArrayList<>();
 
     private static ArrayList<Restaurant> restaurants = new ArrayList<>();
 
+    private static ArrayList<Manager> managers = new ArrayList<>();
+
+
+
     private static ArrayList<User> users = new ArrayList<>();
 
     private static User currentLoggedInUser = null;
+
+    static {
+        Manager manager = new Manager("ceo", "123456789", "ceo", "admin");
+        managers.add(manager);
+        users.add(manager);
+    }
 
     private static void login(String[] args) {
         if (args.length != 2) {
@@ -103,36 +134,40 @@ public class myFoodora_CLI {
     }
 
 
+    private static void registerCustomer(String[] args) {
+        if (!(currentLoggedInUser instanceof Manager)) {
+            System.out.println("Only a logged on manager can register a new customer.");
+            return;
+        }
 
-
-    private static void createCustomer(String[] args) {
         if (args.length != 7) {
-            System.out.println("  createCustomer <firstName> <lastName> <username> <address> <password> <email> <phoneNumber>");
+            System.out.println("  registerCustomer <firstName> <lastName> <username> <address> <password> <email> <phoneNumber>");
             return;
         }
 
         try {
-            String firstName = args[0];
-            String lastName = args[1];
-            String username = args[2];
-            String rawAddress = args[3].replace("(", "").replace(")", "");
-            String[] coords = rawAddress.split(",");
-            ArrayList<Double> address = new ArrayList<>();
-            address.add(Double.parseDouble(coords[0]));
-            address.add(Double.parseDouble(coords[1]));
-            String password = args[4];
-            String email = args[5];
-            String phoneNumber = args[6];
+        String firstName = args[0];
+        String lastName = args[1];
+        String username = args[2];
+        String rawAddress = args[3].replace("(", "").replace(")", "");
+        String[] coords = rawAddress.split(",");
+        ArrayList<Double> address = new ArrayList<>();
+        address.add(Double.parseDouble(coords[0]));
+        address.add(Double.parseDouble(coords[1]));
+        String password = args[4];
+        String email = args[5];
+        String phoneNumber = args[6];
 
-            Customer customer = new Customer(username, password, firstName, lastName, address, email, phoneNumber);
-            customers.add(customer);
-            users.add(customer);
+        Customer customer = new Customer(username, password, firstName, lastName, address, email, phoneNumber);
+        customers.add(customer);
+        users.add(customer);
 
-            System.out.println("Customer registered: " + firstName + " " + lastName);
-        } catch (NumberFormatException e) {
-            System.out.println("Error: x and y must be valid numbers.");
-        }
+        System.out.println("Customer registered: " + firstName + " " + lastName);
+    } catch (NumberFormatException e) {
+        System.out.println("Error: x and y must be valid numbers.");
     }
+    }
+
 
     private static void showCustomers() {
         if (customers.isEmpty()) {
@@ -193,7 +228,11 @@ public class myFoodora_CLI {
     private static void printHelp() {
         System.out.println("Available commands:");
         System.out.println("  HELP - Show this help message");
-        System.out.println("  createCustomer <firstName> <lastName> <username> <address> <password> <email> <phoneNumber>");
+        System.out.println("  login <username> <password>");
+        System.out.println("  logout");
+        System.out.println("  registerCustomer <firstName> <lastName> <username> <address> <password> <email> <phoneNumber>");
+        System.out.println("  showCustomers");
+        System.out.println("  associateCard <userName> <cardType>");
         System.out.println("  STOP - Exit the program");
     }
 
