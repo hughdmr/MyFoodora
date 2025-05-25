@@ -70,6 +70,15 @@ public class myFoodora_CLI {
             case "registercustomer":
                 registerCustomer(arguments);
                 break;
+            case "registerrestaurant":
+                registerRestaurant(arguments);
+                break;
+            case "showrestaurants":
+                showRestaurants();
+                break;
+            case "showmanagers":
+                showManagers();
+                break;
             case "showcustomers":
                 showCustomers();
                 break;
@@ -91,8 +100,6 @@ public class myFoodora_CLI {
     private static ArrayList<Restaurant> restaurants = new ArrayList<>();
 
     private static ArrayList<Manager> managers = new ArrayList<>();
-
-
 
     private static ArrayList<User> users = new ArrayList<>();
 
@@ -168,6 +175,36 @@ public class myFoodora_CLI {
     }
     }
 
+    private static void registerRestaurant(String[] args) {
+        if (!(currentLoggedInUser instanceof Manager)) {
+            System.out.println("Only a logged on manager can register a new restaurant.");
+            return;
+        }
+
+        if (args.length != 4) {
+            System.out.println("Usage: registerRestaurant <name> <username> <password> <address(x,y)>");
+            return;
+        }
+
+        try {
+            String name = args[0];
+            String username = args[1];
+            String password = args[2];
+            String rawAddress = args[3].replace("(", "").replace(")", "");
+            String[] coords = rawAddress.split(",");
+            ArrayList<Double> position = new ArrayList<>();
+            position.add(Double.parseDouble(coords[0]));
+            position.add(Double.parseDouble(coords[1]));
+
+            Restaurant restaurant = new Restaurant(username, password, name, position);
+            restaurants.add(restaurant);
+            users.add(restaurant);
+
+            System.out.println("Restaurant registered: " + name);
+        } catch (NumberFormatException e) {
+            System.out.println("Error: x and y must be valid numbers.");
+        }
+    }
 
     private static void showCustomers() {
         if (customers.isEmpty()) {
@@ -180,6 +217,31 @@ public class myFoodora_CLI {
         for (Customer c : customers) {
             System.out.printf("%d: %s %s (%s)%n", count++, c.getFirstName(), c.getLastName(), c.getUsername());
             c.viewAccountInfo();
+        }
+    }
+
+    private static void showManagers() {
+        if (managers.isEmpty()) {
+            System.out.println("No managers found.");
+            return;
+        }
+
+        System.out.println("List of managers:");
+        int count = 1;
+        for (Manager m : managers) {
+            System.out.printf("%d: %s %s (%s)%n", count++, m.getFirstName(), m.getLastName(), m.getUsername());
+        }
+    }
+
+    public static void showRestaurants() {
+        if (restaurants.isEmpty()) {
+            System.out.println("No restaurants found.");
+            return;
+        }
+        System.out.println("List of restaurants:");
+        int count = 1;
+        for (Restaurant r : restaurants) {
+            System.out.printf("%d: %s (%s)%n", count++, r.getName(), r.getUsername());
         }
     }
 
@@ -231,6 +293,9 @@ public class myFoodora_CLI {
         System.out.println("  login <username> <password>");
         System.out.println("  logout");
         System.out.println("  registerCustomer <firstName> <lastName> <username> <address> <password> <email> <phoneNumber>");
+        System.out.println("  registerRestaurant <name> <address> <username> <password>");
+        System.out.println("  showRestaurants");
+        System.out.println("  showManagers");
         System.out.println("  showCustomers");
         System.out.println("  associateCard <userName> <cardType>");
         System.out.println("  STOP - Exit the program");

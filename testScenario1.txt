@@ -1,7 +1,15 @@
+HELP
+registerRestaurant Heureux-comme-Alexandre HeureuxcA hcA57 (49.12689475241864,6.181003518337347)
 login ceo 123456789
+registerRestaurant Heureux-comme-Alexandre HeureuxcA hcA57 (49.12689475241864,6.181003518337347)
+registerRestaurant Le-Paris LeParis RLP57 (49.11771706620234,6.17891489931129)
+registerRestaurant La-Fleure-De-Ly LaFleureDL LFDL57 (49.1261481463498,6.176000930302168)
+registerRestaurant Casa-Ricci CasaRicci Casa57 (49.12826149653844,6.17414091296602)
+showRestaurants
 registerCustomer alex grav gravlax (0,0) gravlax01 grav@lax 0707
 logout
 login gravlax gravlax01
 associateCard gravlax basic
+associateCard gravlax point
 showCustomers
 logout
