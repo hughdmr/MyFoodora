@@ -11,6 +11,8 @@ public class myFoodora_CLI {
         System.out.println("This is a  Command Line Interface");
         System.out.println("Available commands:");
         System.out.println("  HELP - Show this help message");
+        System.out.println("  login <username> <password>");
+        System.out.println("  logout <>");
         System.out.println("  createCustomer <firstName> <lastName> <username> <address> <password> <email> <phoneNumber>");
         System.out.println("  showCustomers");
         System.out.println("  associateCard <userName> <cardType>");
@@ -39,6 +41,12 @@ public class myFoodora_CLI {
                 case "HELP":
                     printHelp();
                     break;
+                case "login":
+                    login(arguments);
+                    break;
+                case "logout":
+                    logout();
+                    break;
                 case "createCustomer":
                     createCustomer(arguments);
                     break;
@@ -58,6 +66,44 @@ public class myFoodora_CLI {
     }
 
     private static ArrayList<Customer> customers = new ArrayList<>();
+
+    private static ArrayList<Restaurant> restaurants = new ArrayList<>();
+
+    private static ArrayList<User> users = new ArrayList<>();
+
+    private static User currentLoggedInUser = null;
+
+    private static void login(String[] args) {
+        if (args.length != 2) {
+            System.out.println("Usage: login <username> <password>");
+            return;
+        }
+
+        String username = args[0];
+        String password = args[1];
+
+        for (User user : users) {
+            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+                currentLoggedInUser = user;
+                System.out.println("Login successful. Welcome, " + currentLoggedInUser.getUsername() + "!");
+                return;
+            }
+        }
+
+        System.out.println("Login failed. Invalid username or password.");
+    }
+
+    private static void logout() {
+        if (currentLoggedInUser != null) {
+            System.out.println("Logout successful. Goodbye, " + currentLoggedInUser.getUsername() + "!");
+            currentLoggedInUser = null;
+        } else {
+            System.out.println("Logout failed. No user is currently logged in.");
+        }
+    }
+
+
+
 
     private static void createCustomer(String[] args) {
         if (args.length != 7) {
@@ -80,6 +126,7 @@ public class myFoodora_CLI {
 
             Customer customer = new Customer(username, password, firstName, lastName, address, email, phoneNumber);
             customers.add(customer);
+            users.add(customer);
 
             System.out.println("Customer registered: " + firstName + " " + lastName);
         } catch (NumberFormatException e) {
