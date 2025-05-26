@@ -88,6 +88,9 @@ public class myFoodora_CLI {
             case "showcustomers":
                 showCustomers();
                 break;
+            case "adddishrestaurantmenu":
+                addDishRestaurantMenu(arguments);
+                break;
             case "associatecard":
                 associateCard(arguments);
                 break;
@@ -217,6 +220,7 @@ public class myFoodora_CLI {
     private static void registerCourier(String[] args) {
         if (!(currentLoggedInUser instanceof Manager)) {
             System.out.println("Only a logged on manager can register a new courier.");
+            return;
         }
         if (args.length != 6) {
             System.out.println("Usage: registerCourier <firstName> <lastName> <username> <position> <password> <phoneNumber>");
@@ -282,6 +286,7 @@ public class myFoodora_CLI {
         int count = 1;
         for (Restaurant r : restaurants) {
             System.out.printf("%d: %s (%s)%n", count++, r.getName(), r.getUsername());
+            System.out.println("Menu:" + r.getMenu());
         }
     }
 
@@ -295,6 +300,26 @@ public class myFoodora_CLI {
         for (Courier c : couriers) {
             System.out.printf("%d: %s (%s)%n", count++, c.getLastName(), c.getUsername());
         }
+    }
+
+    public static void addDishRestaurantMenu(String[] args) {
+        if (args.length != 4) {
+            System.out.println("Usage: addDishRestaurantMenu <dishName> <dishCategory> <foodCategory> <unitPrice>");
+            return;
+        }
+        if (!(currentLoggedInUser instanceof Restaurant)) {
+            System.out.println("Only a logged on restaurant can add a dish to the menu.");
+            return;
+        }
+        Restaurant restaurant = (Restaurant) currentLoggedInUser;
+        String dishName = args[0];
+        Dish.DishCategory dishCategory = Dish.DishCategory.valueOf(args[1].toUpperCase());
+        Dish.FoodCategory foodCategory = Dish.FoodCategory.valueOf(args[2].toUpperCase());
+        double unitPrice = Double.parseDouble(args[3]);
+        Dish dish = new Dish(dishName, dishCategory, foodCategory, unitPrice);
+
+        restaurant.addDish(dish);
+        System.out.println("Dish added to restaurant menu.");
     }
 
     public static void associateCard(String[] args) {
@@ -351,6 +376,7 @@ public class myFoodora_CLI {
         System.out.println("  showCouriers");
         System.out.println("  showManagers");
         System.out.println("  showCustomers");
+        System.out.println("  addDishRestaurantMenu <dishName> <dishCategory> <foodCategory> <unitPrice>");
         System.out.println("  associateCard <userName> <cardType>");
         System.out.println("  STOP - Exit the program");
     }

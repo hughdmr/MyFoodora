@@ -5,7 +5,7 @@ public class Restaurant extends User {
     private String name;
     private UUID id;
     private ArrayList<Double> position;
-    private ArrayList<Item> menu = new ArrayList<>();
+    private ArrayList<Dish> menu = new ArrayList<>();
     private ArrayList<Meal> meals = new ArrayList<>();
     private double genericDiscount = 0.05;  // 5%
     private double specialDiscount = 0.10;  // 10%
@@ -38,15 +38,15 @@ public class Restaurant extends User {
     }
 
     // Menu management
-    public void addItem(Item item) {
-        this.menu.add(item);
+    public void addDish(Dish dish) {
+        this.menu.add(dish);
     }
 
-    public void removeItem(Item item) {
-        this.menu.remove(item);
+    public void removeDish(Dish dish) {
+        this.menu.remove(dish);
     }
 
-    public ArrayList<Item> getMenu() {
+    public ArrayList<Dish> getMenu() {
         return menu;
     }
 
@@ -79,5 +79,6 @@ public class Restaurant extends User {
     public void setSpecialDiscount(double specialDiscount) {
         this.specialDiscount = specialDiscount;
     }
+
 }
 

@@ -1,25 +1,25 @@
 import java.util.List;
 
 public class HalfMeal extends Meal {
-    private Item main;
-    private Item second;
+    private Dish main;
+    private Dish second;
 
-    public HalfMeal(MealType type, Item main, Item second, boolean mealOfTheWeek) {
+    public HalfMeal(MealType type, Dish main, Dish second, boolean mealOfTheWeek) {
         super(type, MealSize.HALF, mealOfTheWeek);
         this.main = main;
         this.second = second;
     }
 
     @Override
-    public List<Item> getItems() {
+    public List<Dish> getDishs() {
         return List.of(main, second);
     }
 
-    public Item getMain() {
+    public Dish getMain() {
         return main;
     }
 
-    public Item getSecond() {
+    public Dish getSecond() {
         return second;
     }
 }
