@@ -14,6 +14,11 @@ registerCourier Raymond Poulidor Poupou (49.124,6.179) poupouFra 0505050505
 showCouriers
 registerCustomer alex grav gravlax (0,0) gravlax01 grav@lax 0707
 logout
+login HeureuxcA hcA57
+addDishRestaurantMenu Pavé-Black-Angus Main Standard 18.5
+addDishRestaurantMenu Brochette-Chocobeef Main Standard 13.5
+logout
+showRestaurants
 login gravlax gravlax01
 associateCard gravlax basic
 associateCard gravlax point
