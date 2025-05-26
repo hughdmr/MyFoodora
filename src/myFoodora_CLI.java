@@ -73,8 +73,14 @@ public class myFoodora_CLI {
             case "registerrestaurant":
                 registerRestaurant(arguments);
                 break;
+            case "registercourier":
+                registerCourier(arguments);
+                break;
             case "showrestaurants":
                 showRestaurants();
+                break;
+            case "showcouriers":
+                showCouriers();
                 break;
             case "showmanagers":
                 showManagers();
@@ -98,6 +104,8 @@ public class myFoodora_CLI {
     private static ArrayList<Customer> customers = new ArrayList<>();
 
     private static ArrayList<Restaurant> restaurants = new ArrayList<>();
+
+    private static ArrayList<Courier> couriers = new ArrayList<>();
 
     private static ArrayList<Manager> managers = new ArrayList<>();
 
@@ -206,6 +214,38 @@ public class myFoodora_CLI {
         }
     }
 
+    private static void registerCourier(String[] args) {
+        if (!(currentLoggedInUser instanceof Manager)) {
+            System.out.println("Only a logged on manager can register a new courier.");
+        }
+        if (args.length != 6) {
+            System.out.println("Usage: registerCourier <firstName> <lastName> <username> <position> <password> <phoneNumber>");
+            return;
+        }
+        try {
+            String firstName = args[0];
+            String lastName = args[1];
+            String username = args[2];
+            String rawPosition = args[3].replace("(", "").replace(")", "");
+            String[] coords = rawPosition.split(",");
+            ArrayList<Double> position = new ArrayList<>();
+            position.add(Double.parseDouble(coords[0]));
+            position.add(Double.parseDouble(coords[1]));
+            String password = args[4];
+            String phoneNumber = args[5];
+
+            Courier courier = new Courier(username, password, firstName, lastName, position, phoneNumber);
+            couriers.add(courier);
+            users.add(courier);
+
+            System.out.println("Courier registered: " + firstName + " " + lastName);
+        }
+        catch (NumberFormatException e) {
+            System.out.println("Error: x and y must be valid numbers.");
+        }
+
+    }
+
     private static void showCustomers() {
         if (customers.isEmpty()) {
             System.out.println("No customers found.");
@@ -242,6 +282,18 @@ public class myFoodora_CLI {
         int count = 1;
         for (Restaurant r : restaurants) {
             System.out.printf("%d: %s (%s)%n", count++, r.getName(), r.getUsername());
+        }
+    }
+
+    public static void showCouriers() {
+        if (couriers.isEmpty()) {
+            System.out.println("No couriers found.");
+            return;
+        }
+        System.out.println("List of couriers:");
+        int count = 1;
+        for (Courier c : couriers) {
+            System.out.printf("%d: %s (%s)%n", count++, c.getLastName(), c.getUsername());
         }
     }
 
@@ -294,7 +346,9 @@ public class myFoodora_CLI {
         System.out.println("  logout");
         System.out.println("  registerCustomer <firstName> <lastName> <username> <address> <password> <email> <phoneNumber>");
         System.out.println("  registerRestaurant <name> <address> <username> <password>");
+        System.out.println("  registerCourier <firstName> <lastName> <username> <position> <password> <phoneNumber>");
         System.out.println("  showRestaurants");
+        System.out.println("  showCouriers");
         System.out.println("  showManagers");
         System.out.println("  showCustomers");
         System.out.println("  associateCard <userName> <cardType>");

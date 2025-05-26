@@ -11,6 +11,12 @@ This project is completely written in Java
 
 # MyFoodora CLI
 
+# To do
+- UUID ?
+- PhoneNumber type, email type ?
+- Name with space in CLI
+- Difference between RegisterCourier and Courier (phone), same for Restaurant...
+
 # Authors
 
 Hugues d'Hardemare  
