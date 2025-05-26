@@ -13,6 +13,9 @@ registerCourier Eddy Merckx LeCannibale (49.121,6.178) cannibaleBel 0404040404
 registerCourier Raymond Poulidor Poupou (49.124,6.179) poupouFra 0505050505
 showCouriers
 registerCustomer alex grav gravlax (0,0) gravlax01 grav@lax 0707
+registerCustomer Romain Soubeyran sousou (49.124,6.178) sousouCS roro.sousou@centrale-supelec.fr 0606060606
+registerCustomer John Cagnol theGreatDestroyer (49.110,6.190) cagnolito johnny.cagnolito@centrale-supelec.fr 0707070707
+showCustomers
 logout
 login HeureuxcA hcA57
 addDishRestaurantMenu Pavé-Black-Angus Main Standard 18.5
