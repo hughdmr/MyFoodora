@@ -5,7 +5,7 @@ public class Dish {
         DESSERT
     }
 
-    public enum FoodCategory {
+    public enum DishType {
         STANDARD,
         VEGETARIAN,
         GLUTEN_FREE,
@@ -13,13 +13,13 @@ public class Dish {
 
     private String name;
     private DishCategory dishCategory;
-    private FoodCategory foodCategory;
+    private DishType dishType;
     private double dishPrice;
 
-    public Dish(String name, DishCategory dishCategory, FoodCategory foodCategory, double dishPrice) {
+    public Dish(String name, DishCategory dishCategory, DishType foodCategory, double dishPrice) {
         this.name = name;
         this.dishCategory = dishCategory;
-        this.foodCategory = foodCategory;
+        this.dishType = foodCategory;
         this.dishPrice = dishPrice;
     }
 
@@ -47,12 +47,12 @@ public class Dish {
         this.dishCategory = dishCategory;
     }
 
-    public FoodCategory getFoodCategory() {
-        return foodCategory;
+    public DishType getDishType() {
+        return dishType;
     }
 
-    public void setFoodCategory(FoodCategory foodCategory) {
-        this.foodCategory = foodCategory;
+    public void setDishType(DishType dishType) {
+        this.dishType = dishType;
     }
 
     @Override
@@ -60,7 +60,7 @@ public class Dish {
         return "Dish{" +
                 "name='" + name + '\'' +
                 ", category=" + dishCategory +
-                ", foodCategory='" + foodCategory + '\'' +
+                ", foodCategory='" + dishType + '\'' +
                 ", unitPrice=" + dishPrice +
                 '}';
     }

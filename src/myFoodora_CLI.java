@@ -67,14 +67,38 @@ public class myFoodora_CLI {
             case "logout":
                 logout();
                 break;
-            case "registercustomer":
-                registerCustomer(arguments);
-                break;
             case "registerrestaurant":
                 registerRestaurant(arguments);
                 break;
+            case "registercustomer":
+                registerCustomer(arguments);
+                break;
             case "registercourier":
                 registerCourier(arguments);
+                break;
+            case "adddishrestaurantmenu":
+                addDishRestaurantMenu(arguments);
+                break;
+            case "createmeal":
+                createMeal(arguments);
+                break;
+            case "adddish2meal":
+                try { addDish2Meal(arguments); }
+                catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
+            case "showmeal":
+                try { showMeal(arguments); }
+                catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
+            case "setspecialoffer":
+                try { setSpecialOffer(arguments); }
+                catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
                 break;
             case "showrestaurants":
                 showRestaurants();
@@ -87,9 +111,6 @@ public class myFoodora_CLI {
                 break;
             case "showcustomers":
                 showCustomers();
-                break;
-            case "adddishrestaurantmenu":
-                addDishRestaurantMenu(arguments);
                 break;
             case "associatecard":
                 associateCard(arguments);
@@ -120,6 +141,17 @@ public class myFoodora_CLI {
         Manager manager = new Manager("ceo", "123456789", "ceo", "admin");
         managers.add(manager);
         users.add(manager);
+        Restaurant jojorestaurant = new Restaurant("jojo", "mdp12345", "ChezJOJO", new ArrayList<Double>(Arrays.asList(3.45,2.44)));
+        users.add(jojorestaurant);
+        restaurants.add(jojorestaurant);
+        Dish poulet = new Dish("poulet", Dish.DishCategory.MAIN, Dish.DishType.STANDARD, 24);
+        Dish tartare = new Dish("tartare_saumon", Dish.DishCategory.STARTER, Dish.DishType.VEGETARIAN, 12);
+        jojorestaurant.addDish(poulet);
+        jojorestaurant.addDish(tartare);
+        FullMeal fullmeal = new FullMeal("menu_jour", Meal.MealType.STANDARD, false);
+        HalfMeal halfmeal = new HalfMeal("menu_soir", Meal.MealType.STANDARD, false);
+        jojorestaurant.addMeal(fullmeal);
+        jojorestaurant.addMeal(halfmeal);
     }
 
     private static void login(String[] args) {
@@ -304,7 +336,7 @@ public class myFoodora_CLI {
 
     public static void addDishRestaurantMenu(String[] args) {
         if (args.length != 4) {
-            System.out.println("Usage: addDishRestaurantMenu <dishName> <dishCategory> <foodCategory> <unitPrice>");
+            System.out.println("Usage: addDishRestaurantMenu <dishName> <dishCategory> <dishType> <unitPrice>");
             return;
         }
         if (!(currentLoggedInUser instanceof Restaurant)) {
@@ -314,12 +346,113 @@ public class myFoodora_CLI {
         Restaurant restaurant = (Restaurant) currentLoggedInUser;
         String dishName = args[0];
         Dish.DishCategory dishCategory = Dish.DishCategory.valueOf(args[1].toUpperCase());
-        Dish.FoodCategory foodCategory = Dish.FoodCategory.valueOf(args[2].toUpperCase());
+        Dish.DishType foodCategory = Dish.DishType.valueOf(args[2].toUpperCase());
         double unitPrice = Double.parseDouble(args[3]);
         Dish dish = new Dish(dishName, dishCategory, foodCategory, unitPrice);
 
         restaurant.addDish(dish);
         System.out.println("Dish added to restaurant menu.");
+    }
+
+    public static void createMeal(String[] args) {
+        if (args.length != 3) {
+            System.out.println("Usage: createMeal <mealName> <mealType> <mealSize>");
+            return;
+        }
+        if (!(currentLoggedInUser instanceof Restaurant)) {
+            System.out.println("Only a logged on restaurant can create a meal.");
+            return;
+        }
+        Restaurant restaurant = (Restaurant) currentLoggedInUser;
+        String mealName = args[0];
+        Meal.MealType mealType = Meal.MealType.valueOf(args[1].toUpperCase());
+        Meal.MealSize mealSize = Meal.MealSize.valueOf(args[2].toUpperCase());
+        if (mealSize == Meal.MealSize.FULL) {
+            Meal meal = new FullMeal(mealName, mealType, false);
+            restaurant.addMeal(meal);
+        }
+        else if (mealSize == Meal.MealSize.HALF) {
+            Meal meal = new HalfMeal(mealName, mealType, false);
+            restaurant.addMeal(meal);
+        }
+        else {
+            System.out.println("The meal type should be either FULL or HALF.");
+            return;
+        }
+        System.out.println("Meal added to restaurant.");
+    }
+
+    public static void addDish2Meal(String[] args) throws Exception {
+        if (args.length != 2) {
+            System.out.println("Usage: addDish2Meal <dishName> <mealName>");
+            return;
+        }
+        if (!(currentLoggedInUser instanceof Restaurant)) {
+            System.out.println("Only a logged on restaurant can add a dish to a meal.");
+            return;
+        }
+        Restaurant restaurant = (Restaurant) currentLoggedInUser;
+        String dishName = args[0];
+        String mealName = args[1];
+
+        Meal meal = restaurant.getMeals()
+                .stream()
+                .filter(m -> m.getName().equals(mealName))
+                .findFirst()
+                .orElseThrow(() -> new Exception("Meal not found: " + mealName));
+
+
+        Dish dish = restaurant.getMenu()
+                .stream()
+                .filter(m -> m.getName().equals(dishName))
+                .findFirst()
+                .orElseThrow(() -> new Exception("Dish not found: " + dishName));
+
+        meal.addDish(dish);
+        System.out.println("Dish added to restaurant.");
+    }
+
+    public static void showMeal(String[] args) throws Exception {
+        if (args.length != 1) {
+            System.out.println("Usage: showMeal <mealName>");
+            return;
+        }
+        if (!(currentLoggedInUser instanceof Restaurant)) {
+            System.out.println("Only a logged on restaurant can add a dish to a meal.");
+            return;
+        }
+        Restaurant restaurant = (Restaurant) currentLoggedInUser;
+        String mealName = args[0];
+
+        Meal meal = (Meal) restaurant.getMeals()
+                .stream()
+                .filter(m -> m.getName().equals(mealName))
+                .findFirst()
+                .orElseThrow(() -> new Exception("Meal not found: " + mealName));
+
+        System.out.println("The following meal exists and is constituted as below: " + meal);
+    }
+
+    public static void setSpecialOffer(String[] args) throws Exception {
+        if (args.length != 1) {
+            System.out.println("Usage: setSpecialOffer <mealName>");
+            return;
+        }
+        if (!(currentLoggedInUser instanceof Restaurant)) {
+            System.out.println("Only a logged on restaurant can add a dish to a meal.");
+            return;
+        }
+        Restaurant restaurant = (Restaurant) currentLoggedInUser;
+        String mealName = args[0];
+
+        Meal meal = (Meal) restaurant.getMeals()
+                .stream()
+                .filter(m -> m.getName().equals(mealName))
+                .findFirst()
+                .orElseThrow(() -> new Exception("Meal not found: " + mealName));
+
+        meal.setMealOfTheWeek(true);
+        System.out.println("The following meal has been added to special offer: " + meal);
     }
 
     public static void associateCard(String[] args) {
@@ -370,8 +503,12 @@ public class myFoodora_CLI {
         System.out.println("  login <username> <password>");
         System.out.println("  logout");
         System.out.println("  registerCustomer <firstName> <lastName> <username> <address> <password> <email> <phoneNumber>");
-        System.out.println("  registerRestaurant <name> <address> <username> <password>");
+        System.out.println("  registerRestaurant <name> <username> <password> <address(x,y)>");
         System.out.println("  registerCourier <firstName> <lastName> <username> <position> <password> <phoneNumber>");
+        System.out.println("  createMeal <mealName> <mealType> <mealSize>");
+        System.out.println("  addDish2Meal <dishName> <mealName>");
+        System.out.println("  showMeal <mealName>");
+        System.out.println("  setSpecialOffer <mealName>");
         System.out.println("  showRestaurants");
         System.out.println("  showCouriers");
         System.out.println("  showManagers");
@@ -380,5 +517,4 @@ public class myFoodora_CLI {
         System.out.println("  associateCard <userName> <cardType>");
         System.out.println("  STOP - Exit the program");
     }
-
 }
