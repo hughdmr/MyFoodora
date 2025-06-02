@@ -1,0 +1,18 @@
+login ceo 123456789
+registerRestaurant chezJOJO jojo mdp12345 (3.45,2.44)
+showRestaurants
+
+login jojo mdp12345
+addDishRestaurantMenu poulet Main Standard 24
+addDishRestaurantMenu tartare_saumon Starter Vegetarian 12
+createMeal menu_jour Standard Half
+createMeal menu_soir Standard Full
+addDish2Meal poulet menu_jour
+addDish2Meal tartare_saumon menu_jour
+addDish2Meal tartare_saumon menu_soir
+showMeal menu_jour
+showMeal menu_soir
+setSpecialOffer menu_jour
+showMeal menu_jour
+removeFromSpecialOffer menu_jour
+logout

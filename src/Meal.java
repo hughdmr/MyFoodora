@@ -76,6 +76,7 @@ public class Meal {
                 + "name: " + name
                 + ", mealType: " + mealType
                 + ", mealSize: " + mealSize
+                + ", mealOfTheWeek: " + mealOfTheWeek
                 + "]";
     }
 }

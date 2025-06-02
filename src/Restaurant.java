@@ -50,6 +50,15 @@ public class Restaurant extends User {
         return menu;
     }
 
+    public Dish getDish(String dishName) throws Exception {
+        Dish dish = this.getMenu()
+                .stream()
+                .filter(m -> m.getName().equals(dishName))
+                .findFirst()
+                .orElseThrow(() -> new Exception("Dish not found: " + dishName));
+        return dish;
+    }
+
     // Meal management
     public void addMeal(Meal meal) {
         this.meals.add(meal);
@@ -61,6 +70,15 @@ public class Restaurant extends User {
 
     public ArrayList<Meal> getMeals() {
         return meals;
+    }
+
+    public Meal getMeal(String mealName) throws Exception {
+        Meal meal = this.getMeals()
+                    .stream()
+                    .filter(m -> m.getName().equals(mealName))
+                    .findFirst()
+                    .orElseThrow(() -> new Exception("Meal not found: " + mealName));
+        return meal;
     }
 
     // Discount management

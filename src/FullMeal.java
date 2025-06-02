@@ -17,8 +17,6 @@ public class FullMeal extends Meal {
             case MAIN -> this.main = dish;
             case DESSERT -> this.dessert = dish;
         }
-        System.out.println("Added dish: " + dish + " to meal: " + this);
-
         // Check Meal Type status
         if (this.starter != null && this.main != null && this.dessert != null
         && getMealType(this.starter.getDishType()).equals(MealType.VEGETARIAN)
