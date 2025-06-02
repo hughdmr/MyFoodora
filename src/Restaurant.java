@@ -51,12 +51,11 @@ public class Restaurant extends User {
     }
 
     public Dish getDish(String dishName) throws Exception {
-        Dish dish = this.getMenu()
+        return this.getMenu()
                 .stream()
                 .filter(m -> m.getName().equals(dishName))
                 .findFirst()
                 .orElseThrow(() -> new Exception("Dish not found: " + dishName));
-        return dish;
     }
 
     // Meal management

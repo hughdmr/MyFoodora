@@ -1,0 +1,27 @@
+login ceo 123456789
+registerRestaurant chezJOJO jojo mdp12345 (3.45,2.44)
+registerCustomer alex grav gravlax (0,0) gravlax01 grav@lax 0707
+logout
+
+login jojo mdp12345
+addDishRestaurantMenu poulet Main Standard 24
+addDishRestaurantMenu poulet_vege Main Vegetarian 34
+addDishRestaurantMenu entrecote Main Standard 30
+addDishRestaurantMenu Oeuf_meurette Starter Gluten_free 15
+addDishRestaurantMenu Mousse_choco Dessert Vegetarian 12
+addDishRestaurantMenu tartare_saumon Starter Vegetarian 12
+createMeal menu_jour Standard Half
+createMeal menu_soir Standard Full
+addDish2Meal poulet menu_jour
+addDish2Meal tartare_saumon menu_jour
+addDish2Meal tartare_saumon menu_soir
+logout
+
+login gravlax gravlax01
+createOrder chezJOJO commande1
+addItem2Order commande1 tartare_saumon
+addItem2Order commande1 entrecote
+addItem2Order commande1 Mousse_choco
+endOrder commande1 02/06/2025
+logout
+

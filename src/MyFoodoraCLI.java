@@ -103,11 +103,39 @@ public class MyFoodoraCLI {
                     System.out.println(e.getMessage());
                 }
                 break;
-           case "removefromspecialoffer":
-               try { removeFromSpecialOffer(arguments); }
-               catch (Exception e) {
+            case "removefromspecialoffer":
+                try { removeFromSpecialOffer(arguments); }
+                catch (Exception e) {
                    System.out.println(e.getMessage());
-               }
+                }
+                break;
+            case "createorder":
+                try { createOrder(arguments); }
+                catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
+            case "additem2order":
+                try { addItem2Order(arguments); }
+                catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
+            case "endorder":
+                try { endOrder(arguments); }
+                catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
+//            case "onduty":
+//                onDuty();
+//                break;
+//            case "createorder":
+//                offDuty();
+//                break;
+//            case "finddeliver":
+//                findDeliver();
+//                break;
             case "showrestaurants":
                 showRestaurants();
                 break;
@@ -433,6 +461,76 @@ public class MyFoodoraCLI {
         System.out.println("Meal [" + meal.getName() + "] has been removed from special offer: ");
     }
 
+    public static void createOrder(String[] args) throws Exception {
+        if (args.length != 2) {
+            System.out.println("Usage: createOrder <restaurantName> <orderName>");
+            return;
+        }
+        if (!(currentLoggedInUser instanceof Customer)) {
+            System.out.println("Only a logged on customer can create an order.");
+            return;
+        }
+        Customer customer = (Customer) currentLoggedInUser;
+        String restaurantName = args[0];
+        Restaurant restaurant = myFoodoraSystem.getRestaurant(restaurantName);
+        String orderName = args[1];
+
+        Order order = new Order(orderName, restaurant, customer);
+        myFoodoraSystem.addOrder(order);
+        System.out.println("Order [" + order.getName() + "] has been created.");
+    }
+
+    public static void addItem2Order(String[] args) throws Exception {
+        if (args.length != 2) {
+            System.out.println("Usage: addItem2Order <orderName> <itemName>");
+            return;
+        }
+        if (!(currentLoggedInUser instanceof Customer)) {
+            System.out.println("Only a logged on customer can create an order.");
+            return;
+        }
+        Customer customer = (Customer) currentLoggedInUser;
+
+        String orderName = args[0];
+        Order order = myFoodoraSystem.getOrder(orderName);
+        Restaurant restaurant = order.getRestaurant();
+
+        String itemName = args[1];
+        try {
+            Dish dish = restaurant.getDish(itemName);
+            order.addSingleDish(dish);
+            System.out.println("Dish [" + itemName + "] added to order [" + order.getName() + "]");
+        }
+        catch (Exception e) {
+            System.out.println("Dish [" + itemName + "] not found. Trying meal");
+            try {
+                Meal meal = restaurant.getMeal(itemName);
+                order.addMenu(meal);
+                System.out.println("Meal [" + itemName + "] added to order [" + order.getName() + "]");
+            }
+            catch (Exception e1) {
+                System.out.println("Meal [" + itemName + "] not found...");
+            }
+        }
+    }
+
+    public static void endOrder(String[] args) throws Exception {
+        if (args.length != 2) {
+            System.out.println("Usage: endOrder <orderName> <date>");
+            return;
+        }
+        if (!(currentLoggedInUser instanceof Customer)) {
+            System.out.println("Only a logged on customer can end an order.");
+            return;
+        }
+        String orderName = args[0];
+        Order order = myFoodoraSystem.getOrder(orderName);
+
+        String date = args[1];
+        order.completeOrder(date);
+        System.out.println("Order [" + order.getName() + "] has been completed on [" + order.getDate() + "] for [" + order.getPrice() + "]€");
+    }
+
     public static void associateCard(String[] args) {
         if (args.length != 2) {
             System.out.println("  associateCard <userName> <cardType>");
@@ -482,18 +580,25 @@ public class MyFoodoraCLI {
         System.out.println("  HELP - Show this help message");
         System.out.println("  login <username> <password>");
         System.out.println("  logout");
-        System.out.println("  registerCustomer <firstName> <lastName> <username> <address> <password> <email> <phoneNumber>");
         System.out.println("  registerRestaurant <name> <username> <password> <address(x,y)>");
+        System.out.println("  registerCustomer <firstName> <lastName> <username> <address> <password> <email> <phoneNumber>");
         System.out.println("  registerCourier <firstName> <lastName> <username> <position> <password> <phoneNumber>");
+        System.out.println("  addDishRestaurantMenu <dishName> <dishCategory> <foodCategory> <unitPrice>");
         System.out.println("  createMeal <mealName> <mealType> <mealSize>");
         System.out.println("  addDish2Meal <dishName> <mealName>");
         System.out.println("  showMeal <mealName>");
         System.out.println("  setSpecialOffer <mealName>");
+        System.out.println("  removeFromSpecialOffer <mealName>");
+        System.out.println("  createOrder <restaurantName> <orderName>");
+        System.out.println("  addItem2Order <orderName> <itemName>");
+        System.out.println("  endOrder <orderName> < date>");
+        System.out.println("  onDuty <username>");
+        System.out.println("  offDuty <username>");
+        System.out.println("  findDeliverer <orderName>");
         System.out.println("  showRestaurants");
         System.out.println("  showCouriers");
         System.out.println("  showManagers");
         System.out.println("  showCustomers");
-        System.out.println("  addDishRestaurantMenu <dishName> <dishCategory> <foodCategory> <unitPrice>");
         System.out.println("  associateCard <userName> <cardType>");
         System.out.println("  STOP - Exit the program");
     }

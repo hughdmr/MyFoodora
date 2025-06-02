@@ -13,14 +13,12 @@ public class Meal {
     private MealType mealType;
     private MealSize mealSize;
     private boolean mealOfTheWeek;
-    private double mealPrice;
 
     protected Meal(String name, MealType mealType, MealSize mealSize, boolean mealOfTheWeek) {
         this.name = name;
         this.mealType = mealType;
         this.mealSize = mealSize;
         this.mealOfTheWeek = mealOfTheWeek;
-        // this.mealPrice = calculatePrice();
     }
 
    // public <Dish> getDishs(); // chaque sous-classe doit renvoyer ses dishs
@@ -29,6 +27,12 @@ public class Meal {
         // float basePrice =  sum (getdishs().Price);
         // return mealOfTheWeek ? basePrice * 0.1f : basePrice * 0.05f;
     //}
+
+    public double getPrice() {
+        // TODO
+        return 0;
+    }
+
     public void addDish(Dish dish) {}
 
     public String getName() {
@@ -57,10 +61,6 @@ public class Meal {
 
     public boolean isMealOfTheWeek() {
         return mealOfTheWeek;
-    }
-
-    public double getMealPrice() {
-        return mealPrice;
     }
 
     public static MealType getMealType(Dish.DishType dishType) {

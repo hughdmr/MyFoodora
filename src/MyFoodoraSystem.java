@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class MyFoodoraSystem {
     private ArrayList<User> users = new ArrayList<>();
@@ -6,7 +7,7 @@ public class MyFoodoraSystem {
     private ArrayList<Restaurant> restaurants = new ArrayList<>();
     private ArrayList<Customer> customers = new ArrayList<>();
     private ArrayList<Courier> couriers = new ArrayList<>();
-    private ArrayList<Order> completedOrders = new ArrayList<>();
+    private ArrayList<Order> orders = new ArrayList<>();
     private float serviceFee;
     private float markupPercentage;
     private float deliveryCost;
@@ -29,6 +30,14 @@ public class MyFoodoraSystem {
         return restaurants;
     }
 
+    public Restaurant getRestaurant(String restaurantName) throws Exception {
+        return this.getRestaurants()
+                .stream()
+                .filter(m -> m.getName().equals(restaurantName))
+                .findFirst()
+                .orElseThrow(() -> new Exception("Restaurant [" + restaurantName + "] not found."));
+    }
+
     public ArrayList<Customer> getCustomers() {
         return customers;
     }
@@ -37,8 +46,30 @@ public class MyFoodoraSystem {
         return couriers;
     }
 
+    public ArrayList<Order> getOrders() {
+        return orders;
+    }
+
     public ArrayList<Order> getCompletedOrders() {
-        return completedOrders;
+        return (ArrayList<Order>) orders
+                .stream()
+                .filter(Order::isCompleted)
+                .collect(Collectors.toList());
+    }
+
+    public ArrayList<Order> getProgressOrders() {
+        return (ArrayList<Order>) orders
+                .stream()
+                .filter(m -> !m.isCompleted())
+                .collect(Collectors.toList());
+    }
+
+    public Order getOrder(String orderName) throws Exception {
+        return this.getProgressOrders()
+                .stream()
+                .filter(m -> m.getName().equals(orderName))
+                .findFirst()
+                .orElseThrow(() -> new Exception("Order [" + orderName + "] not found or already completed"));
     }
 
     public float getServiceFee() {
@@ -74,6 +105,6 @@ public class MyFoodoraSystem {
     }
 
     public void addOrder(Order order) {
-        completedOrders.add(order);
+        orders.add(order);
     }
 }

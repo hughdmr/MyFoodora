@@ -1,18 +1,25 @@
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Order {
-    private static int orderID;
+    private String orderName;
     private Restaurant restaurant;
     private Customer customer;
     private Courier courier;
-    private float price;
-    private ArrayList<Dish> singleDishes;
-    private ArrayList<Meal> menus;
+    private double price;
+    private Date date;
+    private boolean completed;
+    private ArrayList<Dish> dishesList = new ArrayList<>();;
+    private ArrayList<Meal> mealsList = new ArrayList<>();;
 
-    public Order(Restaurant restaurant, Customer customer) {
-        orderID++;
+    public Order(String orderName, Restaurant restaurant, Customer customer) {
+        this.orderName = orderName;
         this.restaurant = restaurant;
         this.customer = customer;
+    }
+
+    public String getName() {
+        return orderName;
     }
 
     public Restaurant getRestaurant() {
@@ -39,7 +46,7 @@ public class Order {
         this.courier = courier;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
@@ -47,11 +54,35 @@ public class Order {
         this.price = price;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
+    }
+
     public void addSingleDish(Dish dish) {
-        singleDishes.add(dish);
+        dishesList.add(dish);
     }
 
     public void addMenu(Meal meal) {
-        menus.add(meal);
+        mealsList.add(meal);
+    }
+
+    public double computePrice() {
+        double dishesPrice = dishesList.stream().mapToDouble(Dish::getPrice).sum();
+        double mealsPrice = mealsList.stream().mapToDouble(Meal::getPrice).sum();
+        return dishesPrice + mealsPrice;
+    }
+
+    public void completeOrder(String date) {
+        this.date = new Date(date);
+        this.price = computePrice();
+        this.completed = true;
     }
 }
