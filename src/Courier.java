@@ -6,6 +6,7 @@ public class Courier extends User {
     private ArrayList<Double> position;
     private String phoneNumber;
     private int deliveredOrdersCount = 0;
+    private boolean onDuty = false;
 
     public Courier(String username, String password, String firstName, String lastName, ArrayList<Double> position, String phoneNumber) {
         super(username, password);
@@ -45,6 +46,14 @@ public class Courier extends User {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public boolean isOnDuty() {
+        return onDuty;
+    }
+
+    public void setOnDuty(boolean onDuty) {
+        this.onDuty = onDuty;
     }
 
     public void increaseDeliveredOrdersCount() {

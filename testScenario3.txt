@@ -1,6 +1,7 @@
 login ceo 123456789
 registerRestaurant chezJOJO jojo mdp12345 (3.45,2.44)
 registerCustomer alex grav gravlax (0,0) gravlax01 grav@lax 0707
+registerCourier Tadej Pogacar Pogi (49.127,6.175) pogiSlo 0101010101
 logout
 
 login jojo mdp12345
@@ -23,5 +24,10 @@ addItem2Order commande1 tartare_saumon
 addItem2Order commande1 entrecote
 addItem2Order commande1 Mousse_choco
 endOrder commande1 02/06/2025
+
+login Pogi pogiSlo
+onDuty Pogi
+showCouriers
+OffDuty Pogi
 logout
 

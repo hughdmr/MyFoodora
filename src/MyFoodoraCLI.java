@@ -127,12 +127,18 @@ public class MyFoodoraCLI {
                     System.out.println(e.getMessage());
                 }
                 break;
-//            case "onduty":
-//                onDuty();
-//                break;
-//            case "createorder":
-//                offDuty();
-//                break;
+            case "onduty":
+                try { onDuty(arguments); }
+                catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
+            case "offduty":
+                try { offDuty(arguments); }
+                catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
 //            case "finddeliver":
 //                findDeliver();
 //                break;
@@ -338,7 +344,7 @@ public class MyFoodoraCLI {
         System.out.println("List of couriers:");
         int count = 1;
         for (Courier c : couriers) {
-            System.out.printf("%d: %s (%s)%n", count++, c.getLastName(), c.getUsername());
+            System.out.printf("%d: %s (%s) | onDuty:%s %n", count++, c.getLastName(), c.getUsername(), c.isOnDuty());
         }
     }
 
@@ -529,6 +535,40 @@ public class MyFoodoraCLI {
         String date = args[1];
         order.completeOrder(date);
         System.out.println("Order [" + order.getName() + "] has been completed on [" + order.getDate() + "] for [" + order.getPrice() + "]€");
+    }
+
+    public static void onDuty(String[] args) throws Exception {
+        if (args.length != 1) {
+            System.out.println("Usage: onDuty <username>");
+            return;
+        }
+        if (!(currentLoggedInUser instanceof Courier)) {
+            System.out.println("Only a logged on courier can set his state as on duty.");
+            return;
+        }
+        Courier courier = (Courier) currentLoggedInUser;
+        if (!courier.getUsername().equals(args[0])) {
+            throw new Exception("Incorrect username. Couriers can only change their own state.");
+        }
+        courier.setOnDuty(true);
+        System.out.println("Courier [" + courier + "] has been set to on duty.");
+    }
+
+    public static void offDuty(String[] args) throws Exception {
+        if (args.length != 1) {
+            System.out.println("Usage: onDuty <username>");
+            return;
+        }
+        if (!(currentLoggedInUser instanceof Courier)) {
+            System.out.println("Only a logged on courier can set his state as off duty.");
+            return;
+        }
+        Courier courier = (Courier) currentLoggedInUser;
+        if (!courier.getUsername().equals(args[0])) {
+            throw new Exception("Incorrect username. Couriers can only change their own state.");
+        }
+        courier.setOnDuty(false);
+        System.out.println("Courier [" + courier + "] has been set to off duty.");
     }
 
     public static void associateCard(String[] args) {
