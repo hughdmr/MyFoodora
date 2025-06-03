@@ -14,32 +14,12 @@ public class MyFoodoraCLI {
     private static MyFoodoraSystem myFoodoraSystem = new MyFoodoraSystem();
 
     public static void main(String[] args) {
-        if (args.length > 0) {
-            runCommandsFromFile(args[0]);
-        } else {
-            runInteractiveCLI();
-        }
-    }
-
-    private static void runCommandsFromFile(String filename) {
-        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                line = line.trim();
-                if (line.isEmpty()) continue;
-
-                System.out.println("> " + line);
-                processCommand(line);
-            }
-        } catch (IOException e) {
-            System.out.println("Error reading file: " + e.getMessage());
-        }
+        runInteractiveCLI();
     }
 
     public static void runInteractiveCLI() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome in MyFoodora CLI");
-//        printHelp();
         System.out.println("Enter your commands below:");
 
         while (true) {
@@ -175,6 +155,9 @@ public class MyFoodoraCLI {
             case "associatecard":
                 associateCard(arguments);
                 break;
+            case "runtest":
+                runCommandsFromFile(arguments);
+                break;
             case "stop":
                 System.out.println("Exiting the program...");
                 System.exit(0);
@@ -182,6 +165,26 @@ public class MyFoodoraCLI {
             default:
                 System.out.println("Unknown command: " + command);
                 System.out.println("Type HELP for available commands");
+        }
+    }
+
+    private static void runCommandsFromFile(String[] args) {
+        if (args.length != 1) {
+            System.out.println("Usage: runTest <testScenario-file>");
+            return;
+        }
+        String fileName = args[0];
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                line = line.trim();
+                if (line.isEmpty()) continue;
+
+                System.out.println("> " + line);
+                processCommand(line);
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
         }
     }
 
@@ -312,15 +315,16 @@ public class MyFoodoraCLI {
 
     private static void showCustomers() {
         ArrayList<Customer> customers = myFoodoraSystem.getCustomers();
-        if (!(currentLoggedInUser instanceof Manager)) {
-            System.out.println("Only a logged on manager can show courier.");
+        if (customers.isEmpty()) {
+            System.out.println("No customers found.");
             return;
         }
 
         System.out.println("List of customers:");
         int count = 1;
         for (Customer c : customers) {
-            System.out.println(c);
+            System.out.printf("%d: %s %s (%s)%n", count++, c.getFirstName(), c.getLastName(), c.getUsername());
+            c.viewAccountInfo();
         }
     }
 
@@ -735,14 +739,15 @@ public class MyFoodoraCLI {
         System.out.println("  offDuty <username>");
         System.out.println("  findDeliverer <orderName>");
         System.out.println("  setDeliveryPolicy <delPolicyName>");
-        System.out.println("  showRestaurantTop");
+        System.out.println("  associateCard <userName> <cardType>");
         System.out.println("  showCourierDeliveries");
+        System.out.println("  showRestaurantTop");
         System.out.println("  showCustomers");
         System.out.println("  showMenuItem <restaurantName>");
         System.out.println("  showTotalProfit");
         System.out.println("  showTotalProfit <startDate> <endDate>");
+        System.out.println("  runTest <testScenario-file>");
         System.out.println("  showManagers");
-        System.out.println("  associateCard <userName> <cardType>");
         System.out.println("  STOP - Exit the program");
     }
 }
