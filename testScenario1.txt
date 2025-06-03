@@ -9,10 +9,10 @@ registerRestaurant Casa-Ricci CasaRicci Casa57 (49.12826149653844,6.174140912966
 showRestaurants
 
 registerCourier Tadej Pogacar Pogi (49.127,6.175) pogiSlo 0101010101
-registerCourier Jonas Vingegaard Vingo (49.122,6.177) vingoDan 0202020202
-registerCourier Christopher Froome Froomey (49.123,6.176) froomeyGB 0303030303
-registerCourier Eddy Merckx LeCannibale (49.121,6.178) cannibaleBel 0404040404
-registerCourier Raymond Poulidor Poupou (49.124,6.179) poupouFra 0505050505
+registerCourier Jonas Vingegaard Vingo (49.122,10.177) vingoDan 0202020202
+registerCourier Christopher Froome Froomey (49.123,1.176) froomeyGB 0303030303
+registerCourier Eddy Merckx LeCannibale (49.121,2.178) cannibaleBel 0404040404
+registerCourier Raymond Poulidor Poupou (54.124,3.179) poupouFra 0505050505
 showCouriers
 
 registerCustomer alex grav gravlax (0,0) gravlax01 grav@lax 0707

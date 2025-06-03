@@ -8,6 +8,9 @@ public class MyFoodoraSystem {
     private ArrayList<Customer> customers = new ArrayList<>();
     private ArrayList<Courier> couriers = new ArrayList<>();
     private ArrayList<Order> orders = new ArrayList<>();
+
+    private DeliveryPolicy deliveryPolicy = new FairOccupationDeliveryPolicy();
+
     private float serviceFee;
     private float markupPercentage;
     private float deliveryCost;
@@ -46,6 +49,14 @@ public class MyFoodoraSystem {
         return couriers;
     }
 
+    public Courier getCourier(String courierName) throws Exception {
+        return this.getCouriers()
+                .stream()
+                .filter(m -> m.getUsername().equals(courierName))
+                .findFirst()
+                .orElseThrow(() -> new Exception("Order [" + courierName + "] not found or already completed"));
+    }
+
     public ArrayList<Order> getOrders() {
         return orders;
     }
@@ -65,6 +76,14 @@ public class MyFoodoraSystem {
     }
 
     public Order getOrder(String orderName) throws Exception {
+        return this.getOrders()
+                .stream()
+                .filter(m -> m.getName().equals(orderName))
+                .findFirst()
+                .orElseThrow(() -> new Exception("Order [" + orderName + "] not found or already completed"));
+    }
+
+    public Order getProgressOrder(String orderName) throws Exception {
         return this.getProgressOrders()
                 .stream()
                 .filter(m -> m.getName().equals(orderName))
@@ -106,5 +125,13 @@ public class MyFoodoraSystem {
 
     public void addOrder(Order order) {
         orders.add(order);
+    }
+
+    public DeliveryPolicy getDeliveryPolicy() {
+        return deliveryPolicy;
+    }
+
+    public void setDeliveryPolicy(DeliveryPolicy deliveryPolicy) {
+        this.deliveryPolicy = deliveryPolicy;
     }
 }

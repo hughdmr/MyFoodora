@@ -56,6 +56,14 @@ public class Courier extends User {
         this.onDuty = onDuty;
     }
 
+    public int getDeliveredOrdersCount() {
+        return deliveredOrdersCount;
+    }
+
+    public void setDeliveredOrdersCount(int deliveredOrdersCount) {
+        this.deliveredOrdersCount = deliveredOrdersCount;
+    }
+
     public void increaseDeliveredOrdersCount() {
         deliveredOrdersCount++;
     }
