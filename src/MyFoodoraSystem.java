@@ -1,3 +1,4 @@
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.Date;
@@ -12,10 +13,11 @@ public class MyFoodoraSystem {
     private ArrayList<Order> orders = new ArrayList<>();
 
     private DeliveryPolicy deliveryPolicy = new FairOccupationDeliveryPolicy();
+    private ProfitPolicy profitPolicy = new DeliveryCostProfitPolicy();
 
-    private float serviceFee;
-    private float markupPercentage;
-    private float deliveryCost;
+    private float serviceFee = 10.0f;
+    private float markupPercentage = 2.0f;
+    private float deliveryCost = 5.0f;
 
     public MyFoodoraSystem() {
         Manager adminManager = new Manager("ceo", "123456789", "ceo", "admin");
@@ -113,6 +115,14 @@ public class MyFoodoraSystem {
                 .orElseThrow(() -> new Exception("Order [" + orderName + "] not found or already completed"));
     }
 
+    public ArrayList<Order> filterBetween(ArrayList<Order> orders, Date startDate, Date endDate) {
+        return (ArrayList<Order>) orders.stream().filter(order -> {
+                    Date date = order.getDate();
+                    return date != null && date.after(startDate) && date.before(endDate);
+                })
+                .collect(Collectors.toList());
+    }
+
     public float getServiceFee() {
         return serviceFee;
     }
@@ -123,6 +133,18 @@ public class MyFoodoraSystem {
 
     public float getDeliveryCost() {
         return deliveryCost;
+    }
+
+    public void setServiceFee(float serviceFee) {
+        this.serviceFee = serviceFee;
+    }
+
+    public void setMarkupPercentage(float markupPercentage) {
+        this.markupPercentage = markupPercentage;
+    }
+
+    public void setDeliveryCost(float deliveryCost) {
+        this.deliveryCost = deliveryCost;
     }
 
     public void addManager(Manager manager) {
@@ -149,24 +171,32 @@ public class MyFoodoraSystem {
         orders.add(order);
     }
 
-    public double getTotalProfit() {
+    public double computeProfit(double income, int nbOrders, double serviceFee, double markupPercentage, double deliveryCost) {
+        return income * (markupPercentage / 100) + nbOrders * (serviceFee - deliveryCost);
+    }
+
+    public double getTotalIncome() {
         return getCompletedOrders()
                 .stream()
-                .mapToDouble(order ->
-                        order.getPrice() * (markupPercentage / 100.0) + serviceFee - deliveryCost
-                ).sum();
+                .mapToDouble(Order::getPrice).sum();
+    }
+
+    public double getTotalIncomeBetween(Date startDate, Date endDate) {
+        return filterBetween(getCompletedOrders(), startDate, endDate)
+                .stream()
+                .mapToDouble(Order::getPrice).sum();
+    }
+
+    public double getTotalProfit() {
+        int nbOrders = getCompletedOrders().size();
+        double totalIncome = getTotalIncome();
+        return computeProfit(totalIncome, nbOrders, serviceFee, markupPercentage, deliveryCost);
     }
 
     public double getTotalProfitBetween(Date startDate, Date endDate) {
-        return getCompletedOrders()
-                .stream()
-                .filter(order -> {
-                    Date date = order.getDate();
-                    return date != null && !date.before(startDate) && !date.after(endDate);
-                })
-                .mapToDouble(order ->
-                        order.getPrice() * (markupPercentage / 100.0) + serviceFee - deliveryCost
-                ).sum();
+        int nbOrders = filterBetween(getCompletedOrders(), startDate, endDate).size();
+        double totalIncome = getTotalIncomeBetween(startDate, endDate);
+        return computeProfit(totalIncome, nbOrders, serviceFee, markupPercentage, deliveryCost);
     }
 
     public DeliveryPolicy getDeliveryPolicy() {
@@ -175,6 +205,27 @@ public class MyFoodoraSystem {
 
     public void setDeliveryPolicy(DeliveryPolicy deliveryPolicy) {
         this.deliveryPolicy = deliveryPolicy;
+    }
+
+    public ProfitPolicy getProfitPolicy() {
+        return profitPolicy;
+    }
+
+    public void setProfitPolicy(ProfitPolicy profitPolicy) {
+        this.profitPolicy = profitPolicy;
+    }
+
+    public double computeProfitVariable(double targetProfit) {
+        Date today = new Date();
+        Date oneMonthAgo = Date.from(ZonedDateTime.now().minusMonths(1).toInstant());
+        double totalIncome = getTotalIncomeBetween(oneMonthAgo, today);
+        return profitPolicy.computeVariable(
+                targetProfit,
+                totalIncome,
+                getCompletedOrders().size(),
+                serviceFee,
+                markupPercentage,
+                deliveryCost);
     }
 
     public Courier getBestCourier(Order order) {

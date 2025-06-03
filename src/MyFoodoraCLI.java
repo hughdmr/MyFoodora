@@ -134,6 +134,9 @@ public class MyFoodoraCLI {
                     System.out.println(e.getMessage());
                 }
                 break;
+            case "setprofitpolicy":
+                setProfitPolicy(arguments);
+                break;
             case "showrestauranttop":
                 showRestaurantTop();
                 break;
@@ -321,10 +324,8 @@ public class MyFoodoraCLI {
         }
 
         System.out.println("List of customers:");
-        int count = 1;
         for (Customer c : customers) {
-            System.out.printf("%d: %s %s (%s)%n", count++, c.getFirstName(), c.getLastName(), c.getUsername());
-            c.viewAccountInfo();
+            System.out.println(c);
         }
     }
 
@@ -336,9 +337,8 @@ public class MyFoodoraCLI {
         }
 
         System.out.println("List of managers:");
-        int count = 1;
         for (Manager m : managers) {
-            System.out.printf("%d: %s %s (%s)%n", count++, m.getFirstName(), m.getLastName(), m.getUsername());
+            System.out.println(m);
         }
     }
 
@@ -674,6 +674,26 @@ public class MyFoodoraCLI {
         System.out.println("MyFoodoraSystem set delivery policy to [" + myFoodoraSystem.getDeliveryPolicy() + "]");
     }
 
+    public static void setProfitPolicy(String[] args) {
+        if (args.length != 1) {
+            System.out.println("Usage: setProfitPolicy <ProfitPolicyName>");
+            return;
+        }
+        if (!(currentLoggedInUser instanceof Manager)) {
+            System.out.println("Only a logged on manager can change the profit policy.");
+            return;
+        }
+        switch (args[0].toLowerCase()) {
+            case "deliverycost": myFoodoraSystem.setProfitPolicy(new DeliveryCostProfitPolicy()); break;
+            case "markupprofit": myFoodoraSystem.setProfitPolicy(new MarkupProfitPolicy()); break;
+            case "servicefee" : myFoodoraSystem.setProfitPolicy(new ServiceFeeProfitPolicy()); break;
+            default:
+                System.out.println("Unknown card type. Use 'deliverycost' or 'markupprofit' or 'servicefee'.");
+                return;
+        }
+        System.out.println("MyFoodoraSystem set profit policy to [" + myFoodoraSystem.getProfitPolicy() + "]");
+    }
+
     public static void associateCard(String[] args) {
         if (args.length != 2) {
             System.out.println("  associateCard <userName> <cardType>");
@@ -739,6 +759,7 @@ public class MyFoodoraCLI {
         System.out.println("  offDuty <username>");
         System.out.println("  findDeliverer <orderName>");
         System.out.println("  setDeliveryPolicy <delPolicyName>");
+        System.out.println("  setProfitPolicy <ProfitPolicyName>");
         System.out.println("  associateCard <userName> <cardType>");
         System.out.println("  showCourierDeliveries");
         System.out.println("  showRestaurantTop");

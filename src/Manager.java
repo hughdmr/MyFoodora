@@ -23,4 +23,8 @@ public class Manager extends User {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+    public String toString() {
+        return "[MANAGER] - " + getUsername() + "|" + firstName + "|" + lastName;
+    }
 }

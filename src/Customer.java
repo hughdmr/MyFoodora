@@ -103,7 +103,7 @@ public class Customer extends User {
     // access the information related to their account: ... and points acquired with a fidelity program
     @Override
     public String toString() {
-        return getUsername() + " | " + firstName + " " + lastName + " | Email: " + email + " | Phone: " + phoneNumber
+        return "[CUSTOMER] - " + getUsername() + " | " + firstName + " " + lastName + " | Email: " + email + " | Phone: " + phoneNumber
                 + " | Fidelity card: " + (fidelityCard == null ? "Not registered" : fidelityCard.getClass().getSimpleName())
                 + (fidelityCard instanceof PointFidelityCard ? " | Points: " + points : "");
     }

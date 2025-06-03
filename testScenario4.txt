@@ -40,4 +40,7 @@ login ceo 123456789
 setDeliveryPolicy Fastest
 login jojo mdp12345
 findDeliverer commande1
+
+login ceo 123456789
+setProfitPolicy MarkupProfit
 logout
