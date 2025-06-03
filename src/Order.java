@@ -80,9 +80,14 @@ public class Order {
         return dishesPrice + mealsPrice;
     }
 
-    public void completeOrder(String date) {
-        this.date = new Date(date);
+    public void completeOrder(Courier courier, String date) {
+        if (date.isEmpty()) {
+            this.date = new Date();
+        } else {
+            this.date = new Date(date);
+        }
         this.price = computePrice();
+        this.courier = courier;
         this.completed = true;
     }
 }
