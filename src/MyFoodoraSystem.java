@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -133,5 +134,15 @@ public class MyFoodoraSystem {
 
     public void setDeliveryPolicy(DeliveryPolicy deliveryPolicy) {
         this.deliveryPolicy = deliveryPolicy;
+    }
+
+    public Courier getBestCourier(Order order) {
+        return deliveryPolicy.selectCourier(order, couriers);
+    }
+
+    public void completeOrder(Order order, String date) {
+        Courier bestCourier = getBestCourier(order);
+        order.completeOrder(bestCourier, date);
+        bestCourier.setPosition(order.getCustomer().getAddress());
     }
 }

@@ -1,5 +1,5 @@
 login ceo 123456789
-registerRestaurant chezJOJO jojo mdp12345 (3.45,2.44)
+registerRestaurant chezJOJO jojo mdp12345 (80.45,90.44)
 registerCustomer alex grav gravlax (0,0) gravlax01 grav@lax 0707
 registerCourier Tadej Pogacar Pogi (60.127,50.175) pogiSlo 0101010101
 registerCourier Jonas Vingegaard Vingo (49.122,10.177) vingoDan 0202020202

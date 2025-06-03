@@ -542,7 +542,7 @@ public class MyFoodoraCLI {
         Order order = myFoodoraSystem.getProgressOrder(orderName);
 
         String date = args[1];
-        order.completeOrder(date);
+        myFoodoraSystem.completeOrder(order, date);
         System.out.println("Order [" + order.getName() + "] has been completed on [" + order.getDate() + "] for [" + order.getPrice() + "]€");
     }
 
@@ -552,7 +552,7 @@ public class MyFoodoraCLI {
             return;
         }
         if (!(currentLoggedInUser instanceof Courier) && !(currentLoggedInUser instanceof Manager)) {
-            System.out.println("Only a logged on courier or manager can set his state as off duty.");
+            System.out.println("Only a logged on courier or manager can set his state as on duty.");
             return;
         }
         else if (currentLoggedInUser instanceof Courier) {
@@ -567,7 +567,7 @@ public class MyFoodoraCLI {
 
     public static void offDuty(String[] args) throws Exception {
         if (args.length != 1) {
-            System.out.println("Usage: onDuty <username>");
+            System.out.println("Usage: offDuty <username>");
             return;
         }
         if (!(currentLoggedInUser instanceof Courier) && !(currentLoggedInUser instanceof Manager)) {
@@ -593,11 +593,9 @@ public class MyFoodoraCLI {
             System.out.println("Only a logged on restaurant can find deliver.");
             return;
         }
-        DeliveryPolicy deliveryPolicy = myFoodoraSystem.getDeliveryPolicy();
-        ArrayList<Courier> couriers = myFoodoraSystem.getCouriers();
         Order order = myFoodoraSystem.getOrder(args[0]);
+        Courier bestCourier = myFoodoraSystem.getBestCourier(order);
 
-        Courier bestCourier = deliveryPolicy.selectCourier(order, couriers);
         System.out.println("The best available courier is [" + bestCourier.getUsername() + "|" + bestCourier.getPhoneNumber() + "]");
     }
 
