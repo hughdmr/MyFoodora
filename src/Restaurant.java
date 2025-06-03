@@ -8,7 +8,8 @@ public class Restaurant extends User {
     private ArrayList<Dish> menu = new ArrayList<>();
     private ArrayList<Meal> meals = new ArrayList<>();
     private double genericDiscount = 0.05;  // 5%
-    private double specialDiscount = 0.10;  // 10%
+    private double specialDiscount = 0.10;
+    private int deliveredOrdersCount = 0;// 10%
 
     public Restaurant(String username, String password, String name, ArrayList<Double> position) {
         super(username, password);
@@ -97,5 +98,19 @@ public class Restaurant extends User {
         this.specialDiscount = specialDiscount;
     }
 
+    public int getDeliveredOrdersCount() {
+        return deliveredOrdersCount;
+    }
+
+    public void setDeliveredOrdersCount(int deliveredOrdersCount) {
+        this.deliveredOrdersCount = deliveredOrdersCount;
+    }
+
+    @Override
+    public String toString() {
+        return name + " | Username: " + getUsername() +
+                " | Position: " + position
+                + " | Delivered Orders: " + deliveredOrdersCount;
+    }
 }
 

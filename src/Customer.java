@@ -101,19 +101,10 @@ public class Customer extends User {
     }
 
     // access the information related to their account: ... and points acquired with a fidelity program
-    public void viewAccountInfo() {
-        System.out.println("Username: " + getUsername());
-        System.out.println("Name: " + firstName + " " + lastName);
-        System.out.println("Email: " + email);
-        System.out.println("Phone: " + phoneNumber);
-
-        if (fidelityCard == null) {
-            System.out.println("Fidelity card: Not registered");
-        } else {
-            System.out.println("Fidelity card type: " + fidelityCard.getClass().getSimpleName());
-            if (fidelityCard instanceof PointFidelityCard) {
-                System.out.println("Points: " + points);
-            }
-        }
+    @Override
+    public String toString() {
+        return getUsername() + " | " + firstName + " " + lastName + " | Email: " + email + " | Phone: " + phoneNumber
+                + " | Fidelity card: " + (fidelityCard == null ? "Not registered" : fidelityCard.getClass().getSimpleName())
+                + (fidelityCard instanceof PointFidelityCard ? " | Points: " + points : "");
     }
 }

@@ -17,6 +17,11 @@ This project is completely written in Java
 - Name with space in CLI
 - Difference between RegisterCourier and Courier (phone), same for Restaurant...
 
+# Other command idea
+- showTotalIncome 01/06/2025 05/06/2025
+- showTotalProfit 01/06/2025 05/06/2025
+- acceptDelivery
+- 
 # Authors
 
 Hugues d'Hardemare  

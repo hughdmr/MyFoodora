@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+import java.util.Date;
+
 
 public class MyFoodoraSystem {
     private ArrayList<User> users = new ArrayList<>();
@@ -38,12 +40,32 @@ public class MyFoodoraSystem {
                 .orElseThrow(() -> new Exception("Restaurant [" + restaurantName + "] not found."));
     }
 
+    public ArrayList<Restaurant> getRestaurantsSortedByDeliveries() {
+        return this.getRestaurants()
+                .stream()
+                .sorted((c1, c2) -> Integer.compare(
+                        c2.getDeliveredOrdersCount(),
+                        c1.getDeliveredOrdersCount()
+                ))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
     public ArrayList<Customer> getCustomers() {
         return customers;
     }
 
     public ArrayList<Courier> getCouriers() {
         return couriers;
+    }
+
+    public ArrayList<Courier> getCourierSortedByDeliveries() {
+        return this.getCouriers()
+                .stream()
+                .sorted((c1, c2) -> Integer.compare(
+                        c2.getDeliveredOrdersCount(),
+                        c1.getDeliveredOrdersCount()
+                ))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     public ArrayList<Order> getOrders() {
@@ -106,5 +128,25 @@ public class MyFoodoraSystem {
 
     public void addOrder(Order order) {
         orders.add(order);
+    }
+
+    public double getTotalProfit() {
+        return getCompletedOrders()
+                .stream()
+                .mapToDouble(order ->
+                        order.getPrice() * (markupPercentage / 100.0) + serviceFee - deliveryCost
+                ).sum();
+    }
+
+    public double getTotalProfitBetween(Date startDate, Date endDate) {
+        return getCompletedOrders()
+                .stream()
+                .filter(order -> {
+                    Date date = order.getDate();
+                    return date != null && !date.before(startDate) && !date.after(endDate);
+                })
+                .mapToDouble(order ->
+                        order.getPrice() * (markupPercentage / 100.0) + serviceFee - deliveryCost
+                ).sum();
     }
 }

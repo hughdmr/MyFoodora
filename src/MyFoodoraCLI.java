@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
 
 public class MyFoodoraCLI {
     private static User currentLoggedInUser = null;
@@ -142,17 +145,23 @@ public class MyFoodoraCLI {
 //            case "finddeliver":
 //                findDeliver();
 //                break;
-            case "showrestaurants":
-                showRestaurants();
+            case "showrestauranttop":
+                showRestaurantTop();
                 break;
-            case "showcouriers":
-                showCouriers();
+            case "showcourierdeliveries":
+                showCourierDeliveries();
+                break;
+            case "showcustomers":
+                showCustomers();
+                break;
+            case "showmenuitem":
+                showMenuItem(arguments);
                 break;
             case "showmanagers":
                 showManagers();
                 break;
-            case "showcustomers":
-                showCustomers();
+            case "showtotalprofit":
+                showTotalProfit(arguments);
                 break;
             case "associatecard":
                 associateCard(arguments);
@@ -294,16 +303,13 @@ public class MyFoodoraCLI {
 
     private static void showCustomers() {
         ArrayList<Customer> customers = myFoodoraSystem.getCustomers();
-        if (customers.isEmpty()) {
-            System.out.println("No customers found.");
+        if (!(currentLoggedInUser instanceof Manager)) {
+            System.out.println("Only a logged on manager can show courier.");
             return;
         }
-
         System.out.println("List of customers:");
-        int count = 1;
         for (Customer c : customers) {
-            System.out.printf("%d: %s %s (%s)%n", count++, c.getFirstName(), c.getLastName(), c.getUsername());
-            c.viewAccountInfo();
+            System.out.println(c);
         }
     }
 
@@ -321,32 +327,76 @@ public class MyFoodoraCLI {
         }
     }
 
-    public static void showRestaurants() {
-        ArrayList<Restaurant> restaurants = myFoodoraSystem.getRestaurants();
-        if (restaurants.isEmpty()) {
-            System.out.println("No restaurants found.");
+    public static void showRestaurantTop() {
+        if (!(currentLoggedInUser instanceof Manager)) {
+            System.out.println("Only a logged on manager can show courier.");
             return;
         }
-        System.out.println("List of restaurants:");
-        int count = 1;
-        for (Restaurant r : restaurants) {
-            System.out.printf("%d: %s (%s)%n", count++, r.getName(), r.getUsername());
-            System.out.println("Menu:" + r.getMenu());
+        ArrayList<Restaurant> sortedRestaurantsByDeliveries = myFoodoraSystem.getRestaurantsSortedByDeliveries();
+        System.out.println("Top 3 restaurants with the most deliveries:");
+        int limit = Math.min(3, sortedRestaurantsByDeliveries.size());
+        for (int i = 0; i < limit; i++) {
+            Restaurant r = sortedRestaurantsByDeliveries.get(i);
+            System.out.println(r);
         }
     }
 
-    public static void showCouriers() {
-        ArrayList<Courier> couriers = myFoodoraSystem.getCouriers();
-        if (couriers.isEmpty()) {
-            System.out.println("No couriers found.");
+    public static void showCourierDeliveries() {
+        if (!(currentLoggedInUser instanceof Manager)) {
+            System.out.println("Only a logged on manager can show courier.");
             return;
         }
+
+        ArrayList<Courier> sortedCouriersByDeliveries = myFoodoraSystem.getCourierSortedByDeliveries();
         System.out.println("List of couriers:");
-        int count = 1;
-        for (Courier c : couriers) {
-            System.out.printf("%d: %s (%s) | onDuty:%s %n", count++, c.getLastName(), c.getUsername(), c.isOnDuty());
+        for (Courier c : sortedCouriersByDeliveries) {
+            System.out.println(c);
         }
     }
+
+    public static void showMenuItem(String[] args) {
+        if (!(currentLoggedInUser instanceof Manager)) {
+            System.out.println("Only a logged on manager can show menu items.");
+            return;
+        }
+        if (args.length != 1) {
+            System.out.println("Usage: showMenuItem <restaurantName>");
+            return;
+        }
+        String restaurantName = args[0];
+        try {
+            Restaurant restaurant = myFoodoraSystem.getRestaurant(restaurantName);
+            System.out.println("Menu of " + restaurantName + ":" + restaurant.getMenu());
+        } catch (Exception e) {
+            System.out.println("Error fetching menu for restaurant " + restaurantName + ": " + e.getMessage());
+        }
+    }
+
+    public static void showTotalProfit(String[] args) {
+        if (!(currentLoggedInUser instanceof Manager)) {
+            System.out.println("Only a logged on manager can show total profit.");
+            return;
+        }
+
+        if (args.length == 0) {
+            double totalProfit = myFoodoraSystem.getTotalProfit();
+            System.out.println("Total profit of the platform: " + totalProfit);
+        } else if (args.length == 2) {
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                Date startDate = sdf.parse(args[0]);
+                Date endDate = sdf.parse(args[1]);
+
+                double profitInRange = myFoodoraSystem.getTotalProfitBetween(startDate, endDate);
+                System.out.printf("Total profit of the platform between %s and %s: %.2f%n", args[0], args[1], profitInRange);
+            } catch (Exception e) {
+                System.out.println("Error parsing dates. Please use format: dd/MM/yyyy");
+            }
+        } else {
+            System.out.println("Usage: showTotalProfit OR showTotalProfit <startDate> <endDate>");
+        }
+    }
+
 
     public static void addDishRestaurantMenu(String[] args) {
         if (args.length != 4) {
@@ -635,10 +685,13 @@ public class MyFoodoraCLI {
         System.out.println("  onDuty <username>");
         System.out.println("  offDuty <username>");
         System.out.println("  findDeliverer <orderName>");
-        System.out.println("  showRestaurants");
-        System.out.println("  showCouriers");
-        System.out.println("  showManagers");
+        System.out.println("  showRestaurantTop");
+        System.out.println("  showCourierDeliveries");
         System.out.println("  showCustomers");
+        System.out.println("  showMenuItem <restaurantName>");
+        System.out.println("  showTotalProfit");
+        System.out.println("  showTotalProfit <startDate> <endDate>");
+        System.out.println("  showManagers");
         System.out.println("  associateCard <userName> <cardType>");
         System.out.println("  STOP - Exit the program");
     }
