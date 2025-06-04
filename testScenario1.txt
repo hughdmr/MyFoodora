@@ -6,6 +6,7 @@ registerRestaurant Heureux-comme-Alexandre HeureuxcA hcA57 (49.12689475241864,6.
 registerRestaurant Le-Paris LeParis RLP57 (49.11771706620234,6.17891489931129)
 registerRestaurant La-Fleure-De-Ly LaFleureDL LFDL57 (49.1261481463498,6.176000930302168)
 registerRestaurant Casa-Ricci CasaRicci Casa57 (49.12826149653844,6.17414091296602)
+registerRestaurant Chez-Pierre ChezPierre CP57 (49.118,6.185)
 showRestaurantTop
 
 registerCourier Tadej Pogacar Pogi (49.127,6.175) pogiSlo 0101010101
@@ -13,6 +14,10 @@ registerCourier Jonas Vingegaard Vingo (49.122,6.177) vingoDan 0202020202
 registerCourier Christopher Froome Froomey (49.123,6.176) froomeyGB 0303030303
 registerCourier Eddy Merckx LeCannibale (49.121,6.178) cannibaleBel 0404040404
 registerCourier Raymond Poulidor Poupou (49.124,6.179) poupouFra 0505050505
+registerCourier Julian Alaphilippe AlainPhilippe (49.126,6.178) loulouFra 0606060606
+registerCourier Thibaut Pinot Pinoto (49.120,6.174) pinotFra 0707070707
+registerCourier Pauline Ferrand-Prévot PFP (49.125,6.180) paulineFPP pfp@velo.fr 0808080808
+registerCourier Thomas Voeckler Toto (49.128,6.182) voeklerT thomas.voeckler@ffcyclisme.fr 0909090909
 showCourierDeliveries
 
 registerCustomer alex grav gravlax (0,0) gravlax01 grav@lax 0707
@@ -24,7 +29,21 @@ logout
 login HeureuxcA hcA57
 addDishRestaurantMenu Pavé-Black-Angus Main Standard 18.5
 addDishRestaurantMenu Brochette-Chocobeef Main Standard 13.5
-showRestaurants
+logout
+
+login LeParis RLP57
+addDishRestaurantMenu Confit-Canard Main Standard 21
+addDishRestaurantMenu Soupe-Oignon Starter Standard 7.5
+logout
+
+login CasaRicci Casa57
+addDishRestaurantMenu Lasagnes Main Standard 14
+addDishRestaurantMenu Panna-Cotta Dessert Standard 6.5
+logout
+
+login ChezPierre CP57
+addDishRestaurantMenu Steak-Frites Main Standard 15.0
+addDishRestaurantMenu Tarte-Tatin Dessert Standard 7.0
 logout
 
 login gravlax gravlax01
@@ -35,13 +54,157 @@ addItem2Order commande1 Brochette-Chocobeef
 endOrder commande1 02/06/2025
 logout
 
+login sousou sousouCS
+associateCard sousou basic
+createOrder Le-Paris commande2
+addItem2Order commande2 Confit-Canard
+addItem2Order commande2 Soupe-Oignon
+endOrder commande2 02/06/2025
+logout
+
+login theGreatDestroyer cagnolito
+associateCard theGreatDestroyer premium
+createOrder Casa-Ricci commande3
+addItem2Order commande3 Lasagnes
+addItem2Order commande3 Panna-Cotta
+endOrder commande3 03/06/2025
+logout
+
+login HeureuxcA hcA57
+findDeliverer commande1
+logout
+
+login LeParis RLP57
+findDeliverer commande2
+logout
+
+login Pogi pogiSlo
+offDuty Pogi
+logout
+
+login Froomey froomeyGB
+offDuty Froomey
+logout
+
+login LeCannibale cannibaleBel
+offDuty LeCannibale
+logout
+
+login CasaRicci Casa57
+findDeliverer commande3
+logout
+login sousou sousouCS
+createOrder Le-Paris cmdS1
+addItem2Order cmdS1 Confit-Canard
+endOrder cmdS1 03/06/2025
+
+createOrder Chez-Pierre cmdS2
+addItem2Order cmdS2 Steak-Frites
+addItem2Order cmdS2 Tarte-Tatin
+endOrder cmdS2 03/06/2025
+
+createOrder La-Fleure-De-Ly cmdS3
+addItem2Order cmdS3 Steak-Frites
+endOrder cmdS3 04/06/2025
+logout
+
+login gravlax gravlax01
+createOrder Heureux-comme-Alexandre cmdG1
+addItem2Order cmdG1 Pavé-Black-Angus
+addItem2Order cmdG1 Brochette-Chocobeef
+endOrder cmdG1 03/06/2025
+
+createOrder Chez-Pierre cmdG2
+addItem2Order cmdG2 Tarte-Tatin
+endOrder cmdG2 04/06/2025
+logout
+
+login theGreatDestroyer cagnolito
+createOrder Casa-Ricci cmdC1
+addItem2Order cmdC1 Lasagnes
+endOrder cmdC1 04/06/2025
+
+createOrder Le-Paris cmdC2
+addItem2Order cmdC2 Soupe-Oignon
+endOrder cmdC2 05/06/2025
+
+createOrder Heureux-comme-Alexandre cmdC3
+addItem2Order cmdC3 Pavé-Black-Angus
+endOrder cmdC3 05/06/2025
+logout
+
+login sousou sousouCS
+createOrder Le-Paris cmdS1
+addItem2Order cmdS1 Confit-Canard
+endOrder cmdS1 03/06/2025
+
+createOrder Chez-Pierre cmdS2
+addItem2Order cmdS2 Steak-Frites
+addItem2Order cmdS2 Tarte-Tatin
+endOrder cmdS2 03/06/2025
+
+createOrder La-Fleure-De-Ly cmdS3
+addItem2Order cmdS3 Steak-Frites
+endOrder cmdS3 04/06/2025
+logout
+
+login gravlax gravlax01
+createOrder Heureux-comme-Alexandre cmdG1
+addItem2Order cmdG1 Pavé-Black-Angus
+addItem2Order cmdG1 Brochette-Chocobeef
+endOrder cmdG1 03/06/2025
+
+createOrder Chez-Pierre cmdG2
+addItem2Order cmdG2 Tarte-Tatin
+endOrder cmdG2 04/06/2025
+logout
+
+login theGreatDestroyer cagnolito
+createOrder Casa-Ricci cmdC1
+addItem2Order cmdC1 Lasagnes
+endOrder cmdC1 04/06/2025
+
+createOrder Le-Paris cmdC2
+addItem2Order cmdC2 Soupe-Oignon
+endOrder cmdC2 05/06/2025
+
+createOrder Heureux-comme-Alexandre cmdC3
+addItem2Order cmdC3 Pavé-Black-Angus
+endOrder cmdC3 05/06/2025
+logout
+
+login HeureuxcA hcA57
+findDeliverer cmdG1
+findDeliverer cmdC3
+logout
+
+login LeParis RLP57
+findDeliverer cmdS1
+findDeliverer cmdC2
+logout
+
+login ChezPierre CP57
+findDeliverer cmdS2
+findDeliverer cmdG2
+logout
+
+login LaFleureDL LFDL57
+findDeliverer cmdS3
+logout
+
+login CasaRicci Casa57
+findDeliverer cmdC1
+logout
+
+
 login ceo 123456789
 showCourierDeliveries
 showRestaurantTop
 showCustomers
 showMenuItem Heureux-comme-Alexandre
 showTotalProfit
-showTotalProfit 02/05/2025 02/06/2025
+showTotalProfit 02/05/2025 04/06/2025
 sortShippedOrders mostordereddish
 sortShippedOrders leastorderedhalfmeal
 logout
+
