@@ -6,5 +6,5 @@ import users.Courier;
 import system.Order;
 
 public interface DeliveryPolicy {
-    public Courier selectCourier(Order order, ArrayList<Courier> couriers);
+    Courier selectCourier(Order order, ArrayList<Courier> couriers);
 }

@@ -36,11 +36,6 @@ public class HalfMeal extends Meal {
         super.setMealOfTheWeek(mealOfTheWeek);
     }
 
-//    @Override
-//    public List<myfoodora.Dish> getDishs() {
-//        return List.of(main, second);
-//    }
-
     public Dish getMain() {
         return main;
     }

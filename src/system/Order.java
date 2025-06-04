@@ -17,8 +17,8 @@ public class Order {
     private double price;
     private Date date;
     private boolean completed;
-    private ArrayList<Dish> dishesList = new ArrayList<>();;
-    private ArrayList<Meal> mealsList = new ArrayList<>();;
+    private ArrayList<Dish> dishesList = new ArrayList<>();
+    private ArrayList<Meal> mealsList = new ArrayList<>();
 
     public Order(String orderName, Restaurant restaurant, Customer customer) {
         this.orderName = orderName;

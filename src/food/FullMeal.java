@@ -39,11 +39,6 @@ public class FullMeal extends Meal {
         super.setMealOfTheWeek(mealOfTheWeek);
     }
 
-//    @Override
-//    public List<myfoodora.Dish> getDishs() {
-//        return List.of(starter, main, dessert);
-//    }
-
     public Dish getStarter() {
         return starter;
     }

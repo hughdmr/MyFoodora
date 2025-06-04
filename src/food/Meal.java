@@ -21,13 +21,6 @@ public class Meal {
         this.mealOfTheWeek = mealOfTheWeek;
     }
 
-   // public <myfoodora.Dish> getDishs(); // chaque sous-classe doit renvoyer ses dishs
-
-    // private double calculatePrice() {
-        // float basePrice =  sum (getdishs().Price);
-        // return mealOfTheWeek ? basePrice * 0.1f : basePrice * 0.05f;
-    //}
-
     public double getPrice() {
         // TODO
         return 0;

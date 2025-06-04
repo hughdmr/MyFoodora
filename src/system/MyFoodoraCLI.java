@@ -1,5 +1,6 @@
+package system;
+
 import fidelity.*;
-import system.*;
 import users.*;
 import food.*;
 import policies.delivery.*;
@@ -17,13 +18,11 @@ import java.text.SimpleDateFormat;
 
 public class MyFoodoraCLI {
     private static User currentLoggedInUser = null;
-    private static MyFoodoraSystem myFoodoraSystem = new MyFoodoraSystem();
+    private final static MyFoodoraSystem myFoodoraSystem = new MyFoodoraSystem();
 
-    public static void main(String[] args) {
-        runInteractiveCLI();
-    }
+    public MyFoodoraCLI() {}
 
-    public static void runInteractiveCLI() {
+    public void run() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome in MyFoodora CLI");
         System.out.println("Enter your commands below:");
@@ -151,6 +150,16 @@ public class MyFoodoraCLI {
         }
 
         try {
+            Customer customer = parseCustomer(args);
+
+            myFoodoraSystem.addCustomer(customer);
+            System.out.println("myfoodora.Customer registered: " + customer.getUsername());
+        } catch (NumberFormatException e) {
+            System.out.println("Error: x and y must be valid numbers.");
+        }
+    }
+
+    private static Customer parseCustomer(String[] args) {
         String firstName = args[0];
         String lastName = args[1];
         String username = args[2];
@@ -163,13 +172,7 @@ public class MyFoodoraCLI {
         String email = args[5];
         String phoneNumber = args[6];
 
-        Customer customer = new Customer(username, password, firstName, lastName, address, email, phoneNumber);
-        myFoodoraSystem.addCustomer(customer);
-
-        System.out.println("myfoodora.Customer registered: " + firstName + " " + lastName);
-    } catch (NumberFormatException e) {
-        System.out.println("Error: x and y must be valid numbers.");
-    }
+        return new Customer(username, password, firstName, lastName, address, email, phoneNumber);
     }
 
     private static void registerRestaurant(String[] args) {
@@ -212,26 +215,31 @@ public class MyFoodoraCLI {
             return;
         }
         try {
-            String firstName = args[0];
-            String lastName = args[1];
-            String username = args[2];
-            String rawPosition = args[3].replace("(", "").replace(")", "");
-            String[] coords = rawPosition.split(",");
-            ArrayList<Double> position = new ArrayList<>();
-            position.add(Double.parseDouble(coords[0]));
-            position.add(Double.parseDouble(coords[1]));
-            String password = args[4];
-            String phoneNumber = args[5];
 
-            Courier courier = new Courier(username, password, firstName, lastName, position, phoneNumber);
+            Courier courier = parseCourier(args);
             myFoodoraSystem.addCourier(courier);
 
-            System.out.println("myfoodora.Courier registered: " + firstName + " " + lastName);
+            System.out.println("myfoodora.Courier registered: " + courier.getUsername());
         }
         catch (NumberFormatException e) {
             System.out.println("Error: x and y must be valid numbers.");
         }
 
+    }
+
+    private static Courier parseCourier(String[] args) {
+        String firstName = args[0];
+        String lastName = args[1];
+        String username = args[2];
+        String rawPosition = args[3].replace("(", "").replace(")", "");
+        String[] coords = rawPosition.split(",");
+        ArrayList<Double> position = new ArrayList<>();
+        position.add(Double.parseDouble(coords[0]));
+        position.add(Double.parseDouble(coords[1]));
+        String password = args[4];
+        String phoneNumber = args[5];
+
+        return new Courier(username, password, firstName, lastName, position, phoneNumber);
     }
 
     private static void showCustomers() {
