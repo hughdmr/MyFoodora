@@ -1,10 +1,8 @@
 package system;
 
 import users.*;
-import policies.delivery.DeliveryPolicy;
-import policies.delivery.FairOccupationDeliveryPolicy;
-import policies.profit.DeliveryCostProfitPolicy;
-import policies.profit.ProfitPolicy;
+import policies.delivery.*;
+import policies.profit.*;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
