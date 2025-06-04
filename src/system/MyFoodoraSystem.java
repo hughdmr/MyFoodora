@@ -237,7 +237,12 @@ public class MyFoodoraSystem {
     }
 
     public Courier getBestCourier(Order order) {
-        return deliveryPolicy.selectCourier(order, couriers);
+        // Keep only onDuty couriers
+        ArrayList<Courier> onDutyCourier = (ArrayList<Courier>) couriers
+                        .stream()
+                        .filter(Courier::isOnDuty)
+                        .collect(Collectors.toList());
+        return deliveryPolicy.selectCourier(order, onDutyCourier);
     }
 
     public void completeOrder(Order order, String date) {

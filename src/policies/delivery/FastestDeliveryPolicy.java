@@ -34,9 +34,6 @@ public class FastestDeliveryPolicy implements DeliveryPolicy {
         ArrayList<Double> restaurantAddress = order.getRestaurant().getPosition();
         HashMap<Courier, Double> couriersDistances = new HashMap<Courier, Double>();
 
-        // Keep only onDuty couriers
-        couriers = (ArrayList<Courier>) couriers.stream().filter(Courier::isOnDuty).collect(Collectors.toList());
-
         for (Courier courier : couriers) {
             couriersDistances.put(courier, getDistance(restaurantAddress, courier.getPosition()));
         }
