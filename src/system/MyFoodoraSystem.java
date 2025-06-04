@@ -1,3 +1,9 @@
+import users.*;
+import policies.delivery.DeliveryPolicy;
+import policies.delivery.FairOccupationDeliveryPolicy;
+import policies.profit.DeliveryCostProfitPolicy;
+import policies.profit.ProfitPolicy;
+
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -42,7 +48,7 @@ public class MyFoodoraSystem {
                 .stream()
                 .filter(m -> m.getName().equals(restaurantName))
                 .findFirst()
-                .orElseThrow(() -> new Exception("Restaurant [" + restaurantName + "] not found."));
+                .orElseThrow(() -> new Exception("myfoodora.Restaurant [" + restaurantName + "] not found."));
     }
 
     public ArrayList<Restaurant> getRestaurantsSortedByDeliveries() {
@@ -68,7 +74,7 @@ public class MyFoodoraSystem {
                 .stream()
                 .filter(m -> m.getUsername().equals(courierName))
                 .findFirst()
-                .orElseThrow(() -> new Exception("Order [" + courierName + "] not found or already completed"));
+                .orElseThrow(() -> new Exception("myfoodora.Order [" + courierName + "] not found or already completed"));
     }
 
     public ArrayList<Courier> getCourierSortedByDeliveries() {
@@ -104,7 +110,7 @@ public class MyFoodoraSystem {
                 .stream()
                 .filter(m -> m.getName().equals(orderName))
                 .findFirst()
-                .orElseThrow(() -> new Exception("Order [" + orderName + "] not found or already completed"));
+                .orElseThrow(() -> new Exception("myfoodora.Order [" + orderName + "] not found or already completed"));
     }
 
     public Order getProgressOrder(String orderName) throws Exception {
@@ -112,7 +118,7 @@ public class MyFoodoraSystem {
                 .stream()
                 .filter(m -> m.getName().equals(orderName))
                 .findFirst()
-                .orElseThrow(() -> new Exception("Order [" + orderName + "] not found or already completed"));
+                .orElseThrow(() -> new Exception("myfoodora.Order [" + orderName + "] not found or already completed"));
     }
 
     public ArrayList<Order> filterBetween(ArrayList<Order> orders, Date startDate, Date endDate) {

@@ -1,3 +1,5 @@
+import fidelity.FidelityCard;
+
 import java.util.Random;
 
 public class LotteryFidelityCard implements FidelityCard {

@@ -1,3 +1,5 @@
+import policies.delivery.DeliveryPolicy;
+
 import java.util.ArrayList;
 
 public class FairOccupationDeliveryPolicy implements DeliveryPolicy {

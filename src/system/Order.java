@@ -1,3 +1,9 @@
+import food.Dish;
+import food.Meal;
+import users.Courier;
+import users.Customer;
+import users.Restaurant;
+
 import java.util.ArrayList;
 import java.util.Date;
 
