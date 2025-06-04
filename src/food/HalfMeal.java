@@ -44,6 +44,10 @@ public class HalfMeal extends Meal {
         return second;
     }
 
+    public double getPrice() {
+        return main.getPrice() + second.getPrice();
+    }
+
     public String toString() {
         return "Half myfoodora.Meal: "
                 + super.toString()

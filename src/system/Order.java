@@ -92,7 +92,11 @@ public class Order {
 
     public double computePrice() {
         double dishesPrice = dishesList.stream().mapToDouble(Dish::getPrice).sum();
-        double mealsPrice = mealsList.stream().mapToDouble(Meal::getPrice).sum();
+        double mealsPrice = mealsList.stream().mapToDouble(
+                meal -> {
+                    if (meal.isMealOfTheWeek()) return meal.getPrice() * restaurant.getSpecialDiscount();
+                    else return meal.getPrice() * restaurant.getGenericDiscount();
+                }).sum();
         return dishesPrice + mealsPrice;
     }
 

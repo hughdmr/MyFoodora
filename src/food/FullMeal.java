@@ -51,6 +51,10 @@ public class FullMeal extends Meal {
         return dessert;
     }
 
+    public double getPrice() {
+        return main.getPrice() + starter.getPrice() + dessert.getPrice();
+    }
+
     public String toString() {
         return "Full myfoodora.Meal: "
                 + super.toString()

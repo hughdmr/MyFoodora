@@ -2,8 +2,10 @@ package users;
 
 import food.Dish;
 import food.Meal;
+import system.Order;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class Restaurant extends User {
     private String name;
@@ -11,8 +13,8 @@ public class Restaurant extends User {
     private ArrayList<Dish> menu = new ArrayList<>();
     private ArrayList<Meal> meals = new ArrayList<>();
     private double genericDiscount = 0.05;  // 5%
-    private double specialDiscount = 0.10;
-    private int deliveredOrdersCount = 0;// 10%
+    private double specialDiscount = 0.10;  // 10%
+    private int deliveredOrdersCount = 0;
 
     public Restaurant(String username, String password, String name, ArrayList<Double> position) {
         super(username, password);
@@ -70,13 +72,19 @@ public class Restaurant extends User {
         return meals;
     }
 
+    public ArrayList<Meal> getCompleteMeals() {
+        return (ArrayList<Meal>) getMeals()
+                .stream()
+                .filter(Meal::isComplete)
+                .collect(Collectors.toList());
+    }
+
     public Meal getMeal(String mealName) throws Exception {
-        Meal meal = this.getMeals()
+        return this.getMeals()
                     .stream()
                     .filter(m -> m.getName().equals(mealName))
                     .findFirst()
                     .orElseThrow(() -> new Exception("myfoodora.Meal not found: " + mealName));
-        return meal;
     }
 
     // Discount management

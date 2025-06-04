@@ -12,6 +12,7 @@ public class Meal {
     private String name;
     private MealType mealType;
     private MealSize mealSize;
+    private boolean complete = false;
     private boolean mealOfTheWeek;
 
     public Meal(String name, MealType mealType, MealSize mealSize, boolean mealOfTheWeek) {
@@ -21,10 +22,7 @@ public class Meal {
         this.mealOfTheWeek = mealOfTheWeek;
     }
 
-    public double getPrice() {
-        // TODO
-        return 0;
-    }
+    public double getPrice() { return 0; }
 
     public void addDish(Dish dish) {}
 
@@ -54,6 +52,14 @@ public class Meal {
 
     public boolean isMealOfTheWeek() {
         return mealOfTheWeek;
+    }
+
+    public boolean isComplete() {
+        return complete;
+    }
+
+    public void setComplete(boolean complete) {
+        this.complete = complete;
     }
 
     public static MealType getMealType(Dish.DishType dishType) {

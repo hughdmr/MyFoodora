@@ -59,6 +59,7 @@ public class MyFoodoraCLI {
             case "createmeal" -> createMeal(arguments);
             case "adddish2meal" -> addDish2Meal(arguments);
             case "showmeal" -> showMeal(arguments);
+            case "savemeal" -> saveMeal(arguments);
             case "setspecialoffer" -> setSpecialOffer(arguments);
             case "removefromspecialoffer" -> removeFromSpecialOffer(arguments);
             case "createorder" -> createOrder(arguments);
@@ -408,6 +409,24 @@ public class MyFoodoraCLI {
         }
     }
 
+    public static void saveMeal(String[] args) {
+        if (args.length != 1) {
+            System.out.println("Usage: saveMeal <mealName>");
+            return;
+        }
+        if (!(currentLoggedInUser instanceof Restaurant restaurant)) {
+            System.out.println("Only a logged on restaurant can save a meal.");
+            return;
+        }
+        String mealName = args[0];
+        try {
+            Meal meal = restaurant.getMeal(mealName);
+            meal.setComplete(true);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public static void showMeal(String[] args) {
         if (args.length != 1) {
             System.out.println("Usage: showMeal <mealName>");
@@ -747,6 +766,7 @@ public class MyFoodoraCLI {
         System.out.println("  createMeal <mealName> <mealType> <mealSize>");
         System.out.println("  addDish2Meal <dishName> <mealName>");
         System.out.println("  showMeal <mealName>");
+        System.out.println("  saveMeal <mealName>");
         System.out.println("  setSpecialOffer <mealName>");
         System.out.println("  removeFromSpecialOffer <mealName>");
         System.out.println("  createOrder <restaurantName> <orderName>");
