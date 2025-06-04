@@ -12,8 +12,8 @@ import java.util.Date;
 public class MyFoodoraSystem {
     private ArrayList<User> users = new ArrayList<>();
     private ArrayList<Manager> managers = new ArrayList<>();
-    private ArrayList<Restaurant> restaurants = new ArrayList<>();
     private ArrayList<Customer> customers = new ArrayList<>();
+    private ArrayList<Restaurant> restaurants = new ArrayList<>();
     private ArrayList<Courier> couriers = new ArrayList<>();
     private ArrayList<Order> orders = new ArrayList<>();
 
@@ -26,10 +26,10 @@ public class MyFoodoraSystem {
 
     public MyFoodoraSystem() {
         Manager adminManager = new Manager("ceo", "123456789", "ceo", "admin");
-        managers.add(adminManager);
-        users.add(adminManager);
+        addManager(adminManager);
     }
 
+    // Getters and Setters
     public ArrayList<User> getUsers() {
         return users;
     }
@@ -38,18 +38,13 @@ public class MyFoodoraSystem {
         return managers;
     }
 
+    public ArrayList<Customer> getCustomers() {
+        return customers;
+    }
+
     public ArrayList<Restaurant> getRestaurants() {
         return restaurants;
     }
-
-    public Restaurant getRestaurant(String restaurantName) throws Exception {
-        return this.getRestaurants()
-                .stream()
-                .filter(m -> m.getName().equals(restaurantName))
-                .findFirst()
-                .orElseThrow(() -> new Exception("myfoodora.Restaurant [" + restaurantName + "] not found."));
-    }
-
     public ArrayList<Restaurant> getRestaurantsSortedByDeliveries() {
         return this.getRestaurants()
                 .stream()
@@ -59,23 +54,17 @@ public class MyFoodoraSystem {
                 ))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
-
-    public ArrayList<Customer> getCustomers() {
-        return customers;
+    public Restaurant getRestaurant(String restaurantName) throws Exception {
+        return this.getRestaurants()
+                .stream()
+                .filter(m -> m.getName().equals(restaurantName))
+                .findFirst()
+                .orElseThrow(() -> new Exception("myfoodora.Restaurant [" + restaurantName + "] not found."));
     }
 
     public ArrayList<Courier> getCouriers() {
         return couriers;
     }
-
-    public Courier getCourier(String courierName) throws Exception {
-        return this.getCouriers()
-                .stream()
-                .filter(m -> m.getUsername().equals(courierName))
-                .findFirst()
-                .orElseThrow(() -> new Exception("myfoodora.System.Order [" + courierName + "] not found or already completed"));
-    }
-
     public ArrayList<Courier> getCourierSortedByDeliveries() {
         return this.getCouriers()
                 .stream()
@@ -85,25 +74,29 @@ public class MyFoodoraSystem {
                 ))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
+    public Courier getCourier(String courierName) throws Exception {
+        return this.getCouriers()
+                .stream()
+                .filter(m -> m.getUsername().equals(courierName))
+                .findFirst()
+                .orElseThrow(() -> new Exception("myfoodora.System.Order [" + courierName + "] not found or already completed"));
+    }
 
     public ArrayList<Order> getOrders() {
         return orders;
     }
-
     public ArrayList<Order> getCompletedOrders() {
         return (ArrayList<Order>) orders
                 .stream()
                 .filter(Order::isCompleted)
                 .collect(Collectors.toList());
     }
-
     public ArrayList<Order> getProgressOrders() {
         return (ArrayList<Order>) orders
                 .stream()
                 .filter(m -> !m.isCompleted())
                 .collect(Collectors.toList());
     }
-
     public Order getOrder(String orderName) throws Exception {
         return this.getOrders()
                 .stream()
@@ -111,7 +104,6 @@ public class MyFoodoraSystem {
                 .findFirst()
                 .orElseThrow(() -> new Exception("myfoodora.System.Order [" + orderName + "] not found or already completed"));
     }
-
     public Order getProgressOrder(String orderName) throws Exception {
         return this.getProgressOrders()
                 .stream()
@@ -119,7 +111,6 @@ public class MyFoodoraSystem {
                 .findFirst()
                 .orElseThrow(() -> new Exception("myfoodora.System.Order [" + orderName + "] not found or already completed"));
     }
-
     public ArrayList<Order> filterBetween(ArrayList<Order> orders, Date startDate, Date endDate) {
         return (ArrayList<Order>) orders.stream().filter(order -> {
                     Date date = order.getDate();
@@ -128,14 +119,26 @@ public class MyFoodoraSystem {
                 .collect(Collectors.toList());
     }
 
+    public DeliveryPolicy getDeliveryPolicy() {
+        return deliveryPolicy;
+    }
+    public ProfitPolicy getProfitPolicy() {
+        return profitPolicy;
+    }
+
+    public void setDeliveryPolicy(DeliveryPolicy deliveryPolicy) {
+        this.deliveryPolicy = deliveryPolicy;
+    }
+    public void setProfitPolicy(ProfitPolicy profitPolicy) {
+        this.profitPolicy = profitPolicy;
+    }
+
     public float getServiceFee() {
         return serviceFee;
     }
-
     public float getMarkupPercentage() {
         return markupPercentage;
     }
-
     public float getDeliveryCost() {
         return deliveryCost;
     }
@@ -143,15 +146,14 @@ public class MyFoodoraSystem {
     public void setServiceFee(float serviceFee) {
         this.serviceFee = serviceFee;
     }
-
     public void setMarkupPercentage(float markupPercentage) {
         this.markupPercentage = markupPercentage;
     }
-
     public void setDeliveryCost(float deliveryCost) {
         this.deliveryCost = deliveryCost;
     }
 
+    // Other methods
     public void addManager(Manager manager) {
         managers.add(manager);
         users.add(manager);
@@ -185,7 +187,6 @@ public class MyFoodoraSystem {
                 .stream()
                 .mapToDouble(Order::getPrice).sum();
     }
-
     public double getTotalIncomeBetween(Date startDate, Date endDate) {
         return filterBetween(getCompletedOrders(), startDate, endDate)
                 .stream()
@@ -197,29 +198,11 @@ public class MyFoodoraSystem {
         double totalIncome = getTotalIncome();
         return computeProfit(totalIncome, nbOrders, serviceFee, markupPercentage, deliveryCost);
     }
-
     public double getTotalProfitBetween(Date startDate, Date endDate) {
         int nbOrders = filterBetween(getCompletedOrders(), startDate, endDate).size();
         double totalIncome = getTotalIncomeBetween(startDate, endDate);
         return computeProfit(totalIncome, nbOrders, serviceFee, markupPercentage, deliveryCost);
     }
-
-    public DeliveryPolicy getDeliveryPolicy() {
-        return deliveryPolicy;
-    }
-
-    public void setDeliveryPolicy(DeliveryPolicy deliveryPolicy) {
-        this.deliveryPolicy = deliveryPolicy;
-    }
-
-    public ProfitPolicy getProfitPolicy() {
-        return profitPolicy;
-    }
-
-    public void setProfitPolicy(ProfitPolicy profitPolicy) {
-        this.profitPolicy = profitPolicy;
-    }
-
     public double computeProfitVariable(double targetProfit) {
         Date today = new Date();
         Date oneMonthAgo = Date.from(ZonedDateTime.now().minusMonths(1).toInstant());
@@ -241,10 +224,30 @@ public class MyFoodoraSystem {
                         .collect(Collectors.toList());
         return deliveryPolicy.selectCourier(order, onDutyCourier);
     }
-
     public void completeOrder(Order order, String date) {
         Courier bestCourier = getBestCourier(order);
-        order.completeOrder(bestCourier, date);
+        order.setDate(date);
+        order.setCourier(bestCourier);
+        order.computePrice();
+        order.setCompleted(true);
         bestCourier.setPosition(order.getCustomer().getAddress());
+    }
+
+    // Display
+    @Override
+    public String toString() {
+        return "-------- SYSTEM STATE -------- " + "\n*"
+                + managers.toString() + "\n*"
+                + customers.toString() + "\n*"
+                + restaurants.toString() + "\n*"
+                + couriers.toString() + "\n*"
+                + orders.toString() + "\n*"
+                + "-------- SYSTEM POLICIES --------" + "\n*"
+                + deliveryPolicy.toString() + "\n*"
+                + profitPolicy.toString() + "\n*"
+                + "-------- SYSTEM FEES --------" + "\n*"
+                + serviceFee + "\n*"
+                + markupPercentage + "\n*"
+                + deliveryCost + "\n";
     }
 }

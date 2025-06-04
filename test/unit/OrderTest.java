@@ -47,7 +47,8 @@ public class OrderTest {
         order.addMenu(meal1);
 
         double expectedPrice = dish1.getPrice() + meal1.getPrice();
-        assertEquals(expectedPrice, order.computePrice(), 0.001);
+        order.computePrice();
+        assertEquals(expectedPrice, order.getPrice(), 0.001);
     }
 
     @Test
@@ -56,7 +57,7 @@ public class OrderTest {
         order.addMenu(meal1);
 
         String dateStr = "2023/06/01 10:00:00";
-        order.completeOrder(courier, dateStr);
+        order.setDate(dateStr);
 
         // Date parsing to check correctness
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -65,18 +66,16 @@ public class OrderTest {
         assertEquals(expectedDate, order.getDate());
         assertTrue(order.isCompleted());
         assertEquals(courier, order.getCourier());
-        assertEquals(order.computePrice(), order.getPrice(), 0.001);
     }
 
     @Test
     public void testCompleteOrderWithEmptyDateUsesCurrentDate() {
         order.addSingleDish(dish1);
 
-        order.completeOrder(courier, "");
+        order.setDate("");
 
         assertNotNull(order.getDate());
         assertTrue(order.isCompleted());
         assertEquals(courier, order.getCourier());
-        assertEquals(order.computePrice(), order.getPrice(), 0.001);
     }
 }

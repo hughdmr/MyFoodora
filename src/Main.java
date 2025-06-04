@@ -1,4 +1,4 @@
-import system.*;
+import system.MyFoodoraCLI;
 
 public class Main {
     public static void main(String[] args) {

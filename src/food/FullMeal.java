@@ -11,11 +11,9 @@ public class FullMeal extends Meal {
 
     // Getters and Setters
     public Dish getStarter() { return starter; }
-
     public Dish getMain() {
         return main;
     }
-
     public Dish getDessert() { return dessert; }
 
     // Other methods

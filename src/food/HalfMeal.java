@@ -12,7 +12,6 @@ public class HalfMeal extends Meal {
     public Dish getMain() {
         return main;
     }
-
     public Dish getSecond() {
         return second;
     }

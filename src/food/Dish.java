@@ -25,21 +25,17 @@ public class Dish {
     public String getName() {
         return name;
     }
-    public void setName(String name) { this.name = name; }
-
     public double getPrice() {
         return price;
     }
-    public void setPrice(double dishPrice) { this.price = dishPrice; }
-
-    public Category getCategory() {
-        return category;
-    }
-    public void setCategory(Category category) { this.category = category; }
-
+    public Category getCategory() { return category; }
     public Type getType() {
         return type;
     }
+
+    public void setName(String name) { this.name = name; }
+    public void setPrice(double dishPrice) { this.price = dishPrice; }
+    public void setCategory(Category category) { this.category = category; }
     public void setType(Type type) { this.type = type; }
 
     // Display

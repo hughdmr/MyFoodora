@@ -1,5 +1,8 @@
 package system;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 import fidelity.BasicFidelityCard;
 import food.Dish;
 import food.Meal;
@@ -7,13 +10,10 @@ import users.Courier;
 import users.Customer;
 import users.Restaurant;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 public class Order {
-    private String orderName;
-    private Restaurant restaurant;
-    private Customer customer;
+    private final String name;
+    private final Restaurant restaurant;
+    private final Customer customer;
     private Courier courier;
     private double price;
     private Date date;
@@ -22,95 +22,76 @@ public class Order {
     private ArrayList<Meal> mealsList = new ArrayList<>();
 
     public Order(String orderName, Restaurant restaurant, Customer customer) {
-        this.orderName = orderName;
+        this.name = orderName;
         this.restaurant = restaurant;
         this.customer = customer;
     }
 
+    // Getters and Setters
     public String getName() {
-        return orderName;
+        return name;
     }
-
     public Restaurant getRestaurant() {
         return restaurant;
     }
-
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
-    }
-
     public Customer getCustomer() {
         return customer;
     }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
     public Courier getCourier() {
         return courier;
     }
+    public double getPrice() {
+        return price;
+    }
+    public Date getDate() {
+        return date;
+    }
+    public boolean isCompleted() {
+        return completed;
+    }
+    public ArrayList<Dish> getDishesList() {
+        return dishesList;
+    }
+    public ArrayList<Meal> getMealsList() { return mealsList; }
 
     public void setCourier(Courier courier) {
         this.courier = courier;
     }
-
-    public double getPrice() {
-        return price;
+    public void setDate(String date) {
+        if (date.isEmpty()) {
+            this.date = new Date();
+        } else {
+            this.date = new Date(date);
+        }
     }
+    public void setCompleted(boolean completed) { this.completed = completed; }
 
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public boolean isCompleted() {
-        return completed;
-    }
-
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
-    }
-
+    // Other methods
     public void addSingleDish(Dish dish) {
         dishesList.add(dish);
-    }
-
-    public ArrayList<Meal> getMealsList() {
-        return mealsList;
-    }
-
-    public ArrayList<Dish> getDishesList() {
-        return dishesList;
     }
 
     public void addMenu(Meal meal) {
         mealsList.add(meal);
     }
 
-    public double computePrice() {
+    public void computePrice() {
         double dishesPrice = dishesList.stream().mapToDouble(Dish::getPrice).sum();
         double mealsPrice = mealsList.stream().mapToDouble(
                 meal -> {
-                    if (meal.isMealOfTheWeek()
-                            && customer.getFidelityCard().equals(new BasicFidelityCard()))
+                    if (meal.isMealOfTheWeek() && customer.getFidelityCard().equals(new BasicFidelityCard()))
                         return meal.getPrice() * restaurant.getSpecialDiscount();
                     else return meal.getPrice() * restaurant.getGenericDiscount();
                 }).sum();
-        return dishesPrice + mealsPrice;
+        this.price = dishesPrice + mealsPrice;
     }
 
-    public void completeOrder(Courier courier, String date) {
-        if (date.isEmpty()) {
-            this.date = new Date();
-        } else {
-            this.date = new Date(date);
-        }
-        this.price = computePrice();
-        this.courier = courier;
-        this.completed = true;
+    // Display
+    @Override
+    public String toString() {
+        return "[(ORDER) - | name: " + name
+                + " | restaurant: " + restaurant.getName() + " | customer: " + customer.getUsername()
+                + " | courier: " + courier.getUsername() + " | price: " + price
+                + " | date: " + date + " | completed: " + completed + " ]";
     }
 }
