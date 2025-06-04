@@ -3,7 +3,6 @@ import java.util.UUID;
 
 public class Restaurant extends User {
     private String name;
-    private UUID id;
     private ArrayList<Double> position;
     private ArrayList<Dish> menu = new ArrayList<>();
     private ArrayList<Meal> meals = new ArrayList<>();
@@ -15,15 +14,10 @@ public class Restaurant extends User {
         super(username, password);
         this.name = name;
         this.position = position;
-        this.id = UUID.randomUUID();
     }
 
     public String getName() {
         return name;
-    }
-
-    public UUID getId() {
-        return id;
     }
 
     public void setName(String name) {

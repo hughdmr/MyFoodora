@@ -1,12 +1,17 @@
 public class User {
-    private static int id;
+    private static int counter;
+    private int id;
     private String username;
     private String password;
 
     public User(String username, String password) {
-        id++;
+        this.id = ++counter;
         this.username = username;
         this.password = password;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getUsername() {
