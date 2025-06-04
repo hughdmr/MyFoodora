@@ -17,11 +17,11 @@ public class FullMealTest {
 
     @Before
     public void setUp() {
-        fullMeal = new FullMeal("Healthy Combo", Meal.MealType.STANDARD, false);
+        fullMeal = new FullMeal("Healthy Combo", Meal.Type.STANDARD, false);
 
-        starter = new Dish("Salad", Dish.DishCategory.STARTER, Dish.DishType.VEGETARIAN, 5.0);
-        main = new Dish("Vegetarian Pasta", Dish.DishCategory.MAIN, Dish.DishType.VEGETARIAN, 10.0);
-        dessert = new Dish("Fruit Salad", Dish.DishCategory.DESSERT, Dish.DishType.VEGETARIAN, 4.0);
+        starter = new Dish("Salad", Dish.Category.STARTER, Dish.Type.VEGETARIAN, 5.0);
+        main = new Dish("Vegetarian Pasta", Dish.Category.MAIN, Dish.Type.VEGETARIAN, 10.0);
+        dessert = new Dish("Fruit Salad", Dish.Category.DESSERT, Dish.Type.VEGETARIAN, 4.0);
     }
 
     @Test
@@ -41,20 +41,20 @@ public class FullMealTest {
         fullMeal.addDish(main);
         fullMeal.addDish(dessert);
 
-        assertEquals(Meal.MealType.VEGETARIAN, fullMeal.getMealType());
+        assertEquals(Meal.Type.VEGETARIAN, fullMeal.getType());
     }
 
     @Test
     public void testMealTypeUpdatedToGlutenFreeWhenAllDishesAreGlutenFree() {
-        Dish gfStarter = new Dish("GF Salad", Dish.DishCategory.STARTER, Dish.DishType.GLUTEN_FREE, 5.0);
-        Dish gfMain = new Dish("GF Main", Dish.DishCategory.MAIN, Dish.DishType.GLUTEN_FREE, 10.0);
-        Dish gfDessert = new Dish("GF Cake", Dish.DishCategory.DESSERT, Dish.DishType.GLUTEN_FREE, 4.0);
+        Dish gfStarter = new Dish("GF Salad", Dish.Category.STARTER, Dish.Type.GLUTEN_FREE, 5.0);
+        Dish gfMain = new Dish("GF Main", Dish.Category.MAIN, Dish.Type.GLUTEN_FREE, 10.0);
+        Dish gfDessert = new Dish("GF Cake", Dish.Category.DESSERT, Dish.Type.GLUTEN_FREE, 4.0);
 
         fullMeal.addDish(gfStarter);
         fullMeal.addDish(gfMain);
         fullMeal.addDish(gfDessert);
 
-        assertEquals(Meal.MealType.GLUTEN_FREE, fullMeal.getMealType());
+        assertEquals(Meal.Type.GLUTEN_FREE, fullMeal.getType());
     }
 
     @Test

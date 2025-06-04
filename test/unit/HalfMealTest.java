@@ -16,10 +16,10 @@ public class HalfMealTest {
 
     @Before
     public void setUp() {
-        halfMeal = new HalfMeal("Quick Bite", Meal.MealType.STANDARD, false);
+        halfMeal = new HalfMeal("Quick Bite", Meal.Type.STANDARD, false);
 
-        main = new Dish("Veggie Burger", Dish.DishCategory.MAIN, Dish.DishType.VEGETARIAN, 8.5);
-        starterAsSecond = new Dish("Soup", Dish.DishCategory.STARTER, Dish.DishType.VEGETARIAN, 3.5);
+        main = new Dish("Veggie Burger", Dish.Category.MAIN, Dish.Type.VEGETARIAN, 8.5);
+        starterAsSecond = new Dish("Soup", Dish.Category.STARTER, Dish.Type.VEGETARIAN, 3.5);
     }
 
     @Test
@@ -36,18 +36,18 @@ public class HalfMealTest {
         halfMeal.addDish(main);
         halfMeal.addDish(starterAsSecond);
 
-        assertEquals(Meal.MealType.VEGETARIAN, halfMeal.getMealType());
+        assertEquals(Meal.Type.VEGETARIAN, halfMeal.getType());
     }
 
     @Test
     public void testMealTypeUpdatedToGlutenFree() {
-        Dish gfMain = new Dish("GF Pasta", Dish.DishCategory.MAIN, Dish.DishType.GLUTEN_FREE, 9.0);
-        Dish gfDessertAsSecond = new Dish("GF Brownie", Dish.DishCategory.DESSERT, Dish.DishType.GLUTEN_FREE, 4.0);
+        Dish gfMain = new Dish("GF Pasta", Dish.Category.MAIN, Dish.Type.GLUTEN_FREE, 9.0);
+        Dish gfDessertAsSecond = new Dish("GF Brownie", Dish.Category.DESSERT, Dish.Type.GLUTEN_FREE, 4.0);
 
         halfMeal.addDish(gfMain);
         halfMeal.addDish(gfDessertAsSecond);
 
-        assertEquals(Meal.MealType.GLUTEN_FREE, halfMeal.getMealType());
+        assertEquals(Meal.Type.GLUTEN_FREE, halfMeal.getType());
     }
 
     @Test

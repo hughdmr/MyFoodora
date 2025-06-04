@@ -12,14 +12,14 @@ public class DishTest {
 
     @Before
     public void setUp() {
-        dish = new Dish("Spaghetti", Dish.DishCategory.MAIN, Dish.DishType.STANDARD, 12.5);
+        dish = new Dish("Spaghetti", Dish.Category.MAIN, Dish.Type.STANDARD, 12.5);
     }
 
     @Test
     public void testConstructorInitializesFieldsCorrectly() {
         assertEquals("Spaghetti", dish.getName());
-        assertEquals(Dish.DishCategory.MAIN, dish.getDishCategory());
-        assertEquals(Dish.DishType.STANDARD, dish.getDishType());
+        assertEquals(Dish.Category.MAIN, dish.getCategory());
+        assertEquals(Dish.Type.STANDARD, dish.getType());
         assertEquals(12.5, dish.getPrice(), 0.001);
     }
 
@@ -37,14 +37,14 @@ public class DishTest {
 
     @Test
     public void testSetDishCategory() {
-        dish.setDishCategory(Dish.DishCategory.DESSERT);
-        assertEquals(Dish.DishCategory.DESSERT, dish.getDishCategory());
+        dish.setCategory(Dish.Category.DESSERT);
+        assertEquals(Dish.Category.DESSERT, dish.getCategory());
     }
 
     @Test
     public void testSetDishType() {
-        dish.setDishType(Dish.DishType.VEGETARIAN);
-        assertEquals(Dish.DishType.VEGETARIAN, dish.getDishType());
+        dish.setType(Dish.Type.VEGETARIAN);
+        assertEquals(Dish.Type.VEGETARIAN, dish.getType());
     }
 
     @Test

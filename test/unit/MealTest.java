@@ -14,22 +14,22 @@ public class MealTest {
     @Before
     public void setUp() {
         // Création d'une instance via une sous-classe fictive ou anonyme (car myfoodora.Meal est protégée)
-        meal = new Meal("Test myfoodora.Meal", Meal.MealType.STANDARD, Meal.MealSize.HALF, false) {};
+        meal = new Meal("Test myfoodora.Meal", Meal.Type.STANDARD, Meal.Size.HALF, false) {};
     }
 
     @Test
     public void testGettersAndSetters() {
         assertEquals("Test myfoodora.Meal", meal.getName());
-        assertEquals(Meal.MealType.STANDARD, meal.getMealType());
-        assertEquals(Meal.MealSize.HALF, meal.getMealSize());
+        assertEquals(Meal.Type.STANDARD, meal.getType());
+        assertEquals(Meal.Size.HALF, meal.getSize());
         assertFalse(meal.isMealOfTheWeek());
 
         meal.setName("Updated myfoodora.Meal");
-        meal.setMealType(Meal.MealType.VEGETARIAN);
+        meal.setType(Meal.Type.VEGETARIAN);
         meal.setMealOfTheWeek(true);
 
         assertEquals("Updated myfoodora.Meal", meal.getName());
-        assertEquals(Meal.MealType.VEGETARIAN, meal.getMealType());
+        assertEquals(Meal.Type.VEGETARIAN, meal.getType());
         assertTrue(meal.isMealOfTheWeek());
     }
 
@@ -45,9 +45,9 @@ public class MealTest {
 
     @Test
     public void testGetMealTypeFromDishType() {
-        assertEquals(Meal.MealType.STANDARD, Meal.getMealType(Dish.DishType.STANDARD));
-        assertEquals(Meal.MealType.VEGETARIAN, Meal.getMealType(Dish.DishType.VEGETARIAN));
-        assertEquals(Meal.MealType.GLUTEN_FREE, Meal.getMealType(Dish.DishType.GLUTEN_FREE));
+        assertEquals(Meal.Type.STANDARD, Meal.getMealType(Dish.Type.STANDARD));
+        assertEquals(Meal.Type.VEGETARIAN, Meal.getMealType(Dish.Type.VEGETARIAN));
+        assertEquals(Meal.Type.GLUTEN_FREE, Meal.getMealType(Dish.Type.GLUTEN_FREE));
     }
 
     @Test
@@ -57,7 +57,7 @@ public class MealTest {
 
     @Test
     public void testAddDishDoesNothingInBaseClass() {
-        Dish dish = new Dish("Soup", Dish.DishCategory.STARTER, Dish.DishType.STANDARD, 4.0);
+        Dish dish = new Dish("Soup", Dish.Category.STARTER, Dish.Type.STANDARD, 4.0);
         // Ne devrait rien faire car pas de logique dans myfoodora.Meal
         meal.addDish(dish);
         // Pas de getDishs() pour vérifier, donc on vérifie juste qu'aucune exception ne se produit

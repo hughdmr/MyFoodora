@@ -1,69 +1,51 @@
 package food;
 
 public class Dish {
-    public enum DishCategory {
-        STARTER,
-        MAIN,
-        DESSERT
+    public enum Category {
+        STARTER, MAIN, DESSERT
     }
 
-    public enum DishType {
-        STANDARD,
-        VEGETARIAN,
-        GLUTEN_FREE,
+    public enum Type {
+        STANDARD, VEGETARIAN, GLUTEN_FREE,
     }
 
     private String name;
-    private DishCategory dishCategory;
-    private DishType dishType;
-    private double dishPrice;
+    private Category category;
+    private Type type;
+    private double price;
 
-    public Dish(String name, DishCategory dishCategory, DishType foodCategory, double dishPrice) {
+    public Dish(String name, Category category, Type type, double price) {
         this.name = name;
-        this.dishCategory = dishCategory;
-        this.dishType = foodCategory;
-        this.dishPrice = dishPrice;
+        this.category = category;
+        this.type = type;
+        this.price = price;
     }
 
+    // Getters and Setters
     public String getName() {
         return name;
     }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    public void setName(String name) { this.name = name; }
 
     public double getPrice() {
-        return dishPrice;
+        return price;
     }
+    public void setPrice(double dishPrice) { this.price = dishPrice; }
 
-    public void setPrice(double dishPrice) {
-        this.dishPrice = dishPrice;
+    public Category getCategory() {
+        return category;
     }
+    public void setCategory(Category category) { this.category = category; }
 
-    public DishCategory getDishCategory() {
-        return dishCategory;
+    public Type getType() {
+        return type;
     }
+    public void setType(Type type) { this.type = type; }
 
-    public void setDishCategory(DishCategory dishCategory) {
-        this.dishCategory = dishCategory;
-    }
-
-    public DishType getDishType() {
-        return dishType;
-    }
-
-    public void setDishType(DishType dishType) {
-        this.dishType = dishType;
-    }
-
+    // Display
     @Override
     public String toString() {
-        return "myfoodora.Dish{" +
-                "name='" + name + '\'' +
-                ", category=" + dishCategory +
-                ", foodCategory='" + dishType + '\'' +
-                ", unitPrice=" + dishPrice +
-                '}';
+        return "[(DISH) - | name: " + name + " | category: " + category
+                + " | type: " + type + " | price: " + price + " ]";
     }
 }

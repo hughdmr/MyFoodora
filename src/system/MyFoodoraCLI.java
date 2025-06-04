@@ -349,8 +349,8 @@ public class MyFoodoraCLI {
             return;
         }
         String dishName = args[0];
-        Dish.DishCategory dishCategory = Dish.DishCategory.valueOf(args[1].toUpperCase());
-        Dish.DishType foodCategory = Dish.DishType.valueOf(args[2].toUpperCase());
+        Dish.Category dishCategory = Dish.Category.valueOf(args[1].toUpperCase());
+        Dish.Type foodCategory = Dish.Type.valueOf(args[2].toUpperCase());
         double unitPrice = Double.parseDouble(args[3]);
         Dish dish = new Dish(dishName, dishCategory, foodCategory, unitPrice);
 
@@ -368,13 +368,13 @@ public class MyFoodoraCLI {
             return;
         }
         String mealName = args[0];
-        Meal.MealType mealType = Meal.MealType.valueOf(args[1].toUpperCase());
-        Meal.MealSize mealSize = Meal.MealSize.valueOf(args[2].toUpperCase());
-        if (mealSize == Meal.MealSize.FULL) {
+        Meal.Type mealType = Meal.Type.valueOf(args[1].toUpperCase());
+        Meal.Size mealSize = Meal.Size.valueOf(args[2].toUpperCase());
+        if (mealSize == Meal.Size.FULL) {
             Meal meal = new FullMeal(mealName, mealType, false);
             restaurant.addMeal(meal);
         }
-        else if (mealSize == Meal.MealSize.HALF) {
+        else if (mealSize == Meal.Size.HALF) {
             Meal meal = new HalfMeal(mealName, mealType, false);
             restaurant.addMeal(meal);
         }

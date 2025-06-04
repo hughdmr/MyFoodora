@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.Date;
 
-
 public class MyFoodoraSystem {
     private ArrayList<User> users = new ArrayList<>();
     private ArrayList<Manager> managers = new ArrayList<>();

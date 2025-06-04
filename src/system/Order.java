@@ -1,5 +1,6 @@
 package system;
 
+import fidelity.BasicFidelityCard;
 import food.Dish;
 import food.Meal;
 import users.Courier;
@@ -94,7 +95,9 @@ public class Order {
         double dishesPrice = dishesList.stream().mapToDouble(Dish::getPrice).sum();
         double mealsPrice = mealsList.stream().mapToDouble(
                 meal -> {
-                    if (meal.isMealOfTheWeek()) return meal.getPrice() * restaurant.getSpecialDiscount();
+                    if (meal.isMealOfTheWeek()
+                            && customer.getFidelityCard().equals(new BasicFidelityCard()))
+                        return meal.getPrice() * restaurant.getSpecialDiscount();
                     else return meal.getPrice() * restaurant.getGenericDiscount();
                 }).sum();
         return dishesPrice + mealsPrice;

@@ -23,8 +23,8 @@ public class RestaurantTest {
 
         restaurant = new Restaurant("restoUser", "pass", "Le Resto", position);
 
-        testDish = new Dish("Pasta", Dish.DishCategory.MAIN, Dish.DishType.STANDARD, 10.0);
-        testMeal = new Meal("Midi", Meal.MealType.STANDARD, Meal.MealSize.FULL, false);
+        testDish = new Dish("Pasta", Dish.Category.MAIN, Dish.Type.STANDARD, 10.0);
+        testMeal = new Meal("Midi", Meal.Type.STANDARD, Meal.Size.FULL, false);
     }
 
     @Test

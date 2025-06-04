@@ -32,8 +32,8 @@ public class OrderTest {
         courier = new Courier("Jane Rider", "67890", "Jane", "Rider", new ArrayList<>(), "0000000");
         order = new Order("Order1", restaurant, customer);
 
-        dish1 = new Dish("Pizza", Dish.DishCategory.MAIN, Dish.DishType.STANDARD, 12.5);
-        meal1 = new Meal("Lunch Menu", Meal.MealType.STANDARD, Meal.MealSize.FULL, false) {
+        dish1 = new Dish("Pizza", Dish.Category.MAIN, Dish.Type.STANDARD, 12.5);
+        meal1 = new Meal("Lunch Menu", Meal.Type.STANDARD, Meal.Size.FULL, false) {
             @Override
             public double getPrice() {
                 return 20.0;

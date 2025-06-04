@@ -4,38 +4,11 @@ public class HalfMeal extends Meal {
     private Dish main;
     private Dish second;
 
-    public HalfMeal(String name, MealType type, boolean mealOfTheWeek) {
-        super(name, type, MealSize.HALF, mealOfTheWeek);
+    public HalfMeal(String name, Type type, boolean mealOfTheWeek) {
+        super(name, type, Size.HALF, mealOfTheWeek);
     }
 
-    public void addDish(Dish dish) {
-        // Add dish to myfoodora.Meal according to the category
-        Dish.DishCategory dishCategory = dish.getDishCategory();
-        switch (dishCategory) {
-            case STARTER, DESSERT -> this.second = dish;
-            case MAIN -> this.main = dish;
-        }
-        // Check myfoodora.Meal Type status
-        if (this.main != null && this.second != null
-        && getMealType(this.main.getDishType()).equals(MealType.VEGETARIAN)
-        && getMealType(this.second.getDishType()).equals(MealType.VEGETARIAN)) {
-            super.setMealType(MealType.VEGETARIAN);
-        }
-        else if (this.main != null && this.second != null
-        && getMealType(this.main.getDishType()).equals(MealType.GLUTEN_FREE)
-        && getMealType(this.second.getDishType()).equals(MealType.GLUTEN_FREE)) {
-            super.setMealType(MealType.GLUTEN_FREE);
-        }
-        else if (this.main == null || this.second == null) {
-            System.out.println("The half menu is not complete, don't forget to add main and second dish");
-        }
-    }
-
-
-    public void setMealofTheWeek(boolean mealOfTheWeek) {
-        super.setMealOfTheWeek(mealOfTheWeek);
-    }
-
+    // Getters and Setters
     public Dish getMain() {
         return main;
     }
@@ -44,15 +17,40 @@ public class HalfMeal extends Meal {
         return second;
     }
 
-    public double getPrice() {
-        return main.getPrice() + second.getPrice();
+    // Other methods
+    public double getPrice() { return main.getPrice() + second.getPrice(); }
+
+    public void addDish(Dish dish) {
+        // Add dish to Meal according to the category
+        Dish.Category dishCategory = dish.getCategory();
+        switch (dishCategory) {
+            case STARTER, DESSERT -> this.second = dish;
+            case MAIN -> this.main = dish;
+        }
+
+        // Update Meal status and Meal Type
+        if (this.main != null && this.second != null) {
+            Type mainType = getMealType(this.main.getType());
+            Type secondType = getMealType(this.second.getType());
+            // Meal is Gluten Free
+            if (mainType.equals(Type.GLUTEN_FREE) && secondType.equals(Type.GLUTEN_FREE)) {
+                super.setType(Type.GLUTEN_FREE);
+            }
+            // Meal is Vegetarian
+            else if (mainType.equals(Type.VEGETARIAN) && secondType.equals(Type.VEGETARIAN)) {
+                super.setType(Type.VEGETARIAN);
+            }
+            this.setComplete(true);
+        }
+        else System.out.println("The half menu is not complete, don't forget to add main and second");
     }
 
+    // Display
+    @Override
     public String toString() {
-        return "Half myfoodora.Meal: "
-                + super.toString()
-                + "\nMain: " + main
-                + "\nSecond: " + second;
+        return "[(HALF MEAL) - | " + super.toString() + "\n"
+                + " -> Main: " + main + "\n"
+                + " -> Second: " + second + " ]";
     }
 }
 

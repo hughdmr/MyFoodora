@@ -1,82 +1,60 @@
 package food;
 
 public class Meal {
-    public enum MealType {
+    public enum Type {
         STANDARD, VEGETARIAN, GLUTEN_FREE
     }
 
-    public enum MealSize {
+    public enum Size {
         HALF, FULL
     }
 
     private String name;
-    private MealType mealType;
-    private MealSize mealSize;
-    private boolean complete = false;
+    private Type type;
+    private final Size size;
     private boolean mealOfTheWeek;
+    private boolean complete = false;
 
-    public Meal(String name, MealType mealType, MealSize mealSize, boolean mealOfTheWeek) {
+    public Meal(String name, Type type, Size size, boolean mealOfTheWeek) {
         this.name = name;
-        this.mealType = mealType;
-        this.mealSize = mealSize;
+        this.type = type;
+        this.size = size;
         this.mealOfTheWeek = mealOfTheWeek;
     }
 
+    // Getters and Setters
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public Type getType() { return type; }
+    public void setType(Type type) { this.type = type; }
+
+    public Size getSize() { return size; }
+
+    public boolean isMealOfTheWeek() { return mealOfTheWeek; }
+    public void setMealOfTheWeek(boolean mealOfTheWeek) { this.mealOfTheWeek = mealOfTheWeek; }
+
+    public boolean isComplete() { return complete; }
+    public void setComplete(boolean complete) { this.complete = complete; }
+
+    // Other methods
     public double getPrice() { return 0; }
 
     public void addDish(Dish dish) {}
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public MealType getMealType() {
-        return mealType;
-    }
-
-    public void setMealType(MealType mealType) {
-        this.mealType = mealType;
-    }
-
-    public MealSize getMealSize() {
-        return mealSize;
-    }
-
-    public void setMealOfTheWeek(boolean mealOfTheWeek) {
-        this.mealOfTheWeek = mealOfTheWeek;
-    }
-
-    public boolean isMealOfTheWeek() {
-        return mealOfTheWeek;
-    }
-
-    public boolean isComplete() {
-        return complete;
-    }
-
-    public void setComplete(boolean complete) {
-        this.complete = complete;
-    }
-
-    public static MealType getMealType(Dish.DishType dishType) {
+    public static Type getMealType(Dish.Type dishType) {
         return switch (dishType) {
-            case STANDARD -> MealType.STANDARD;
-            case VEGETARIAN -> MealType.VEGETARIAN;
-            case GLUTEN_FREE -> MealType.GLUTEN_FREE;
+            case STANDARD -> Type.STANDARD;
+            case VEGETARIAN -> Type.VEGETARIAN;
+            case GLUTEN_FREE -> Type.GLUTEN_FREE;
         };
     }
 
+    // Display
+    @Override
     public String toString() {
-        return "myfoodora.Meal: ["
-                + "name: " + name
-                + ", mealType: " + mealType
-                + ", mealSize: " + mealSize
-                + ", mealOfTheWeek: " + mealOfTheWeek
-                + "]";
+        return "[(MEAL) - | name: " + name + " | type: " + type
+                + " | size: " + size + " | mealOfTheWeek: " + mealOfTheWeek + " ]";
     }
 }
 
