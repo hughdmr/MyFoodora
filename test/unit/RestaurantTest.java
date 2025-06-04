@@ -1,9 +1,13 @@
+package unit;
+
 import org.junit.Before;
 import org.junit.Test;
-
 import java.util.ArrayList;
-
 import static org.junit.Assert.*;
+
+import users.Restaurant;
+import food.Meal;
+import food.Dish;
 
 public class RestaurantTest {
 

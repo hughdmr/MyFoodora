@@ -1,7 +1,12 @@
+package unit;
+
 import org.junit.Before;
 import org.junit.Test;
-
 import static org.junit.Assert.*;
+
+import food.HalfMeal;
+import food.Meal;
+import food.Dish;
 
 public class HalfMealTest {
 

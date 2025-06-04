@@ -1,9 +1,11 @@
+package unit;
+
 import org.junit.Before;
 import org.junit.Test;
-
 import java.util.ArrayList;
-
 import static org.junit.Assert.*;
+
+import users.Courier;
 
 public class CourierTest {
 

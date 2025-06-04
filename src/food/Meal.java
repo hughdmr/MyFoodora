@@ -14,7 +14,7 @@ public class Meal {
     private MealSize mealSize;
     private boolean mealOfTheWeek;
 
-    protected Meal(String name, MealType mealType, MealSize mealSize, boolean mealOfTheWeek) {
+    public Meal(String name, MealType mealType, MealSize mealSize, boolean mealOfTheWeek) {
         this.name = name;
         this.mealType = mealType;
         this.mealSize = mealSize;
