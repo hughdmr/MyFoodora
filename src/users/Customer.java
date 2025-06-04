@@ -1,3 +1,5 @@
+package users;
+
 import fidelity.BasicFidelityCard;
 import fidelity.FidelityCard;
 import fidelity.PointFidelityCard;

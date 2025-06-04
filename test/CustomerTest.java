@@ -73,7 +73,7 @@ public class CustomerTest {
     public void testCalculateFidelityPriceWithBasicCard() {
         double price = 100.0;
         double result = customer.calculateFidelityPrice(price);
-        assertEquals(100.0, result, 0.001); // BasicFidelityCard returns full price
+        assertEquals(100.0, result, 0.001); // fidelity.BasicFidelityCard returns full price
     }
 
     @Test
@@ -93,7 +93,7 @@ public class CustomerTest {
         assertTrue(output.contains("Alice Martin"));
         assertTrue(output.contains("alice@example.com"));
         assertTrue(output.contains("0612345678"));
-        assertTrue(output.contains("BasicFidelityCard"));
+        assertTrue(output.contains("fidelity.BasicFidelityCard"));
     }
 
     @Test
@@ -103,7 +103,7 @@ public class CustomerTest {
         customer.addPoints(30);
         String output = customer.toString();
 
-        assertTrue(output.contains("PointFidelityCard"));
+        assertTrue(output.contains("fidelity.PointFidelityCard"));
         assertTrue(output.contains("Points: 30"));
     }
 }

@@ -1,4 +1,4 @@
-import java.util.List;
+package food;
 
 public class FullMeal extends Meal {
     private Dish starter;
@@ -10,14 +10,14 @@ public class FullMeal extends Meal {
     }
 
     public void addDish(Dish dish) {
-        // Add dish to Meal according to the category
+        // Add dish to myfoodora.Meal according to the category
         Dish.DishCategory dishCategory = dish.getDishCategory();
         switch (dishCategory) {
             case STARTER -> this.starter = dish;
             case MAIN -> this.main = dish;
             case DESSERT -> this.dessert = dish;
         }
-        // Check Meal Type status
+        // Check myfoodora.Meal Type status
         if (this.starter != null && this.main != null && this.dessert != null
         && getMealType(this.starter.getDishType()).equals(MealType.VEGETARIAN)
         && getMealType(this.main.getDishType()).equals(MealType.VEGETARIAN)
@@ -40,7 +40,7 @@ public class FullMeal extends Meal {
     }
 
 //    @Override
-//    public List<Dish> getDishs() {
+//    public List<myfoodora.Dish> getDishs() {
 //        return List.of(starter, main, dessert);
 //    }
 
@@ -57,7 +57,7 @@ public class FullMeal extends Meal {
     }
 
     public String toString() {
-        return "Full Meal: "
+        return "Full myfoodora.Meal: "
                 + super.toString()
                 + "\nStarter: " + starter
                 + "\nMain: " + main

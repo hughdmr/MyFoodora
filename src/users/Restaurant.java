@@ -1,5 +1,9 @@
+package users;
+
+import food.Dish;
+import food.Meal;
+
 import java.util.ArrayList;
-import java.util.UUID;
 
 public class Restaurant extends User {
     private String name;
@@ -50,10 +54,10 @@ public class Restaurant extends User {
                 .stream()
                 .filter(m -> m.getName().equals(dishName))
                 .findFirst()
-                .orElseThrow(() -> new Exception("Dish not found: " + dishName));
+                .orElseThrow(() -> new Exception("myfoodora.Dish not found: " + dishName));
     }
 
-    // Meal management
+    // myfoodora.Meal management
     public void addMeal(Meal meal) {
         this.meals.add(meal);
     }
@@ -71,7 +75,7 @@ public class Restaurant extends User {
                     .stream()
                     .filter(m -> m.getName().equals(mealName))
                     .findFirst()
-                    .orElseThrow(() -> new Exception("Meal not found: " + mealName));
+                    .orElseThrow(() -> new Exception("myfoodora.Meal not found: " + mealName));
         return meal;
     }
 

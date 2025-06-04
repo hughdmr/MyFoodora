@@ -9,22 +9,22 @@ public class MealTest {
 
     @Before
     public void setUp() {
-        // Création d'une instance via une sous-classe fictive ou anonyme (car Meal est protégée)
-        meal = new Meal("Test Meal", Meal.MealType.STANDARD, Meal.MealSize.HALF, false) {};
+        // Création d'une instance via une sous-classe fictive ou anonyme (car myfoodora.Meal est protégée)
+        meal = new Meal("Test myfoodora.Meal", Meal.MealType.STANDARD, Meal.MealSize.HALF, false) {};
     }
 
     @Test
     public void testGettersAndSetters() {
-        assertEquals("Test Meal", meal.getName());
+        assertEquals("Test myfoodora.Meal", meal.getName());
         assertEquals(Meal.MealType.STANDARD, meal.getMealType());
         assertEquals(Meal.MealSize.HALF, meal.getMealSize());
         assertFalse(meal.isMealOfTheWeek());
 
-        meal.setName("Updated Meal");
+        meal.setName("Updated myfoodora.Meal");
         meal.setMealType(Meal.MealType.VEGETARIAN);
         meal.setMealOfTheWeek(true);
 
-        assertEquals("Updated Meal", meal.getName());
+        assertEquals("Updated myfoodora.Meal", meal.getName());
         assertEquals(Meal.MealType.VEGETARIAN, meal.getMealType());
         assertTrue(meal.isMealOfTheWeek());
     }
@@ -33,7 +33,7 @@ public class MealTest {
     public void testToStringContainsFields() {
         String output = meal.toString();
 
-        assertTrue(output.contains("name: Test Meal"));
+        assertTrue(output.contains("name: Test myfoodora.Meal"));
         assertTrue(output.contains("mealType: STANDARD"));
         assertTrue(output.contains("mealSize: HALF"));
         assertTrue(output.contains("mealOfTheWeek: false"));
@@ -54,7 +54,7 @@ public class MealTest {
     @Test
     public void testAddDishDoesNothingInBaseClass() {
         Dish dish = new Dish("Soup", Dish.DishCategory.STARTER, Dish.DishType.STANDARD, 4.0);
-        // Ne devrait rien faire car pas de logique dans Meal
+        // Ne devrait rien faire car pas de logique dans myfoodora.Meal
         meal.addDish(dish);
         // Pas de getDishs() pour vérifier, donc on vérifie juste qu'aucune exception ne se produit
     }

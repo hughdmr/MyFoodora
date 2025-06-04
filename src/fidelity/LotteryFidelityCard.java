@@ -1,6 +1,7 @@
-import fidelity.FidelityCard;
+package fidelity;
 
 import java.util.Random;
+import users.Customer;
 
 public class LotteryFidelityCard implements FidelityCard {
     private static final double WIN_PROBABILITY = 0.05; // 5%

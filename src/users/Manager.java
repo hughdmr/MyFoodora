@@ -1,3 +1,5 @@
+package users;
+
 public class Manager extends User {
     private String firstName;
     private String lastName;

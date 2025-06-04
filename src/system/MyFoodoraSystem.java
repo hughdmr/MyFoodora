@@ -1,3 +1,5 @@
+package system;
+
 import users.*;
 import policies.delivery.DeliveryPolicy;
 import policies.delivery.FairOccupationDeliveryPolicy;
@@ -74,7 +76,7 @@ public class MyFoodoraSystem {
                 .stream()
                 .filter(m -> m.getUsername().equals(courierName))
                 .findFirst()
-                .orElseThrow(() -> new Exception("myfoodora.Order [" + courierName + "] not found or already completed"));
+                .orElseThrow(() -> new Exception("myfoodora.System.Order [" + courierName + "] not found or already completed"));
     }
 
     public ArrayList<Courier> getCourierSortedByDeliveries() {
@@ -110,7 +112,7 @@ public class MyFoodoraSystem {
                 .stream()
                 .filter(m -> m.getName().equals(orderName))
                 .findFirst()
-                .orElseThrow(() -> new Exception("myfoodora.Order [" + orderName + "] not found or already completed"));
+                .orElseThrow(() -> new Exception("myfoodora.System.Order [" + orderName + "] not found or already completed"));
     }
 
     public Order getProgressOrder(String orderName) throws Exception {
@@ -118,7 +120,7 @@ public class MyFoodoraSystem {
                 .stream()
                 .filter(m -> m.getName().equals(orderName))
                 .findFirst()
-                .orElseThrow(() -> new Exception("myfoodora.Order [" + orderName + "] not found or already completed"));
+                .orElseThrow(() -> new Exception("myfoodora.System.Order [" + orderName + "] not found or already completed"));
     }
 
     public ArrayList<Order> filterBetween(ArrayList<Order> orders, Date startDate, Date endDate) {

@@ -1,6 +1,9 @@
-import policies.delivery.DeliveryPolicy;
+package policies.delivery;
 
 import java.util.ArrayList;
+
+import users.Courier;
+import system.Order;
 
 public class FairOccupationDeliveryPolicy implements DeliveryPolicy {
     private Courier getLeastBusy(ArrayList<Courier> couriers) {

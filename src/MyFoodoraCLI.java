@@ -1,3 +1,30 @@
+import fidelity.BasicFidelityCard;
+import fidelity.LotteryFidelityCard;
+import fidelity.PointFidelityCard;
+
+import system.Order;
+import system.MyFoodoraSystem;
+
+import policies.delivery.FairOccupationDeliveryPolicy;
+import policies.delivery.FastestDeliveryPolicy;
+import policies.ordersorting.OrderedDishPolicy;
+import policies.ordersorting.OrderedMealPolicy;
+import policies.ordersorting.ShippedOrderSortingPolicy;
+import policies.profit.DeliveryCostProfitPolicy;
+import policies.profit.MarkupProfitPolicy;
+import policies.profit.ServiceFeeProfitPolicy;
+
+import users.Courier;
+import users.Customer;
+import users.User;
+import users.Restaurant;
+import users.Manager;
+
+import food.Meal;
+import food.Dish;
+import food.FullMeal;
+import food.HalfMeal;
+
 import java.util.Scanner;
 import java.util.Arrays;
 import java.util.ArrayList;
@@ -251,7 +278,7 @@ public class MyFoodoraCLI {
         Customer customer = new Customer(username, password, firstName, lastName, address, email, phoneNumber);
         myFoodoraSystem.addCustomer(customer);
 
-        System.out.println("Customer registered: " + firstName + " " + lastName);
+        System.out.println("myfoodora.Customer registered: " + firstName + " " + lastName);
     } catch (NumberFormatException e) {
         System.out.println("Error: x and y must be valid numbers.");
     }
@@ -281,7 +308,7 @@ public class MyFoodoraCLI {
             Restaurant restaurant = new Restaurant(username, password, name, position);
             myFoodoraSystem.addRestaurant(restaurant);
 
-            System.out.println("Restaurant registered: " + name);
+            System.out.println("myfoodora.Restaurant registered: " + name);
         } catch (NumberFormatException e) {
             System.out.println("Error: x and y must be valid numbers.");
         }
@@ -311,7 +338,7 @@ public class MyFoodoraCLI {
             Courier courier = new Courier(username, password, firstName, lastName, position, phoneNumber);
             myFoodoraSystem.addCourier(courier);
 
-            System.out.println("Courier registered: " + firstName + " " + lastName);
+            System.out.println("myfoodora.Courier registered: " + firstName + " " + lastName);
         }
         catch (NumberFormatException e) {
             System.out.println("Error: x and y must be valid numbers.");
@@ -433,7 +460,7 @@ public class MyFoodoraCLI {
         Dish dish = new Dish(dishName, dishCategory, foodCategory, unitPrice);
 
         restaurant.addDish(dish);
-        System.out.println("Dish added to restaurant menu.");
+        System.out.println("myfoodora.Dish added to restaurant menu.");
     }
 
     public static void createMeal(String[] args) {
@@ -461,7 +488,7 @@ public class MyFoodoraCLI {
             System.out.println("The meal type should be either FULL or HALF.");
             return;
         }
-        System.out.println("Meal added to restaurant.");
+        System.out.println("myfoodora.Meal added to restaurant.");
     }
 
     public static void addDish2Meal(String[] args) throws Exception {
@@ -482,7 +509,7 @@ public class MyFoodoraCLI {
 
         meal.addDish(dish);
         System.out.println("Added dish [" + dish.getName() + "] to meal [" + meal.getName() + "]");
-        System.out.println("Dish added to restaurant.");
+        System.out.println("myfoodora.Dish added to restaurant.");
     }
 
     public static void showMeal(String[] args) throws Exception {
@@ -515,7 +542,7 @@ public class MyFoodoraCLI {
 
         Meal meal = restaurant.getMeal(mealName);
         meal.setMealOfTheWeek(true);
-        System.out.println("Meal [" + meal.getName() + "] has been added to special offer: ");
+        System.out.println("myfoodora.Meal [" + meal.getName() + "] has been added to special offer: ");
     }
 
     public static void removeFromSpecialOffer(String[] args) throws Exception {
@@ -532,7 +559,7 @@ public class MyFoodoraCLI {
 
         Meal meal = restaurant.getMeal(mealName);
         meal.setMealOfTheWeek(false);
-        System.out.println("Meal [" + meal.getName() + "] has been removed from special offer: ");
+        System.out.println("myfoodora.Meal [" + meal.getName() + "] has been removed from special offer: ");
     }
 
     public static void createOrder(String[] args) throws Exception {
@@ -551,7 +578,7 @@ public class MyFoodoraCLI {
 
         Order order = new Order(orderName, restaurant, customer);
         myFoodoraSystem.addOrder(order);
-        System.out.println("Order [" + order.getName() + "] has been created.");
+        System.out.println("myfoodora.System.Order [" + order.getName() + "] has been created.");
     }
 
     public static void addItem2Order(String[] args) throws Exception {
@@ -573,17 +600,17 @@ public class MyFoodoraCLI {
         try {
             Dish dish = restaurant.getDish(itemName);
             order.addSingleDish(dish);
-            System.out.println("Dish [" + itemName + "] added to order [" + order.getName() + "]");
+            System.out.println("myfoodora.Dish [" + itemName + "] added to order [" + order.getName() + "]");
         }
         catch (Exception e) {
-            System.out.println("Dish [" + itemName + "] not found. Trying meal");
+            System.out.println("myfoodora.Dish [" + itemName + "] not found. Trying meal");
             try {
                 Meal meal = restaurant.getMeal(itemName);
                 order.addMenu(meal);
-                System.out.println("Meal [" + itemName + "] added to order [" + order.getName() + "]");
+                System.out.println("myfoodora.Meal [" + itemName + "] added to order [" + order.getName() + "]");
             }
             catch (Exception e1) {
-                System.out.println("Meal [" + itemName + "] not found...");
+                System.out.println("myfoodora.Meal [" + itemName + "] not found...");
             }
         }
     }
@@ -602,7 +629,7 @@ public class MyFoodoraCLI {
 
         String date = args[1];
         myFoodoraSystem.completeOrder(order, date);
-        System.out.println("Order [" + order.getName() + "] has been completed on [" + order.getDate() + "] for [" + order.getPrice() + "]€");
+        System.out.println("myfoodora.System.Order [" + order.getName() + "] has been completed on [" + order.getDate() + "] for [" + order.getPrice() + "]€");
     }
 
     private static void sortShippedOrders(String[] args) {
@@ -665,7 +692,7 @@ public class MyFoodoraCLI {
         }
         Courier courier = myFoodoraSystem.getCourier(args[0]);
         courier.setOnDuty(true);
-        System.out.println("Courier [" + courier + "] has been set to on duty.");
+        System.out.println("myfoodora.Courier [" + courier + "] has been set to on duty.");
     }
 
     public static void offDuty(String[] args) throws Exception {
@@ -684,7 +711,7 @@ public class MyFoodoraCLI {
         }
         Courier courier = myFoodoraSystem.getCourier(args[0]);
         courier.setOnDuty(false);
-        System.out.println("Courier [" + courier + "] has been set to off duty.");
+        System.out.println("myfoodora.Courier [" + courier + "] has been set to off duty.");
     }
 
     public static void findDeliverer(String[] args) throws Exception {
@@ -718,7 +745,7 @@ public class MyFoodoraCLI {
                 System.out.println("Unknown card type. Use 'fastest or 'fairoccupation'.");
                 return;
         }
-        System.out.println("MyFoodoraSystem set delivery policy to [" + myFoodoraSystem.getDeliveryPolicy() + "]");
+        System.out.println("System.MyFoodoraSystem set delivery policy to [" + myFoodoraSystem.getDeliveryPolicy() + "]");
     }
 
     public static void setProfitPolicy(String[] args) {
@@ -738,7 +765,7 @@ public class MyFoodoraCLI {
                 System.out.println("Unknown card type. Use 'deliverycost' or 'markupprofit' or 'servicefee'.");
                 return;
         }
-        System.out.println("MyFoodoraSystem set profit policy to [" + myFoodoraSystem.getProfitPolicy() + "]");
+        System.out.println("System.MyFoodoraSystem set profit policy to [" + myFoodoraSystem.getProfitPolicy() + "]");
     }
 
     public static void associateCard(String[] args) {
@@ -759,7 +786,7 @@ public class MyFoodoraCLI {
         }
 
         if (customer == null) {
-            System.out.println("Customer not found.");
+            System.out.println("myfoodora.Customer not found.");
             return;
         }
 
@@ -815,7 +842,7 @@ public class MyFoodoraCLI {
         System.out.println("  showTotalProfit");
         System.out.println("  showTotalProfit <startDate> <endDate>");
         System.out.println("  sortShippedOrders <policy-type>");
-                System.out.println("  runTest <testScenario-file>");
+        System.out.println("  runTest <testScenario-file>");
         System.out.println("  showManagers");
         System.out.println("  STOP - Exit the program");
     }

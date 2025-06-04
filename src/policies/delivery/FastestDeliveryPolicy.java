@@ -1,8 +1,11 @@
-import policies.delivery.DeliveryPolicy;
+package policies.delivery;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.stream.Collectors;
+
+import users.Courier;
+import system.Order;
 
 public class FastestDeliveryPolicy implements DeliveryPolicy {
 

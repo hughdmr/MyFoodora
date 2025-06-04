@@ -1,4 +1,4 @@
-import java.util.List;
+package food;
 
 public class Meal {
     public enum MealType {
@@ -21,7 +21,7 @@ public class Meal {
         this.mealOfTheWeek = mealOfTheWeek;
     }
 
-   // public <Dish> getDishs(); // chaque sous-classe doit renvoyer ses dishs
+   // public <myfoodora.Dish> getDishs(); // chaque sous-classe doit renvoyer ses dishs
 
     // private double calculatePrice() {
         // float basePrice =  sum (getdishs().Price);
@@ -72,7 +72,7 @@ public class Meal {
     }
 
     public String toString() {
-        return "Meal: ["
+        return "myfoodora.Meal: ["
                 + "name: " + name
                 + ", mealType: " + mealType
                 + ", mealSize: " + mealSize

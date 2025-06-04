@@ -1,3 +1,5 @@
+package food;
+
 public class Dish {
     public enum DishCategory {
         STARTER,
@@ -57,7 +59,7 @@ public class Dish {
 
     @Override
     public String toString() {
-        return "Dish{" +
+        return "myfoodora.Dish{" +
                 "name='" + name + '\'' +
                 ", category=" + dishCategory +
                 ", foodCategory='" + dishType + '\'' +

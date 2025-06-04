@@ -1,4 +1,4 @@
-import java.util.List;
+package food;
 
 public class HalfMeal extends Meal {
     private Dish main;
@@ -9,13 +9,13 @@ public class HalfMeal extends Meal {
     }
 
     public void addDish(Dish dish) {
-        // Add dish to Meal according to the category
+        // Add dish to myfoodora.Meal according to the category
         Dish.DishCategory dishCategory = dish.getDishCategory();
         switch (dishCategory) {
             case STARTER, DESSERT -> this.second = dish;
             case MAIN -> this.main = dish;
         }
-        // Check Meal Type status
+        // Check myfoodora.Meal Type status
         if (this.main != null && this.second != null
         && getMealType(this.main.getDishType()).equals(MealType.VEGETARIAN)
         && getMealType(this.second.getDishType()).equals(MealType.VEGETARIAN)) {
@@ -37,7 +37,7 @@ public class HalfMeal extends Meal {
     }
 
 //    @Override
-//    public List<Dish> getDishs() {
+//    public List<myfoodora.Dish> getDishs() {
 //        return List.of(main, second);
 //    }
 
@@ -50,7 +50,7 @@ public class HalfMeal extends Meal {
     }
 
     public String toString() {
-        return "Half Meal: "
+        return "Half myfoodora.Meal: "
                 + super.toString()
                 + "\nMain: " + main
                 + "\nSecond: " + second;
