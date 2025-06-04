@@ -1,4 +1,10 @@
-import java.util.*;
+package policies.ordersorting;
+
+import java.util.HashMap;
+import java.util.ArrayList;
+
+import food.Dish;
+import system.Order;
 
 public class OrderedDishPolicy implements ShippedOrderSortingPolicy {
 
@@ -11,8 +17,8 @@ public class OrderedDishPolicy implements ShippedOrderSortingPolicy {
     }
 
     @Override
-    public void sort(List<Order> shippedOrders) {
-        Map<Dish, Integer> countMap = new HashMap<>();
+    public void sort(ArrayList<Order> shippedOrders) {
+        HashMap<Dish, Integer> countMap = new HashMap<>();
 
         for (Order order : shippedOrders) {
             for (Dish dish : order.getDishesList()) {
@@ -20,13 +26,13 @@ public class OrderedDishPolicy implements ShippedOrderSortingPolicy {
             }
         }
 
-        List<Map.Entry<Dish, Integer>> sortedList = new ArrayList<>(countMap.entrySet());
+        ArrayList<HashMap.Entry<Dish, Integer>> sortedList = new ArrayList<>(countMap.entrySet());
         sortedList.sort((a, b) -> descendingOrder
                 ? Integer.compare(b.getValue(), a.getValue())
                 : Integer.compare(a.getValue(), b.getValue()));
 
         System.out.println(label + ":");
-        for (Map.Entry<Dish, Integer> entry : sortedList) {
+        for (HashMap.Entry<Dish, Integer> entry : sortedList) {
             System.out.println(entry.getKey().getName() + " - Ordered: " + entry.getValue());
         }
     }

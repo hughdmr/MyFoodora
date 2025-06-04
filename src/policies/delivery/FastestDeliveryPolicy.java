@@ -1,6 +1,11 @@
+package policies.delivery;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.stream.Collectors;
+
+import users.Courier;
+import system.Order;
 
 public class FastestDeliveryPolicy implements DeliveryPolicy {
 
@@ -28,9 +33,6 @@ public class FastestDeliveryPolicy implements DeliveryPolicy {
     public Courier selectCourier(Order order, ArrayList<Courier> couriers) {
         ArrayList<Double> restaurantAddress = order.getRestaurant().getPosition();
         HashMap<Courier, Double> couriersDistances = new HashMap<Courier, Double>();
-
-        // Keep only onDuty couriers
-        couriers = (ArrayList<Courier>) couriers.stream().filter(Courier::isOnDuty).collect(Collectors.toList());
 
         for (Courier courier : couriers) {
             couriersDistances.put(courier, getDistance(restaurantAddress, courier.getPosition()));

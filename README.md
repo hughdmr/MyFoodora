@@ -15,7 +15,7 @@ This project is completely written in Java
 - UUID ?
 - PhoneNumber type, email type ?
 - Name with space in CLI
-- Difference between RegisterCourier and Courier (phone), same for Restaurant...
+- Difference between RegisterCourier and users.Courier (phone), same for users.Restaurant...
 
 # Other command idea
 - showTotalIncome 01/06/2025 05/06/2025

@@ -1,4 +1,5 @@
-import java.util.ArrayList;
+package fidelity;
+import users.Customer;
 
 public class PointFidelityCard implements FidelityCard {
     public double calculateFidelityPrice(double totalPrice, Customer customer) {

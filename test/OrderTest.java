@@ -19,7 +19,7 @@ public class OrderTest {
 
     @Before
     public void setUp() {
-        restaurant = new Restaurant("Restaurant", "hhh", "restname", new ArrayList<>(Arrays.asList(0.0, 0.0)));
+        restaurant = new Restaurant("myfoodora.Restaurant", "hhh", "restname", new ArrayList<>(Arrays.asList(0.0, 0.0)));
 
         customer = new Customer("JohnDoe", "12345", "John", "Doe", new ArrayList<>(), "<EMAIL>", "01010101");
         courier = new Courier("Jane Rider", "67890", "Jane", "Rider", new ArrayList<>(), "0000000");

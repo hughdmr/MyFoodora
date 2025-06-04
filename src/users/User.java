@@ -1,3 +1,5 @@
+package users;
+
 public class User {
     private static int counter;
     private int id;

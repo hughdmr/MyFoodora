@@ -1,5 +1,10 @@
+package users;
+
+import fidelity.BasicFidelityCard;
+import fidelity.FidelityCard;
+import fidelity.PointFidelityCard;
+
 import java.util.ArrayList;
-import java.util.UUID;
 
 public class Customer extends User {
     private String firstName;
@@ -9,7 +14,7 @@ public class Customer extends User {
     private String phoneNumber;
     private boolean active = true;
     private FidelityCard fidelityCard;
-    private int points = 0; // with PointFidelityCard
+    private int points = 0; // with fidelity.PointFidelityCard
 
     public Customer(String username, String password, String firstName, String lastName, ArrayList<Double> address, String email, String phoneNumber) {
         super(username, password);
