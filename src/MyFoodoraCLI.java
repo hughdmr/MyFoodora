@@ -158,6 +158,9 @@ public class MyFoodoraCLI {
             case "associatecard":
                 associateCard(arguments);
                 break;
+            case "sortshippedorders":
+                sortShippedOrders(arguments);
+                break;
             case "runtest":
                 runCommandsFromFile(arguments);
                 break;
@@ -602,6 +605,50 @@ public class MyFoodoraCLI {
         System.out.println("Order [" + order.getName() + "] has been completed on [" + order.getDate() + "] for [" + order.getPrice() + "]€");
     }
 
+    private static void sortShippedOrders(String[] args) {
+        if (!(currentLoggedInUser instanceof Manager || currentLoggedInUser instanceof Restaurant)) {
+            System.out.println("Only a logged on manager or restaurant can sort shipped orders.");
+            return;
+        }
+
+        if (args.length != 1) {
+            System.out.println("Usage: sortShippedOrders <policy-type>");
+            System.out.println("Available policy types: mostordereddish, leastordereddish, mostorderedhalfmeal, leastorderedhalfmeal, mostorderedfullmeal, leastorderedfullmeal");
+            return;
+        }
+
+        String policyType = args[0].toLowerCase();
+        ShippedOrderSortingPolicy policy;
+
+        switch (policyType) {
+            case "mostordereddish":
+                policy = new OrderedDishPolicy(true, "Most ordered dishes");
+                break;
+            case "leastordereddish":
+                policy = new OrderedDishPolicy(false, "Least ordered dishes");
+                break;
+            case "mostorderedhalfmeal":
+                policy = new OrderedMealPolicy<>(HalfMeal.class, true, "Most ordered half-meals");
+                break;
+            case "leastorderedhalfmeal":
+                policy = new OrderedMealPolicy<>(HalfMeal.class, false, "Least ordered half-meals");
+                break;
+            case "mostorderedfullmeal":
+                policy = new OrderedMealPolicy<>(FullMeal.class, true, "Most ordered full-meals");
+                break;
+            case "leastorderedfullmeal":
+                policy = new OrderedMealPolicy<>(FullMeal.class, false, "Least ordered full-meals");
+                break;
+            default:
+                System.out.println("Unknown policy type: " + policyType);
+                return;
+        }
+
+        ArrayList<Order> completedOrders = myFoodoraSystem.getCompletedOrders();
+        policy.sort(completedOrders);
+    }
+
+
     public static void onDuty(String[] args) throws Exception {
         if (args.length != 1) {
             System.out.println("Usage: onDuty <username>");
@@ -767,7 +814,8 @@ public class MyFoodoraCLI {
         System.out.println("  showMenuItem <restaurantName>");
         System.out.println("  showTotalProfit");
         System.out.println("  showTotalProfit <startDate> <endDate>");
-        System.out.println("  runTest <testScenario-file>");
+        System.out.println("  sortShippedOrders <policy-type>");
+                System.out.println("  runTest <testScenario-file>");
         System.out.println("  showManagers");
         System.out.println("  STOP - Exit the program");
     }

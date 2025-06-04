@@ -70,6 +70,14 @@ public class Order {
         dishesList.add(dish);
     }
 
+    public ArrayList<Meal> getMealsList() {
+        return mealsList;
+    }
+
+    public ArrayList<Dish> getDishesList() {
+        return dishesList;
+    }
+
     public void addMenu(Meal meal) {
         mealsList.add(meal);
     }
