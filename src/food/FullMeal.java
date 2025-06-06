@@ -16,6 +16,8 @@ public class FullMeal extends Meal {
     }
     public Dish getDessert() { return dessert; }
 
+    public void setMealofTheWeek(boolean mealOfTheWeek) { setMealOfTheWeek(mealOfTheWeek); }
+
     // Other methods
     public double getPrice() {
         return main.getPrice() + starter.getPrice() + dessert.getPrice();

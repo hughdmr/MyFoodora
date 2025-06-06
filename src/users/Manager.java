@@ -10,23 +10,25 @@ public class Manager extends User {
         this.lastName = lastName;
     }
 
+    // Getters and Setters
     public String getFirstName() {
         return firstName;
+    }
+    public String getLastName() {
+        return lastName;
     }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-
-    public String getLastName() {
-        return lastName;
-    }
-
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    // Display
+    @Override
     public String toString() {
-        return "[MANAGER] - " + getUsername() + "|" + firstName + "|" + lastName;
+        return "[(MANAGER) - | name:" + firstName + " " + lastName +
+                " | username: " + getUsername();
     }
 }

@@ -18,68 +18,58 @@ public class Courier extends User {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    // Getters and Setters
+    public String getFirstName() {
+        return firstName;
     }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public ArrayList<Double> getPosition() {
-        return position;
-    }
-
-    public void setPosition(ArrayList<Double> position) {
-        this.position = position;
-    }
-
     public String getLastName() {
         return lastName;
     }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public ArrayList<Double> getPosition() {
+        return position;
     }
-
-    public String getFirstName() {
-        return firstName;
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+    public int getDeliveredOrdersCount() {
+        return deliveredOrdersCount;
+    }
+    public boolean isOnDuty() {
+        return onDuty;
     }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-
-    public boolean isOnDuty() {
-        return onDuty;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
-
+    public void setPosition(ArrayList<Double> position) {
+        this.position = position;
+    }
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+    public void setDeliveredOrdersCount(int deliveredOrdersCount) {
+        this.deliveredOrdersCount = deliveredOrdersCount;
+    }
     public void setOnDuty(boolean onDuty) {
         this.onDuty = onDuty;
     }
 
-    public int getDeliveredOrdersCount() {
-        return deliveredOrdersCount;
-    }
-
-    public void setDeliveredOrdersCount(int deliveredOrdersCount) {
-        this.deliveredOrdersCount = deliveredOrdersCount;
-    }
-
+    // Other methods
     public void increaseDeliveredOrdersCount() {
         deliveredOrdersCount++;
     }
 
+    // Display
     @Override
     public String toString() {
-        return firstName + " " + lastName +
+        return "[(COURIER) - | name: " + firstName + " " + lastName +
                 " | Username: " + getUsername() +
                 " | Phone: " + phoneNumber +
                 " | Delivered Orders: " + deliveredOrdersCount +
                 " | On Duty: " + (onDuty ? "Yes" : "No") +
-                " | Position: " + position;
+                " | Position: " + position + "]";
     }
-
 }
-
-

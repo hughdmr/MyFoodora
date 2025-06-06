@@ -2,7 +2,6 @@ package users;
 
 import food.Dish;
 import food.Meal;
-import system.Order;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -10,8 +9,8 @@ import java.util.stream.Collectors;
 public class Restaurant extends User {
     private String name;
     private ArrayList<Double> position;
-    private ArrayList<Dish> menu = new ArrayList<>();
-    private ArrayList<Meal> meals = new ArrayList<>();
+    private final ArrayList<Dish> menu = new ArrayList<>();
+    private final ArrayList<Meal> meals = new ArrayList<>();
     private double genericDiscount = 0.05;  // 5%
     private double specialDiscount = 0.10;  // 10%
     private int deliveredOrdersCount = 0;
@@ -22,35 +21,52 @@ public class Restaurant extends User {
         this.position = position;
     }
 
+    // Getters and Setters
     public String getName() {
         return name;
+    }
+    public ArrayList<Double> getPosition() {
+        return position;
+    }
+    public ArrayList<Dish> getMenu() {
+        return menu;
+    }
+    public ArrayList<Meal> getMeals() {
+        return meals;
+    }
+    public double getGenericDiscount() {
+        return genericDiscount;
+    }
+    public double getSpecialDiscount() {
+        return specialDiscount;
+    }
+    public int getDeliveredOrdersCount() {
+        return deliveredOrdersCount;
     }
 
     public void setName(String name) {
         this.name = name;
     }
-
-    public ArrayList<Double> getPosition() {
-        return position;
-    }
-
     public void setPosition(ArrayList<Double> position) {
         this.position = position;
     }
+    public void setGenericDiscount(double genericDiscount) {
+        this.genericDiscount = genericDiscount;
+    }
+    public void setSpecialDiscount(double specialDiscount) {
+        this.specialDiscount = specialDiscount;
+    }
+    public void setDeliveredOrdersCount(int deliveredOrdersCount) {
+        this.deliveredOrdersCount = deliveredOrdersCount;
+    }
 
-    // Menu management
+    // Other methods
     public void addDish(Dish dish) {
         this.menu.add(dish);
     }
-
     public void removeDish(Dish dish) {
         this.menu.remove(dish);
     }
-
-    public ArrayList<Dish> getMenu() {
-        return menu;
-    }
-
     public Dish getDish(String dishName) throws Exception {
         return this.getMenu()
                 .stream()
@@ -59,19 +75,19 @@ public class Restaurant extends User {
                 .orElseThrow(() -> new Exception("myfoodora.Dish not found: " + dishName));
     }
 
-    // myfoodora.Meal management
     public void addMeal(Meal meal) {
         this.meals.add(meal);
     }
-
     public void removeMeal(Meal meal) {
         this.meals.remove(meal);
     }
-
-    public ArrayList<Meal> getMeals() {
-        return meals;
+    public Meal getMeal(String mealName) throws Exception {
+        return this.getMeals()
+                .stream()
+                .filter(m -> m.getName().equals(mealName))
+                .findFirst()
+                .orElseThrow(() -> new Exception("myfoodora.Meal not found: " + mealName));
     }
-
     public ArrayList<Meal> getCompleteMeals() {
         return (ArrayList<Meal>) getMeals()
                 .stream()
@@ -79,44 +95,13 @@ public class Restaurant extends User {
                 .collect(Collectors.toList());
     }
 
-    public Meal getMeal(String mealName) throws Exception {
-        return this.getMeals()
-                    .stream()
-                    .filter(m -> m.getName().equals(mealName))
-                    .findFirst()
-                    .orElseThrow(() -> new Exception("myfoodora.Meal not found: " + mealName));
-    }
-
-    // Discount management
-    public double getGenericDiscount() {
-        return genericDiscount;
-    }
-
-    public void setGenericDiscount(double genericDiscount) {
-        this.genericDiscount = genericDiscount;
-    }
-
-    public double getSpecialDiscount() {
-        return specialDiscount;
-    }
-
-    public void setSpecialDiscount(double specialDiscount) {
-        this.specialDiscount = specialDiscount;
-    }
-
-    public int getDeliveredOrdersCount() {
-        return deliveredOrdersCount;
-    }
-
-    public void setDeliveredOrdersCount(int deliveredOrdersCount) {
-        this.deliveredOrdersCount = deliveredOrdersCount;
-    }
-
+    // Display
     @Override
     public String toString() {
-        return name + " | Username: " + getUsername() +
-                " | Position: " + position
-                + " | Delivered Orders: " + deliveredOrdersCount;
+        return "[(RESTAURANT) - | name:" + name +
+                " | Username: " + getUsername() +
+                " | Position: " + position +
+                " | Delivered Orders: " + deliveredOrdersCount;
     }
 }
 

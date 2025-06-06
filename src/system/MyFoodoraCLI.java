@@ -22,6 +22,7 @@ public class MyFoodoraCLI {
 
     public MyFoodoraCLI() {}
 
+    // CLI utilities
     public void run() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome in MyFoodora CLI");
@@ -110,6 +111,7 @@ public class MyFoodoraCLI {
         }
     }
 
+    // CLI commands
     private static void login(String[] args) {
         if (args.length != 2) {
             System.out.println("Usage: login <username> <password>");

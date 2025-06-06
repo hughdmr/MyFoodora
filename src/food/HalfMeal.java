@@ -16,6 +16,8 @@ public class HalfMeal extends Meal {
         return second;
     }
 
+    public void setMealofTheWeek(boolean mealOfTheWeek) { setMealOfTheWeek(mealOfTheWeek);}
+
     // Other methods
     public double getPrice() { return main.getPrice() + second.getPrice(); }
 

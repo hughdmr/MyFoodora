@@ -26,66 +26,55 @@ public class Customer extends User {
         this.fidelityCard = new BasicFidelityCard();
     }
 
+    // Getters and Setters
     public String getFirstName() {
         return firstName;
+    }
+    public String getLastName() {
+        return lastName;
+    }
+    public ArrayList<Double> getAddress() {
+        return address;
+    }
+    public String getEmail() {
+        return email;
+    }
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+    public boolean isActive() {
+        return active;
+    }
+    public FidelityCard getFidelityCard() {
+        return fidelityCard;
+    }
+    public int getPoints() {
+        return points;
     }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-
-    public String getLastName() {
-        return lastName;
-    }
-
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
-    public ArrayList<Double> getAddress() {
-        return address;
-    }
-
     public void setAddress(ArrayList<Double> address) {
         this.address = address;
     }
-
-    public String getEmail() {
-        return email;
-    }
-
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
-    public boolean isActive() {
-        return active;
-    }
-
     public void setActive(boolean active) {
         this.active = active;
     }
-
-    public FidelityCard getFidelityCard() {
-        return fidelityCard;
-    }
-
-    public int getPoints() {
-        return points;
-    }
-
     public void setPoints(int points) {
         this.points = points;
     }
 
+    // Other methods
     public void addPoints(int points) {
         this.points += points;
     }
@@ -94,7 +83,6 @@ public class Customer extends User {
         return fidelityCard.calculateFidelityPrice(basePrice, this);
     }
 
-    // register/unregister to/from a fidelity card plan
     public void registerFidelityCard(FidelityCard card) {
         this.fidelityCard = card;
         System.out.println("Registered to " + card.getClass().getSimpleName());
@@ -105,11 +93,14 @@ public class Customer extends User {
         System.out.println("Unregistered from fidelity card");
     }
 
-    // access the information related to their account: ... and points acquired with a fidelity program
+    // Display
     @Override
     public String toString() {
-        return "[CUSTOMER] - " + getUsername() + " | " + firstName + " " + lastName + " | Email: " + email + " | Phone: " + phoneNumber
-                + " | Fidelity card: " + (fidelityCard == null ? "Not registered" : fidelityCard.getClass().getSimpleName())
-                + (fidelityCard instanceof PointFidelityCard ? " | Points: " + points : "");
+        return "[(CUSTOMER) - | name: " + firstName + " " + lastName +
+                " | username: " + getUsername() +
+                " | Email: " + email +
+                " | Phone: " + phoneNumber +
+                " | Fidelity card: " + (fidelityCard == null ? "Not registered" : fidelityCard.getClass().getSimpleName())
+                + (fidelityCard instanceof PointFidelityCard ? " | Points: " + points : "") + "]";
     }
 }
