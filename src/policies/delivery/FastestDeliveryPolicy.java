@@ -6,6 +6,13 @@ import java.util.HashMap;
 import users.Courier;
 import system.Order;
 
+/**
+ *
+ * @author gravlax,hugues
+ * Implements the DeliveryPolicy interface for selecting courier based
+ * on the nearest one
+ *
+ */
 public class FastestDeliveryPolicy implements DeliveryPolicy {
 
     public double getDistance(ArrayList<Double> position1, ArrayList<Double> position2) {

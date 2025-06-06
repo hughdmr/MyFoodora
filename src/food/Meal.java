@@ -1,5 +1,13 @@
 package food;
 
+/**
+ *
+ * @author gravlax,hugues
+ * A class to represent a Meal from a restaurant, which can
+ * be bought by a Customer through an Order. The Meal can
+ * be Half or Full.
+ *
+ */
 public class Meal {
     public enum Type {
         STANDARD, VEGETARIAN, GLUTEN_FREE

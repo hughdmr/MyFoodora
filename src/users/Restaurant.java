@@ -6,6 +6,13 @@ import food.Meal;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+/**
+ *
+ * @author gravlax,hugues
+ * A class to represent a Restaurant, which can have several
+ * dishes and meals ordered by a Customer through an Order
+ *
+ */
 public class Restaurant extends User {
     private String name;
     private ArrayList<Double> position;

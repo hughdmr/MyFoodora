@@ -1,5 +1,13 @@
 package food;
 
+/**
+ *
+ * @author gravlax,hugues
+ * A class to represent a Dish from a Menu, which can be added
+ * in a meal by a restaurant and ordered by a Customer
+ * through an Order
+ *
+ */
 public class Dish {
     public enum Category {
         STARTER, MAIN, DESSERT

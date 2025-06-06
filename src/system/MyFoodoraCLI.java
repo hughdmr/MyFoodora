@@ -16,6 +16,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 
+/**
+ *
+ * @author gravlax,hugues
+ * A class to represent MyFoodoraCLI, which is q Command Line Interface,
+ * through which users can order meals or dishes from a Restaurant. This class
+ * can also launch a set of predefined commands in a txt file.
+ *
+ */
 public class MyFoodoraCLI {
     private static User currentLoggedInUser = null;
     private final static MyFoodoraSystem myFoodoraSystem = new MyFoodoraSystem();

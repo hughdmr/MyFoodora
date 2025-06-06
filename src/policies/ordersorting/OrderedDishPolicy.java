@@ -6,6 +6,13 @@ import java.util.ArrayList;
 import food.Dish;
 import system.Order;
 
+/**
+ *
+ * @author gravlax,hugues
+ * Implements the ShippedOrderSortingPolicy for sorting orders by dishes and the number
+ * of times they have been selected alone "à la carte"
+ *
+ */
 public class OrderedDishPolicy implements ShippedOrderSortingPolicy {
 
     private final boolean descendingOrder;

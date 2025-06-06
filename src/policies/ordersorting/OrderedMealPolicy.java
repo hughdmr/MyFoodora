@@ -6,6 +6,13 @@ import java.util.ArrayList;
 import system.Order;
 import food.Meal;
 
+/**
+ *
+ * @author gravlax,hugues
+ * Implements the ShippedOrderSortingPolicy for sorting orders with HalfMeal and the number
+ * of times they have been shipped.
+ *
+ */
 public class OrderedMealPolicy<T extends Meal> implements ShippedOrderSortingPolicy {
 
     private final Class<T> mealType;

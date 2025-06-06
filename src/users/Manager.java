@@ -1,5 +1,12 @@
 package users;
 
+/**
+ *
+ * @author gravlax,hugues
+ * A class to represent a Manager, which can administrate the system
+ * and control all kind of Users: Customer, Restaurant and Courier.
+ *
+ */
 public class Manager extends User {
     private String firstName;
     private String lastName;

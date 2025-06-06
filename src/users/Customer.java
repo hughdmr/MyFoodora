@@ -6,6 +6,13 @@ import fidelity.PointFidelityCard;
 
 import java.util.ArrayList;
 
+/**
+ *
+ * @author gravlax,hugues
+ * A class to represent a Customer, which can buy
+ * dishes and meals from a Restaurant through an Order
+ *
+ */
 public class Customer extends User {
     private String firstName;
     private String lastName;

@@ -1,5 +1,12 @@
 package users;
 
+/**
+ *
+ * @author gravlax,hugues
+ * A class to represent a User, which can log in the system
+ * with a username and a password.
+ *
+ */
 public class User {
     private static int counter;
     private final int id;

@@ -2,6 +2,14 @@ package users;
 
 import java.util.ArrayList;
 
+/**
+ *
+ * @author gravlax,hugues
+ * A class to represent a Courier, which can deliver
+ * dishes and meals from a Restaurant to a Customer
+ * through an Order
+ *
+ */
 public class Courier extends User {
     private String firstName;
     private String lastName;

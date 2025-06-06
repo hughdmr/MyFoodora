@@ -9,6 +9,14 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.Date;
 
+/**
+ *
+ * @author gravlax,hugues
+ * A class to represent MyFoodora main system, gathering User management,
+ * Meal and Dish management for a Restaurant, Order computation and distribution
+ * to a Courier and many utilities for the system.
+ *
+ */
 public class MyFoodoraSystem {
     private ArrayList<User> users = new ArrayList<>();
     private ArrayList<Manager> managers = new ArrayList<>();

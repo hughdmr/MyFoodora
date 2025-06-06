@@ -1,5 +1,12 @@
 package food;
 
+/**
+ *
+ * @author gravlax,hugues
+ * A class to represent a HalfMeal from a restaurant,
+ * which is a kind of Meal
+ *
+ */
 public class HalfMeal extends Meal {
     private Dish main;
     private Dish second;

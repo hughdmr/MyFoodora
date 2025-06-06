@@ -5,6 +5,13 @@ import java.util.ArrayList;
 import users.Courier;
 import system.Order;
 
+/**
+ *
+ * @author gravlax,hugues
+ * Implements the DeliveryPolicy interface for selecting courier based
+ * on the least busy one.
+ *
+ */
 public class FairOccupationDeliveryPolicy implements DeliveryPolicy {
     private Courier getLeastBusy(ArrayList<Courier> couriers) {
         Courier leastBusy = couriers.get(0);

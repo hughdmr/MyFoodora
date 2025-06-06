@@ -1,5 +1,12 @@
 package food;
 
+/**
+ *
+ * @author gravlax,hugues
+ * A class to represent a FullMeal from a restaurant,
+ * which is a kind of Meal
+ *
+ */
 public class FullMeal extends Meal {
     private Dish starter;
     private Dish main;

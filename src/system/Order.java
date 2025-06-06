@@ -10,6 +10,13 @@ import users.Courier;
 import users.Customer;
 import users.Restaurant;
 
+/**
+ *
+ * @author gravlax,hugues
+ * A class to represent an Order of Meals and Dishes from a Restaurant by a Customer,
+ * which will be delivered by a Courier
+ *
+ */
 public class Order {
     private final String name;
     private final Restaurant restaurant;
