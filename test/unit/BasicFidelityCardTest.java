@@ -16,7 +16,6 @@ public class BasicFidelityCardTest {
     @Before
     public void setUp() {
         card = new BasicFidelityCard();
-        // Création d'un client fictif — remplace avec un vrai constructeur si nécessaire
         dummyCustomer = new Customer("john_doe", "password", "John", "Doe", new ArrayList<>(), "john@doe", "01010101");
     }
 

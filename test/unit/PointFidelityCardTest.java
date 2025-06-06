@@ -36,22 +36,19 @@ public class PointFidelityCardTest {
 
     @Test
     public void testDiscountAppliedWhenPointsReached() {
-        // On met 95 points avant l'achat
         customer.setPoints(95);
-        double totalPrice = 50.0;  // +5 points => 100 points total -> réduction de 10%
+        double totalPrice = 50.0;
 
         double discountedPrice = card.calculateFidelityPrice(totalPrice, customer);
 
-        // Points doivent descendre à 0 après utilisation
         assertEquals(0, customer.getPoints());
-        // Prix réduit de 10%
         assertEquals(totalPrice * 0.9, discountedPrice, 0.001);
     }
 
     @Test
     public void testNoDiscountIfPointsBelowThreshold() {
         customer.setPoints(50);
-        double totalPrice = 30.0;  // +3 points => 53 points total -> pas de réduction
+        double totalPrice = 30.0;
 
         double price = card.calculateFidelityPrice(totalPrice, customer);
 

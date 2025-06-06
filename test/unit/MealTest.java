@@ -38,8 +38,8 @@ public class MealTest {
         String output = meal.toString();
 
         assertTrue(output.contains("name: Test myfoodora.Meal"));
-        assertTrue(output.contains("mealType: STANDARD"));
-        assertTrue(output.contains("mealSize: HALF"));
+        assertTrue(output.contains("type: STANDARD"));
+        assertTrue(output.contains("size: HALF"));
         assertTrue(output.contains("mealOfTheWeek: false"));
     }
 
@@ -58,8 +58,6 @@ public class MealTest {
     @Test
     public void testAddDishDoesNothingInBaseClass() {
         Dish dish = new Dish("Soup", Dish.Category.STARTER, Dish.Type.STANDARD, 4.0);
-        // Ne devrait rien faire car pas de logique dans myfoodora.Meal
         meal.addDish(dish);
-        // Pas de getDishs() pour vérifier, donc on vérifie juste qu'aucune exception ne se produit
     }
 }

@@ -97,7 +97,7 @@ public class CustomerTest {
         assertTrue(output.contains("Alice Martin"));
         assertTrue(output.contains("alice@example.com"));
         assertTrue(output.contains("0612345678"));
-        assertTrue(output.contains("fidelity.BasicFidelityCard"));
+        assertTrue(output.contains("BasicFidelityCard"));
     }
 
     @Test
@@ -107,7 +107,7 @@ public class CustomerTest {
         customer.addPoints(30);
         String output = customer.toString();
 
-        assertTrue(output.contains("fidelity.PointFidelityCard"));
+        assertTrue(output.contains("Fidelity card: PointFidelityCard"));
         assertTrue(output.contains("Points: 30"));
     }
 }

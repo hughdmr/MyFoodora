@@ -69,8 +69,6 @@ public class HalfMealTest {
     @Test
     public void testIncompleteMealPrintsWarning() {
         halfMeal.addDish(main);
-        // Missing second dish — only main is set
-        // Expected: warning in console — no assert here since println can't be captured easily in JUnit without redirection
         assertEquals(main, halfMeal.getMain());
         assertNull(halfMeal.getSecond());
     }

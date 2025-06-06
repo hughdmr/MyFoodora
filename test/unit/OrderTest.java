@@ -59,7 +59,6 @@ public class OrderTest {
         String dateStr = "2023/06/01 10:00:00";
         order.setDate(dateStr);
 
-        // Date parsing to check correctness
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date expectedDate = sdf.parse(dateStr);
 

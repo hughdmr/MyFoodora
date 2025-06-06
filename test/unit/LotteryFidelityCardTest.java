@@ -53,7 +53,6 @@ public class LotteryFidelityCardTest {
         }
 
         double observedWinRate = (double) wins / trials;
-        // Acceptable margin: expected ~5% ± 2%
         assertTrue("Win rate should be roughly 5%, got: " + observedWinRate,
                 observedWinRate > 0.03 && observedWinRate < 0.07);
     }
