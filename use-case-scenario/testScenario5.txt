@@ -1,0 +1,48 @@
+login ceo 123456789
+
+registerRestaurant Heureux-comme-Alexandre HeureuxcA hcA57 (44.2,6.2)
+showRestaurantTop
+
+registerCourier Tadej Pogacar Pogi (45.2,6.2) pogiSlo 0734253645
+registerCourier Jonas Vingegaard Vingo (49.2,6.2) vingoDan 0646352413
+showCourierDeliveries
+
+registerCustomer alex grav gravlax (0,0) gravlax01 grav@lax 0724343433
+showCustomers
+logout
+
+login HeureuxcA hcA57
+addDishRestaurantMenu Pavé-Black-Angus Main Standard 18.5
+addDishRestaurantMenu Soupe-Oignon Starter Standard 7.5
+addDishRestaurantMenu Panna-Cotta Dessert Standard 6.5
+addDishRestaurantMenu Tartare-courgette Main Vegetarian 22
+addDishRestaurantMenu Asperges Starter Vegetarian 15.0
+addDishRestaurantMenu Glace_vanille Dessert Vegetarian 5
+
+createMeal menu_jour Standard Full
+createMeal menu_soir Standard Half
+
+addDish2Meal Pavé-Black-Angus menu_jour
+addDish2Meal Soupe-Oignon menu_jour
+addDish2Meal Panna-Cotta menu_jour
+
+addDish2Meal Asperges menu_soir
+addDish2Meal Glace_vanille menu_soir
+
+showMeal menu_jour
+showMeal menu_soir
+
+
+login gravlax gravlax01
+associateCard gravlax basic
+createOrder Heureux-comme-Alexandre commande
+addItem2Order commande Pavé-Black-Angus
+addItem2Order commande menu_jour
+endOrder commande 06/02/2025
+logout
+
+showRestaurantTop
+showCourierDeliveries
+showTotalProfit
+associateCard gravlax point
+
