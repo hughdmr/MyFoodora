@@ -82,19 +82,37 @@ public class Customer extends User {
     }
 
     // Other methods
+
+    /**
+     * Add points for the PointFidelityCard
+     * @param points the amount of points to add
+     */
     public void addPoints(int points) {
         this.points += points;
     }
 
+    /**
+     * Calculate the price based on the fidelityCard chosen
+     * by the customer
+     * @param basePrice the amount of the order without fidelityCard
+     */
     public double calculateFidelityPrice(double basePrice) {
         return fidelityCard.calculateFidelityPrice(basePrice, this);
     }
 
+    /**
+     * Register to a fidelityCard
+     * @param card the fidelityCard class to register to
+     */
     public void registerFidelityCard(FidelityCard card) {
         this.fidelityCard = card;
         System.out.println("Registered to " + card.getClass().getSimpleName());
     }
 
+    /**
+     * Unregister from fidelityCard. The customer has no fidelityCart
+     * left after this operation
+     */
     public void unregisterFidelityCard() {
         this.fidelityCard = null;
         System.out.println("Unregistered from fidelity card");

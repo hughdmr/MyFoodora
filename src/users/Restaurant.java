@@ -68,12 +68,27 @@ public class Restaurant extends User {
     }
 
     // Other methods
+
+    /**
+     * Add a dish to the Restaurant menu
+     * @param dish the dish to add to the Restaurant menu
+     */
     public void addDish(Dish dish) {
         this.menu.add(dish);
     }
+
+    /**
+     * Remove a dish from the Restaurant menu
+     * @param dish the dish to remove to the Restaurant menu
+     */
     public void removeDish(Dish dish) {
         this.menu.remove(dish);
     }
+
+    /**
+     * Get a dish from the Restaurant menu
+     * @param dishName the name of the dish in str type
+     */
     public Dish getDish(String dishName) throws Exception {
         return this.getMenu()
                 .stream()
@@ -82,12 +97,26 @@ public class Restaurant extends User {
                 .orElseThrow(() -> new Exception("myfoodora.Dish not found: " + dishName));
     }
 
+    /**
+     * Add a meal to the Restaurant menu
+     * @param meal the meal to add to the Restaurant menu
+     */
     public void addMeal(Meal meal) {
         this.meals.add(meal);
     }
+
+    /**
+     * Remove a meal from the Restaurant menu
+     * @param meal the meal to remove from the Restaurant menu
+     */
     public void removeMeal(Meal meal) {
         this.meals.remove(meal);
     }
+
+    /**
+     * Get a meal from the Restaurant menu
+     * @param mealName the name of the meal in str type
+     */
     public Meal getMeal(String mealName) throws Exception {
         return this.getMeals()
                 .stream()
@@ -95,6 +124,10 @@ public class Restaurant extends User {
                 .findFirst()
                 .orElseThrow(() -> new Exception("myfoodora.Meal not found: " + mealName));
     }
+
+    /**
+     * Get an array of completed meals from the Restaurant
+     */
     public ArrayList<Meal> getCompleteMeals() {
         return (ArrayList<Meal>) getMeals()
                 .stream()

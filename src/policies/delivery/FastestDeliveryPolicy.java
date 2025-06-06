@@ -15,12 +15,23 @@ import system.Order;
  */
 public class FastestDeliveryPolicy implements DeliveryPolicy {
 
+    /**
+     * Util method. Get distance between 2 points
+     * @param position1 the first coordinates
+     * @param position2 the second coordinates
+     */
     public double getDistance(ArrayList<Double> position1, ArrayList<Double> position2) {
         return Math.sqrt(
                 Math.pow(position2.get(0) - position1.get(0), 2)
                         + Math.pow(position2.get(1) - position1.get(1), 2));
     }
 
+    /**
+     * Get the courier with the min distance to the restaurant
+     * @param map the hashmap containing:
+     * - as keys: the couriers
+     * - as values: the distance between the couriers and the restaurant
+     */
     private Courier getMinDistance(HashMap<Courier, Double> map) {
         ArrayList<Courier> couriers = new ArrayList<>(map.keySet());
         Courier minKey = couriers.get(0);

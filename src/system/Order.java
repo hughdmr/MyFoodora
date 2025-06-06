@@ -1,5 +1,8 @@
 package system;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -64,24 +67,43 @@ public class Order {
     public void setCourier(Courier courier) {
         this.courier = courier;
     }
-    public void setDate(String date) {
-        if (date.isEmpty()) {
+
+    /**
+     * Set the date of the order. Set to today if no date provided
+     * @param dateString which should be in MM/dd/yyyy format
+     */
+    public void setDate(String dateString) {
+        if (dateString.isEmpty()) {
             this.date = new Date();
         } else {
-            this.date = new Date(date);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+            LocalDate date = LocalDate.parse(dateString, formatter);
+            this.date = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
         }
     }
     public void setCompleted(boolean completed) { this.completed = completed; }
 
     // Other methods
+    /**
+     * Add a dish to the order
+     * @param dish the dish to add to the order
+     */
     public void addSingleDish(Dish dish) {
         dishesList.add(dish);
     }
 
+    /**
+     * Add a meal to the order
+     * @param meal the meal to add to the order
+     */
     public void addMenu(Meal meal) {
         mealsList.add(meal);
     }
 
+    /**
+     * Compute the price of the order
+     * Sum of the single dishes prices + meal prices with relevant discounts
+     */
     public void computePrice() {
         double dishesPrice = dishesList.stream().mapToDouble(Dish::getPrice).sum();
         double mealsPrice = mealsList.stream().mapToDouble(

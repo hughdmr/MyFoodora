@@ -13,6 +13,12 @@ import system.Order;
  *
  */
 public class FairOccupationDeliveryPolicy implements DeliveryPolicy {
+
+    /**
+     * Get the least busy courier according to the number
+     * of orders they already delivered
+     * @param couriers the array of available couriers
+     */
     private Courier getLeastBusy(ArrayList<Courier> couriers) {
         Courier leastBusy = couriers.get(0);
         double minCount = couriers.get(0).getDeliveredOrdersCount();
