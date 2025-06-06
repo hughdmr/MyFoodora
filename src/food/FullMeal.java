@@ -26,10 +26,18 @@ public class FullMeal extends Meal {
     public void setMealofTheWeek(boolean mealOfTheWeek) { setMealOfTheWeek(mealOfTheWeek); }
 
     // Other methods
+    /**
+     * Get the price of the complete meal, which is the sum of its single dishes
+     */
     public double getPrice() {
         return main.getPrice() + starter.getPrice() + dessert.getPrice();
     }
 
+    /**
+     * Add a dish to the FullMeal
+     * This method will also update the meal status and Type
+     * @param dish the dish to add to the meal
+     */
     public void addDish(Dish dish) {
         // Add dish to Meal according to the category
         Dish.Category dishCategory = dish.getCategory();

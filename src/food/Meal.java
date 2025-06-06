@@ -43,10 +43,21 @@ public class Meal {
     public void setComplete(boolean complete) { this.complete = complete; }
 
     // Other methods
+    /**
+     * Remove a meal from the Restaurant menu
+     */
     public double getPrice() { return 0; }
 
+    /**
+     * Add a dish to the meal
+     * @param dish the dish to add to the meal
+     */
     public void addDish(Dish dish) {}
 
+    /**
+     * Convert a Dish.Type to a Meal.Type
+     * @param dishType the Dish.Type to convert
+     */
     public static Type getMealType(Dish.Type dishType) {
         return switch (dishType) {
             case STANDARD -> Type.STANDARD;

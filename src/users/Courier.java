@@ -66,6 +66,10 @@ public class Courier extends User {
     }
 
     // Other methods
+
+    /**
+     * Increase the count of delivered orders by 1
+     */
     public void increaseDeliveredOrdersCount() {
         deliveredOrdersCount++;
     }

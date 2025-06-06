@@ -555,7 +555,7 @@ public class MyFoodoraCLI {
 
     public static void endOrder(String[] args) {
         if (args.length != 2) {
-            System.out.println("Usage: endOrder <orderName> <date>");
+            System.out.println("Usage: endOrder <orderName> <date MM/dd/yyyy>");
             return;
         }
         if (!(currentLoggedInUser instanceof Customer)) {
@@ -781,7 +781,7 @@ public class MyFoodoraCLI {
         System.out.println("  removeFromSpecialOffer <mealName>");
         System.out.println("  createOrder <restaurantName> <orderName>");
         System.out.println("  addItem2Order <orderName> <itemName>");
-        System.out.println("  endOrder <orderName> < date>");
+        System.out.println("  endOrder <orderName> <date MM/dd/yyyy>");
         System.out.println("  onDuty <username>");
         System.out.println("  offDuty <username>");
         System.out.println("  findDeliverer <orderName>");
